@@ -25,7 +25,9 @@ import joblib
 import xgboost as xgb
 from saved_models.models_list import (features_metal,MetalClassifier,TransformerClassifier,features_ligand,metal_columns,
                                       ligand_columns,features_solvent,solvent_columns,features_salt_mass,
-                                      features_acid_mass,features_Vsyn,features_Tsyn,TransformerTsynClassifier,TransformerTdryClassifier,features_Tdry)
+                                      features_acid_mass,features_Vsyn,features_Tsyn,
+                                      TransformerTsynClassifier,TransformerTdryClassifier,features_Tdry,
+                                      features_Treg,TransformerTregClassifier)
 
 
 metal_molar_masses = {
@@ -62,6 +64,7 @@ label_encoder_ligand = load_label_encoder('saved_scalers/label_encoder_ligand.pk
 label_encoder_solvent = load_label_encoder('saved_scalers/label_encoder_solvent.pkl')
 label_encoder_Tsyn = load_label_encoder('saved_scalers/label_encoder_Tsyn.pkl')
 label_encoder_Tdry = load_label_encoder('saved_scalers/label_encoder_Tdry.pkl')
+label_encoder_Treg = load_label_encoder('saved_scalers/label_encoder_Treg.pkl')
 
 
 scaler_binary_metals = load_scaler('saved_scalers/scaler_binary_metals.pkl')
@@ -74,6 +77,7 @@ scaler_acid_mass = load_scaler('saved_scalers/scaler_acid_mass.pkl')
 scaler_Vsyn = load_scaler('saved_scalers/scaler_Vsyn.pkl')
 scaler_Tsyn = load_scaler('saved_scalers/scaler_Tsyn.pkl')
 scaler_Tdry = load_scaler('saved_scalers/scaler_Tdry.pkl')
+scaler_Treg = load_scaler('saved_scalers/scaler_Treg.pkl')
 
 
 def load_model(model_class,model_name, input_dim,num_classes=None):
@@ -103,7 +107,7 @@ model_acid_mass= load_xgb_model('saved_models/xgb_acid_mass_regressor.json')
 model_Vsyn= load_xgb_model('saved_models/model_xgb_V_syn_regressor.json')
 model_Tsyn = load_model(TransformerTsynClassifier,'model_Tsyn',len(features_Tsyn),len(label_encoder_Tsyn.classes_))
 model_Tdry = load_model(TransformerTdryClassifier,'model_Tdry',len(features_Tdry),len(label_encoder_Tdry.classes_))
-
+model_Treg = load_model(TransformerTregClassifier,'model_Treg',len(features_Treg),len(label_encoder_Treg.classes_))
 
 st.set_page_config(
     layout="wide",
@@ -513,6 +517,29 @@ def predict_action():
             st.write(f"**Probability:** {probs_major[0][preds_major].item():.4f}")
             
             df["Т суш., °С"] = predicted_Tdry
+            
+            # ======================================
+            #  Temperature regeneration prediction
+            # ======================================
+            
+            df_Treg = df[features_Treg].copy()
+            numeric_columns = np.setdiff1d(df_Treg.columns, categorical_columns)
+            df_Treg[numeric_columns] = scaler_Treg.transform(df_Treg[numeric_columns].values)
+            
+            input_tensor_Treg = torch.tensor(df_Treg.values, dtype=torch.float32)
+            
+            with torch.no_grad():
+                logits_major = model_Treg(input_tensor_Treg)
+                probs_major = F.softmax(logits_major, dim=1)
+                preds_major = torch.argmax(probs_major, dim=1)
+            
+            # Decode the prediction
+            predicted_Treg = label_encoder_Treg.inverse_transform(preds_major.cpu().numpy())[0]
+            
+            st.write(f"**Predicted Temp.reg:** {predicted_Treg}")
+            st.write(f"**Probability:** {probs_major[0][preds_major].item():.4f}")
+            
+            df["Tрег, ᵒС"] = predicted_Treg
             
 
 
