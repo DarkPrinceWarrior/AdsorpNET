@@ -25,7 +25,7 @@ import joblib
 import xgboost as xgb
 from saved_models.models_list import (features_metal,MetalClassifier,TransformerClassifier,features_ligand,metal_columns,
                                       ligand_columns,features_solvent,solvent_columns,features_salt_mass,
-                                      features_acid_mass,features_Vsyn,features_Tsyn,TransformerTsynClassifier)
+                                      features_acid_mass,features_Vsyn,features_Tsyn,TransformerTsynClassifier,TransformerTdryClassifier,features_Tdry)
 
 
 metal_molar_masses = {
@@ -61,6 +61,7 @@ label_encoder_minor_metal = load_label_encoder('saved_scalers/label_encoder_mino
 label_encoder_ligand = load_label_encoder('saved_scalers/label_encoder_ligand.pkl')
 label_encoder_solvent = load_label_encoder('saved_scalers/label_encoder_solvent.pkl')
 label_encoder_Tsyn = load_label_encoder('saved_scalers/label_encoder_Tsyn.pkl')
+label_encoder_Tdry = load_label_encoder('saved_scalers/label_encoder_Tdry.pkl')
 
 
 scaler_binary_metals = load_scaler('saved_scalers/scaler_binary_metals.pkl')
@@ -72,6 +73,7 @@ scaler_salt_mass = load_scaler('saved_scalers/scaler_salt_mass.pkl')
 scaler_acid_mass = load_scaler('saved_scalers/scaler_acid_mass.pkl')
 scaler_Vsyn = load_scaler('saved_scalers/scaler_Vsyn.pkl')
 scaler_Tsyn = load_scaler('saved_scalers/scaler_Tsyn.pkl')
+scaler_Tdry = load_scaler('saved_scalers/scaler_Tdry.pkl')
 
 
 def load_model(model_class,model_name, input_dim,num_classes=None):
@@ -100,6 +102,7 @@ model_salt_mass= load_xgb_model('saved_models/xgb_mass_salt_classifier.json')
 model_acid_mass= load_xgb_model('saved_models/xgb_acid_mass_regressor.json')
 model_Vsyn= load_xgb_model('saved_models/model_xgb_V_syn_regressor.json')
 model_Tsyn = load_model(TransformerTsynClassifier,'model_Tsyn',len(features_Tsyn),len(label_encoder_Tsyn.classes_))
+model_Tdry = load_model(TransformerTdryClassifier,'model_Tdry',len(features_Tdry),len(label_encoder_Tdry.classes_))
 
 
 st.set_page_config(
@@ -486,9 +489,30 @@ def predict_action():
             st.write(f"**Predicted Temp.syn:** {predicted_Tsyn}")
             st.write(f"**Probability:** {probs_major[0][preds_major].item():.4f}")
             
+            df["Т.син., °С"] = predicted_Tsyn
             
+            # ======================================
+            #  Temperature dry prediction
+            # ======================================
             
+            df_Tdry = df[features_Tdry].copy()
+            numeric_columns = np.setdiff1d(df_Tdry.columns, categorical_columns)
+            df_Tdry[numeric_columns] = scaler_Tdry.transform(df_Tdry[numeric_columns].values)
             
+            input_tensor_Tdry = torch.tensor(df_Tdry.values, dtype=torch.float32)
+            
+            with torch.no_grad():
+                logits_major = model_Tdry(input_tensor_Tdry)
+                probs_major = F.softmax(logits_major, dim=1)
+                preds_major = torch.argmax(probs_major, dim=1)
+            
+            # Decode the prediction
+            predicted_Tdry = label_encoder_Tdry.inverse_transform(preds_major.cpu().numpy())[0]
+            
+            st.write(f"**Predicted Temp.dry:** {predicted_Tdry}")
+            st.write(f"**Probability:** {probs_major[0][preds_major].item():.4f}")
+            
+            df["Т суш., °С"] = predicted_Tdry
             
 
 
