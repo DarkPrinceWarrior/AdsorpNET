@@ -1,19 +1,18 @@
 import base64
-from streamlit_option_menu import option_menu
 from components.page_team_contact import contact_action, team_action
 from components.page_mof_information import mof_inf_action
 from components.get_ligand_feat import safe_generate_features,safe_generate_solvent_features
-import streamlit as st
 import streamlit as st
 import torch
 import torch.nn.functional as F
 import pandas as pd
 import numpy as np
-import torch
+import os
 import pymatgen.core as mg
-import numpy as np
 import joblib
 import xgboost as xgb
+import matplotlib.pyplot as plt
+from streamlit_option_menu import option_menu
 from saved_models.models_list import (features_metal,MetalClassifier,TransformerClassifier,features_ligand,metal_columns,
                                       ligand_columns,features_solvent,solvent_columns,features_salt_mass,
                                       features_acid_mass,features_Vsyn,features_Tsyn,
@@ -116,21 +115,82 @@ def get_img_as_base64(file):
         data = f.read()
     return base64.b64encode(data).decode()
 
-
 img = get_img_as_base64("images/background.jpg")
 
-page_back = f"""
-<style>
+# page_back = f"""
+# <style>
 
-[data-testid="stAppViewContainer"]{{
-background-image: url("data:image/png;base64,{img}");
-# background-image: url("../images/background.jpg");
-background-size: cover;
-}}
-</style>
-"""
+# [data-testid="stAppViewContainer"]{{
+# background-image: url("data:image/png;base64,{img}");
+# # background-image: url("../images/background.jpg");
+# background-size: cover;
+# }}
+# </style>
+# """
 
-st.markdown(page_back, unsafe_allow_html=True)
+# st.markdown(page_back, unsafe_allow_html=True)
+
+def display_predicted_parameters(parameters):
+    """
+    Отображает предсказанные параметры в виде сетки с изображениями, названиями, значениями и вероятностями.
+    
+    Args:
+        parameters (list of dict): Список параметров с ключами 'image', 'name', 'value', 'prob'.
+    """
+    # Добавляем CSS-стили для рамок и текста
+    st.markdown(
+        """
+        <style>
+        .parameter-card {
+            border: 2px solid #000000;
+            border-radius: 10px;
+            padding: 10px;
+            background-color: #FFFFFF;
+            text-align: center;
+            height: 180px; /* Регулируйте по необходимости */
+        }
+        .parameter-name {
+            color: #000000;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .parameter-value {
+            color: #000000;
+            margin-top: 5px;
+            font-size: 18px;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+    
+    st.header("### Предсказанные Параметры Синтеза MOF Адсорбента")
+    st.markdown("---")
+    
+    # Разделение параметров на ряды по 4
+    rows = [parameters[i:i + 4] for i in range(0, len(parameters), 4)]
+    
+    for row in rows:
+        cols = st.columns(len(row))
+        for col, param in zip(cols, row):
+            with col:
+                # Формируем HTML-код для рамки параметра
+                param_html = f"""
+                <div class="parameter-card">
+                    <img src="data:image/png;base64,{param['image_base64']}" width="81" height="81">
+                    <div class="parameter-name">{param['name']}</div>
+                    <div class="parameter-value">{param['value']}"""
+                
+                # Добавляем вероятность, если она существует
+                if param['prob'] is not None:
+                    param_html += f""" ({param['prob']:.2f})"""
+                
+                param_html += """</div>
+                </div>
+                """
+                
+                st.markdown(param_html, unsafe_allow_html=True)
+        st.markdown("")  # Добавляет небольшое пространство между рядами
 
 
 def predict_action():
@@ -286,7 +346,7 @@ def predict_action():
             else:
                 st.write("**Unable to determine the inner class due to an unknown binary prediction.**")
         
-
+            df["Металл"] = predicted_metal
             # ======================================
             # 6. Ligand Classification
             # ======================================
@@ -329,6 +389,7 @@ def predict_action():
             st.write(f"**Прогноз класса лиганда:** {predicted_class_ligand}")
             st.write(f"**Вероятность:** {prob_ligand:.4f}")
             
+            df["Лиганд"] = predicted_class_ligand
             
             # ======================================
             #  Solvent Classification
@@ -381,6 +442,8 @@ def predict_action():
             
             st.write(f"**Прогноз класса растворителя:** {predicted_class_solvent}")
             st.write(f"**Вероятность:** {prob_solvent:.4f}")
+            
+            df["Растворитель"] = predicted_class_solvent
             
             # ======================================
             #  Salt mass prediction
@@ -532,8 +595,75 @@ def predict_action():
             
             df["Tрег, ᵒС"] = predicted_Treg
             
-
-
+            
+            parameters = [
+                {
+                    "image": "images/Treg.png",
+                    "image_base64": get_img_as_base64("images/Treg.png"),
+                    "name": "Tрег, ᵒС",
+                    "value": df["Tрег, ᵒС"].values[0],
+                    "prob": 0 if 'prob_Treg' in locals() else None
+                },
+                {
+                    "image": "images/Metal.png",
+                    "image_base64": get_img_as_base64("images/Metal.png"),
+                    "name": "Металл",
+                    "value": predicted_metal,
+                    "prob": 0
+                },
+                {
+                    "image": "images/Ligand.png",
+                    "image_base64": get_img_as_base64("images/Ligand.png"),
+                    "name": "Лиганд",
+                    "value": predicted_class_ligand,
+                    "prob": prob_ligand if 'prob_ligand' in locals() else None
+                },
+                {
+                    "image": "images/Solvent.png",
+                    "image_base64": get_img_as_base64("images/Solvent.png"),
+                    "name": "Растворитель",
+                    "value": predicted_class_solvent,
+                    "prob": prob_solvent if 'prob_solvent' in locals() else None
+                },
+                {
+                    "image": "images/SaltMass.png",
+                    "image_base64": get_img_as_base64("images/SaltMass.png"),
+                    "name": "m (соли), г",
+                    "value": y_salt_mass_predicted,
+                    "prob": None  # Регрессия
+                },
+                {
+                    "image": "images/AcidMass.png",
+                    "image_base64": get_img_as_base64("images/AcidMass.png"),
+                    "name": "m(кис-ты), г",
+                    "value": y_acid_mass_predicted,
+                    "prob": None  # Регрессия
+                },
+                {
+                    "image": "images/Tsyn.png",
+                    "image_base64": get_img_as_base64("images/Tsyn.png"),
+                    "name": "Т.син., °С",
+                    "value": predicted_Tsyn,
+                    "prob": 0 if 'prob_Tsyn' in locals() else None
+                },
+                {
+                    "image": "images/Tdry.png",
+                    "image_base64": get_img_as_base64("images/Tdry.png"),
+                    "name": "Т суш., °С",
+                    "value": predicted_Tdry,
+                    "prob": 0 if 'prob_Tdry' in locals() else None
+                },
+                {
+                    "image": "images/Vsyn.png",
+                    "image_base64": get_img_as_base64("images/Vsyn.png"),
+                    "name": "Vсин. (р-ля), мл",
+                    "value": Vsyn_predicted,
+                    "prob": None  # Регрессия
+                },
+            ]
+        
+            # Отображаем предсказанные параметры
+            display_predicted_parameters(parameters)
 
 
 def run():
