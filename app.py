@@ -1,24 +1,15 @@
 import base64
-import os
-from joblib import load
 from streamlit_option_menu import option_menu
 from components.page_team_contact import contact_action, team_action
 from components.page_mof_information import mof_inf_action
 from components.get_ligand_feat import safe_generate_features,safe_generate_solvent_features
 import streamlit as st
-# from components.predict import PredictionModel
-from models import NeuralNetwork_n_ratio
-from models import NeuralNetwork_Vsyn_m
-import pickle
 import streamlit as st
 import torch
-import torch.nn as nn
 import torch.nn.functional as F
-import joblib
 import pandas as pd
 import numpy as np
 import torch
-import pandas as pd
 import pymatgen.core as mg
 import numpy as np
 import joblib
@@ -227,8 +218,8 @@ def predict_action():
     df["B_micropore"] = np.power(((2.3 * R) / df['E,  кДж/моль']), 2)
     
     # Отображение всех рассчитанных и введенных данных
-    st.write("Рассчитанные и введенные параметры:")
-    st.dataframe(df)
+    # st.write("Рассчитанные и введенные параметры:")
+    # st.dataframe(df)
 
     # Добавляем кнопку для отправки на анализ
     if st.button("Отправить на анализ и получить методику синтеза"):
