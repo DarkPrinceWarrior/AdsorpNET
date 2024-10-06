@@ -11,7 +11,7 @@ import os
 import pymatgen.core as mg
 import joblib
 import xgboost as xgb
-import matplotlib.pyplot as plt
+from io import BytesIO 
 from streamlit_option_menu import option_menu
 from saved_models.models_list import (features_metal,MetalClassifier,TransformerClassifier,features_ligand,metal_columns,
                                       ligand_columns,features_solvent,solvent_columns,features_salt_mass,
@@ -133,9 +133,9 @@ img = get_img_as_base64("images/background.jpg")
 def display_predicted_parameters(parameters):
     """
     Отображает предсказанные параметры в виде сетки с изображениями, названиями, значениями и вероятностями.
-    
+
     Args:
-        parameters (list of dict): Список параметров с ключами 'image', 'name', 'value', 'prob'.
+        parameters (list of dict): Список параметров с ключами 'image_base64', 'name', 'value', 'prob'.
     """
     # Добавляем CSS-стили для рамок и текста
     st.markdown(
@@ -164,11 +164,11 @@ def display_predicted_parameters(parameters):
         unsafe_allow_html=True
     )
     
-    st.header("### Предсказанные Параметры Синтеза MOF Адсорбента")
+    st.header("Предсказанные Параметры Синтеза MOF Адсорбента")
     st.markdown("---")
     
-    # Разделение параметров на ряды по 4
-    rows = [parameters[i:i + 4] for i in range(0, len(parameters), 4)]
+    # Разделение параметров на ряды по 5
+    rows = [parameters[i:i + 5] for i in range(0, len(parameters), 5)]
     
     for row in rows:
         cols = st.columns(len(row))
@@ -277,10 +277,11 @@ def predict_action():
     df['x0_W0'] = df['х0, нм'] * df['W0, см3/г']
     df["B_micropore"] = np.power(((2.3 * R) / df['E,  кДж/моль']), 2)
     
-    # Отображение всех рассчитанных и введенных данных
-    # st.write("Рассчитанные и введенные параметры:")
-    # st.dataframe(df)
-
+     # Инициализация session state для предсказаний
+    if 'predictions' not in st.session_state:
+        st.session_state['predictions'] = None
+        st.session_state['download_df'] = None
+    
     # Добавляем кнопку для отправки на анализ
     if st.button("Отправить на анализ и получить методику синтеза"):
         
@@ -302,14 +303,15 @@ def predict_action():
             class_mapping_binary = {0: 'La-Zn-Zr', 1: 'Cu-Al-Fe'}
             predicted_class_binary = class_mapping_binary.get(pred_binary.item(), "Unknown")
             
-            st.success(f"**Binary Predicted Class:** {predicted_class_binary}")
-            st.write(f"**Probability of 'Cu-Al-Fe':** {prob_binary.item():.4f}")
-            st.write(f"**Probability of 'La-Zn-Zr':** {1 - prob_binary.item():.4f}")
+            # st.success(f"**Binary Predicted Class:** {predicted_class_binary}")
+            # st.write(f"**Probability of 'Cu-Al-Fe':** {prob_binary.item():.4f}")
+            # st.write(f"**Probability of 'La-Zn-Zr':** {1 - prob_binary.item():.4f}")
             
             # ======================================
             # 2. Inner Metal Classification
             # ======================================
             predicted_metal = None
+            metal_probability = 0
             
             if predicted_class_binary == 'Cu-Al-Fe':
                 # Use major classes classifier
@@ -323,9 +325,10 @@ def predict_action():
                 
                 # Decode the prediction
                 predicted_metal = label_encoder_major_metal.inverse_transform(preds_major.cpu().numpy())[0]
+                metal_probability = probs_major[0][preds_major].item()
                 
-                st.write(f"**Inner Predicted Class (Cu-Al-Fe):** {predicted_metal}")
-                st.write(f"**Probability:** {probs_major[0][preds_major].item():.4f}")
+                # st.write(f"**Inner Predicted Class (Cu-Al-Fe):** {predicted_metal}")
+                # st.write(f"**Probability:** {probs_major[0][preds_major].item():.4f}")
             
             elif predicted_class_binary == 'La-Zn-Zr':
                 # Use minor classes classifier
@@ -339,14 +342,16 @@ def predict_action():
                 
                 # Decode the prediction
                 predicted_metal = label_encoder_minor_metal.inverse_transform(preds_minor.cpu().numpy())[0]
+                metal_probability = probs_minor[0][preds_minor].item()
                 
-                st.write(f"**Inner Predicted Class (La-Zn-Zr):** {predicted_metal}")
-                st.write(f"**Probability:** {probs_minor[0][preds_minor].item():.4f}")
+                # st.write(f"**Inner Predicted Class (La-Zn-Zr):** {predicted_metal}")
+                # st.write(f"**Probability:** {probs_minor[0][preds_minor].item():.4f}")
             
             else:
                 st.write("**Unable to determine the inner class due to an unknown binary prediction.**")
         
             df["Металл"] = predicted_metal
+            
             # ======================================
             # 6. Ligand Classification
             # ======================================
@@ -386,8 +391,8 @@ def predict_action():
             # Get probability for the predicted class
             prob_ligand = y_pred_ligand_proba[0]
             
-            st.write(f"**Прогноз класса лиганда:** {predicted_class_ligand}")
-            st.write(f"**Вероятность:** {prob_ligand:.4f}")
+            # st.write(f"**Прогноз класса лиганда:** {predicted_class_ligand}")
+            # st.write(f"**Вероятность:** {prob_ligand:.4f}")
             
             df["Лиганд"] = predicted_class_ligand
             
@@ -440,8 +445,8 @@ def predict_action():
             # Get probability for the predicted class
             prob_solvent = y_pred_solvent_proba[0]
             
-            st.write(f"**Прогноз класса растворителя:** {predicted_class_solvent}")
-            st.write(f"**Вероятность:** {prob_solvent:.4f}")
+            # st.write(f"**Прогноз класса растворителя:** {predicted_class_solvent}")
+            # st.write(f"**Вероятность:** {prob_solvent:.4f}")
             
             df["Растворитель"] = predicted_class_solvent
             
@@ -479,7 +484,7 @@ def predict_action():
             # Predict probabilities for each class
             y_salt_mass_predicted = round(float(model_salt_mass.predict(dsalt_mass)[0]),3)
             
-            st.write(f"**Прогноз значения массы соли:** {y_salt_mass_predicted}")
+            # st.write(f"**Прогноз значения массы соли:** {y_salt_mass_predicted}")
             
             df["m (соли), г"] = y_salt_mass_predicted
             
@@ -500,7 +505,7 @@ def predict_action():
             # Predict probabilities for each class
             y_acid_mass_predicted = round(float(model_acid_mass.predict(dacid_mass)[0]),3)
             
-            st.write(f"**Прогноз значения массы кислоты:** {y_acid_mass_predicted}")
+            # st.write(f"**Прогноз значения массы кислоты:** {y_acid_mass_predicted}")
             
             df["m(кис-ты), г"] = y_acid_mass_predicted
             
@@ -520,7 +525,7 @@ def predict_action():
             # Predict probabilities for each class
             Vsyn_predicted = round(float(model_Vsyn.predict(ddf_Vsyn)[0]),3)
             
-            st.write(f"**Прогноз значения объема растворителя:** {Vsyn_predicted}")
+            # st.write(f"**Прогноз значения объема растворителя:** {Vsyn_predicted}")
             
             df["Vсин. (р-ля), мл"] = Vsyn_predicted
             
@@ -544,8 +549,10 @@ def predict_action():
             # Decode the prediction
             predicted_Tsyn = label_encoder_Tsyn.inverse_transform(preds_major.cpu().numpy())[0]
             
-            st.write(f"**Predicted Temp.syn:** {predicted_Tsyn}")
-            st.write(f"**Probability:** {probs_major[0][preds_major].item():.4f}")
+            # st.write(f"**Predicted Temp.syn:** {predicted_Tsyn}")
+            # st.write(f"**Probability:** {probs_major[0][preds_major].item():.4f}")
+            
+            Tsyn_probability = probs_major[0][preds_major].item()
             
             df["Т.син., °С"] = predicted_Tsyn
             
@@ -567,8 +574,10 @@ def predict_action():
             # Decode the prediction
             predicted_Tdry = label_encoder_Tdry.inverse_transform(preds_major.cpu().numpy())[0]
             
-            st.write(f"**Predicted Temp.dry:** {predicted_Tdry}")
-            st.write(f"**Probability:** {probs_major[0][preds_major].item():.4f}")
+            # st.write(f"**Predicted Temp.dry:** {predicted_Tdry}")
+            # st.write(f"**Probability:** {probs_major[0][preds_major].item():.4f}")
+            
+            Tdry_probability = probs_major[0][preds_major].item()
             
             df["Т суш., °С"] = predicted_Tdry
             
@@ -590,8 +599,10 @@ def predict_action():
             # Decode the prediction
             predicted_Treg = label_encoder_Treg.inverse_transform(preds_major.cpu().numpy())[0]
             
-            st.write(f"**Predicted Temp.reg:** {predicted_Treg}")
-            st.write(f"**Probability:** {probs_major[0][preds_major].item():.4f}")
+            # st.write(f"**Predicted Temp.reg:** {predicted_Treg}")
+            # st.write(f"**Probability:** {probs_major[0][preds_major].item():.4f}")
+            
+            Treg_probability = probs_major[0][preds_major].item()
             
             df["Tрег, ᵒС"] = predicted_Treg
             
@@ -602,28 +613,28 @@ def predict_action():
                     "image_base64": get_img_as_base64("images/Treg.png"),
                     "name": "Tрег, ᵒС",
                     "value": df["Tрег, ᵒС"].values[0],
-                    "prob": 0 if 'prob_Treg' in locals() else None
+                    "prob": Treg_probability 
                 },
                 {
                     "image": "images/Metal.png",
                     "image_base64": get_img_as_base64("images/Metal.png"),
                     "name": "Металл",
                     "value": predicted_metal,
-                    "prob": 0
+                    "prob": metal_probability
                 },
                 {
                     "image": "images/Ligand.png",
                     "image_base64": get_img_as_base64("images/Ligand.png"),
                     "name": "Лиганд",
                     "value": predicted_class_ligand,
-                    "prob": prob_ligand if 'prob_ligand' in locals() else None
+                    "prob": prob_ligand 
                 },
                 {
                     "image": "images/Solvent.png",
                     "image_base64": get_img_as_base64("images/Solvent.png"),
                     "name": "Растворитель",
                     "value": predicted_class_solvent,
-                    "prob": prob_solvent if 'prob_solvent' in locals() else None
+                    "prob": prob_solvent 
                 },
                 {
                     "image": "images/SaltMass.png",
@@ -644,14 +655,14 @@ def predict_action():
                     "image_base64": get_img_as_base64("images/Tsyn.png"),
                     "name": "Т.син., °С",
                     "value": predicted_Tsyn,
-                    "prob": 0 if 'prob_Tsyn' in locals() else None
+                    "prob": Tsyn_probability 
                 },
                 {
                     "image": "images/Tdry.png",
                     "image_base64": get_img_as_base64("images/Tdry.png"),
                     "name": "Т суш., °С",
                     "value": predicted_Tdry,
-                    "prob": 0 if 'prob_Tdry' in locals() else None
+                    "prob": Tdry_probability 
                 },
                 {
                     "image": "images/Vsyn.png",
@@ -661,9 +672,36 @@ def predict_action():
                     "prob": None  # Регрессия
                 },
             ]
+            
+            # Сохранение предсказаний в session state
+            st.session_state['predictions'] = parameters
+            st.session_state['download_df'] = df[['Металл', 'Лиганд', 'Растворитель', 'm (соли), г', 
+                                                  'm(кис-ты), г', 'Vсин. (р-ля), мл', 'Т.син., °С', 
+                                                  'Т суш., °С', 'Tрег, ᵒС']].copy()
+            
+    # Отображение и скачивание после предсказания
+    if 'predictions' in st.session_state and st.session_state['predictions'] is not None:
+        display_predicted_parameters(st.session_state['predictions'])
         
-            # Отображаем предсказанные параметры
-            display_predicted_parameters(parameters)
+        # ======================================
+        #  Скачивание предсказанных параметров в Excel
+        # ======================================
+        
+        download_df = st.session_state['download_df']
+        
+        # Конвертируем DataFrame в Excel файл в памяти
+        buffer = BytesIO()
+        with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
+            download_df.to_excel(writer, index=False, sheet_name='Predicted Parameters')
+        buffer.seek(0)
+        
+        # Позволяем пользователю скачать DataFrame
+        st.download_button(
+            label="📥 Скачать предсказанные параметры",
+            data=buffer,
+            file_name='predicted_parameters.xlsx',
+            mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        )
 
 
 def run():
