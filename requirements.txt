@@ -189,8 +189,6 @@ python-dotenv==1.0.1
 python-multipart==0.0.9
 pytorch-lightning==2.4.0
 pytz==2024.1
-pywin32==306
-pywin32-ctypes==0.2.3
 PyYAML==6.0.1
 pyzmq==26.0.3
 rapidfuzz==3.9.6
