@@ -1,4 +1,5 @@
 import base64
+from rdkit import Chem
 from components.page_team_contact import contact_action, team_action
 from components.page_mof_information import mof_inf_action
 from components.get_ligand_feat import safe_generate_features,safe_generate_solvent_features
