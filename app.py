@@ -99,14 +99,15 @@ model_Tsyn = load_model(TransformerTsynClassifier,'model_Tsyn',len(features_Tsyn
 model_Tdry = load_model(TransformerTdryClassifier,'model_Tdry',len(features_Tdry),len(label_encoder_Tdry.classes_))
 model_Treg = load_model(TransformerTregClassifier,'model_Treg',len(features_Treg),len(label_encoder_Treg.classes_))
 
+# Настройка страницы
 st.set_page_config(
     layout="wide",
     page_title="adsorption AI platform",
     initial_sidebar_state="collapsed"
 )
 
-with open("static/style.css") as css_file:
-    st.markdown('<style>{}</style>'.format(css_file.read()), unsafe_allow_html=True)
+with open("static/style.css", encoding='utf-8') as css_file:
+    st.markdown(f'<style>{css_file.read()}</style>', unsafe_allow_html=True)
 
 
 @st.cache_data
@@ -117,18 +118,9 @@ def get_img_as_base64(file):
 
 img = get_img_as_base64("images/background.jpg")
 
-# page_back = f"""
-# <style>
 
-# [data-testid="stAppViewContainer"]{{
-# background-image: url("data:image/png;base64,{img}");
-# # background-image: url("../images/background.jpg");
-# background-size: cover;
-# }}
-# </style>
-# """
 
-# st.markdown(page_back, unsafe_allow_html=True)
+
 
 def display_predicted_parameters(parameters):
     """
@@ -181,13 +173,12 @@ def display_predicted_parameters(parameters):
                     <div class="parameter-name">{param['name']}</div>
                     <div class="parameter-value">{param['value']}"""
                 
+                param_html += """</div> </div> """
                 # Добавляем вероятность, если она существует
                 if param['prob'] is not None:
-                    param_html += f""" ({param['prob']:.2f})"""
+                    param_html += f""" (Вероятность: {param['prob']*100:.1f}%)"""
                 
-                param_html += """</div>
-                </div>
-                """
+                param_html += """</div> </div> """
                 
                 st.markdown(param_html, unsafe_allow_html=True)
         st.markdown("")  # Добавляет небольшое пространство между рядами
@@ -675,7 +666,9 @@ def predict_action():
             
             # Сохранение предсказаний в session state
             st.session_state['predictions'] = parameters
-            st.session_state['download_df'] = df[['Металл', 'Лиганд', 'Растворитель', 'm (соли), г', 
+            st.session_state['download_df'] = df[['SБЭТ, м2/г', 'а0, ммоль/г', 'E,  кДж/моль', 'W0, см3/г',
+                                                  'Ws, см3/г','E0, кДж/моль', 'х0, нм', 'Wme, см3/г', 
+                                                  'Sme, м2/г','Металл', 'Лиганд', 'Растворитель', 'm (соли), г', 
                                                   'm(кис-ты), г', 'Vсин. (р-ля), мл', 'Т.син., °С', 
                                                   'Т суш., °С', 'Tрег, ᵒС']].copy()
             
@@ -703,7 +696,7 @@ def predict_action():
             mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         )
 
-
+    
 def run():
     with st.sidebar:
         selected = option_menu(
@@ -721,22 +714,19 @@ def run():
                 "nav-link": {"font-size": "20px", "text-align": "start", "margin": "0px"},
                 "nav-link-selected": {"background-color": "#483D8B"},
             }
-
         )
-
+    
     if selected == "О нас":
-        team_image = "images/team.jpg"
-        achievments_image = "images/achievments.jpg"
-        team_action(team_image,achievments_image)
-    if selected == "𝐀𝐈 синтез MOFs":
+        team_image = "images/MOF_Synthesis_Prediction.png"
+        team_action(team_image)
+    elif selected == "𝐀𝐈 синтез MOFs":
         predict_action()
-    if selected == "MOFs описание":
+    elif selected == "MOFs описание":
         image1 = "images/1page.jpg"
         image2 = "images/2page.jpg"
         mof_inf_action(image1, image2)
-    if selected == "Контакты":
+    elif selected == "Контакты":
         contact_action()
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     run()
