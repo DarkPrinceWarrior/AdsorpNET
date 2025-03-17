@@ -1,0 +1,9 @@
+.cursor
+.devcontainer
+__pycache__
+/saved_scalers
+/images
+
+# Ignore everything in /lib/features except auth and projects
+/saved_models/* 
+!/saved_models/models_list.py

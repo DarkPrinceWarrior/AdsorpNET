@@ -1,0 +1,5434 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+================================================================
+File Summary
+================================================================
+
+Purpose:
+--------
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+
+File Format:
+------------
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Multiple file entries, each consisting of:
+  a. A separator line (================)
+  b. The file path (File: path/to/file)
+  c. Another separator line
+  d. The full contents of the file
+  e. A blank line
+
+Usage Guidelines:
+-----------------
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+
+Notes:
+------
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+
+Additional Info:
+----------------
+
+================================================================
+Directory Structure
+================================================================
+.repomixignore
+app.py
+requirements.txt
+saved_models/models_list.py
+src/config/__init__.py
+src/config/app_config.py
+src/config/model_config.py
+src/domain/__init__.py
+src/domain/constants.py
+src/domain/features.py
+src/models/__init__.py
+src/models/base_model.py
+src/models/classifiers.py
+src/models/ligand_classifier.py
+src/models/metal_classifier.py
+src/models/solvent_classifier.py
+src/models/temperature_classifier.py
+src/models/temperature_classifiers.py
+src/pages/analysis.py
+src/pages/home.py
+src/pages/info.py
+src/pages/predict.py
+src/pages/team.py
+src/services/__init__.py
+src/services/model_service.py
+src/services/predictor_service.py
+src/utils.py
+src/utils/__init__.py
+src/utils/batch_processing.py
+src/utils/cache.py
+src/utils/cuda_optimization.py
+src/utils/data_processing.py
+src/utils/feature_generation.py
+src/utils/messages.py
+src/utils/page_config.py
+src/utils/profiling.py
+src/utils/pruning.py
+src/utils/quantization.py
+static/style.css
+
+================================================================
+Files
+================================================================
+
+================
+File: .repomixignore
+================
+.cursor
+.devcontainer
+__pycache__
+/saved_scalers
+/images
+
+# Ignore everything in /lib/features except auth and projects
+/saved_models/* 
+!/saved_models/models_list.py
+
+================
+File: src/config/__init__.py
+================
+from .app_config import (
+    BASE_DIR, STATIC_DIR, TEMPLATES_DIR,
+    LOGGING_CONFIG, VALIDATION_RULES
+)
+from .model_config import (
+    MODELS_DIR, SCALERS_DIR, MODEL_CONFIG, 
+    SCALER_CONFIG, CALCULATION_CONSTANTS
+)
+
+__all__ = [
+    'BASE_DIR', 'STATIC_DIR', 'TEMPLATES_DIR',
+    'LOGGING_CONFIG', 'VALIDATION_RULES',
+    'MODELS_DIR', 'SCALERS_DIR', 'MODEL_CONFIG',
+    'SCALER_CONFIG', 'CALCULATION_CONSTANTS'
+]
+
+================
+File: src/config/app_config.py
+================
+from pathlib import Path
+
+# Базовые пути
+BASE_DIR = Path(__file__).parent.parent.parent
+STATIC_DIR = BASE_DIR / "static"
+TEMPLATES_DIR = BASE_DIR / "templates"
+
+# Параметры валидации
+VALIDATION_RULES = {
+    'SBAT_m2_gr': {'min': 100, 'max': float('inf')},
+    'a0_mmoll_gr': {'min': 0, 'max': float('inf')},
+    'E_kDg_moll': {'min': 0, 'max': float('inf')}
+}
+
+# Конфигурация логирования
+LOGGING_CONFIG = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'standard': {
+            'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
+        },
+    },
+    'handlers': {
+        'default': {
+            'level': 'INFO',
+            'formatter': 'standard',
+            'class': 'logging.StreamHandler',
+            'stream': 'ext://sys.stdout',
+        },
+        'file': {
+            'level': 'INFO',
+            'formatter': 'standard',
+            'class': 'logging.FileHandler',
+            'filename': 'app.log',
+            'mode': 'a',
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['default', 'file'],
+            'level': 'INFO',
+            'propagate': True
+        }
+    }
+}
+
+================
+File: src/config/model_config.py
+================
+from pathlib import Path
+
+BASE_DIR = Path(__file__).parent.parent.parent
+MODELS_DIR = BASE_DIR / "saved_models"
+SCALERS_DIR = BASE_DIR / "saved_scalers"
+
+# Конфигурация моделей
+MODEL_CONFIG = {
+    'metal_binary_classifier': {
+        'path': MODELS_DIR / 'dnn_metal_binary_classifier.pth',
+        'type': 'pytorch'
+    },
+    'major_metal_classifier': {
+        'path': MODELS_DIR / 'best_major_classifier_metal.pth',
+        'type': 'pytorch'
+    },
+    'minor_metal_classifier': {
+        'path': MODELS_DIR / 'best_minor_classifier_metal.pth',
+        'type': 'pytorch'
+    },
+    'ligand_classifier': {
+        'path': MODELS_DIR / 'xgb_ligand_classifier.json',
+        'type': 'xgboost'
+    },
+    'solvent_classifier': {
+        'path': MODELS_DIR / 'xgb_solvent_classifier.json',
+        'type': 'xgboost'
+    }
+}
+
+# Конфигурация масштабировщиков
+SCALER_CONFIG = {
+    'binary_metals': SCALERS_DIR / 'scaler_binary_metals.pkl',
+    'major_metal': SCALERS_DIR / 'scaler_major_metal.pkl',
+    'minor_metal': SCALERS_DIR / 'scaler_minor_metal.pkl',
+    'ligand': SCALERS_DIR / 'scaler_ligand.pkl',
+    'solvent': SCALERS_DIR / 'scaler_solvent.pkl'
+}
+
+# Константы для вычислений
+CALCULATION_CONSTANTS = {
+    'micropore_volume_factor': 0.034692,
+    'benzene_energy_factor': 0.33,
+    'pore_width_constant': 12
+}
+
+================
+File: src/domain/__init__.py
+================
+from .constants import (
+    METAL_MOLAR_MASSES, LIGAND_MOLAR_MASSES,
+    METAL_IONIC_RADIUS, METAL_ELECTRONEGATIVITY
+)
+from .features import (
+    features_metal, features_ligand, features_solvent, 
+    features_salt_mass, features_acid_mass, features_Vsyn,
+    features_Tsyn, features_Tdry, features_Treg,
+    metal_columns, ligand_columns, solvent_columns
+)
+
+__all__ = [
+    'METAL_MOLAR_MASSES', 'LIGAND_MOLAR_MASSES',
+    'METAL_IONIC_RADIUS', 'METAL_ELECTRONEGATIVITY',
+    'features_metal', 'features_ligand', 'features_solvent', 
+    'features_salt_mass', 'features_acid_mass', 'features_Vsyn',
+    'features_Tsyn', 'features_Tdry', 'features_Treg',
+    'metal_columns', 'ligand_columns', 'solvent_columns'
+]
+
+================
+File: src/domain/constants.py
+================
+"""
+Константы предметной области для проекта AdsorpNET.
+"""
+
+# Молярные массы металлов
+METAL_MOLAR_MASSES = {
+    'Cu': 242, 
+    'Zn': 297,
+    'Al': 375,
+    'Fe': 404,
+    'Zr': 233,
+    'Mg': 256,
+    'La': 433,
+    'Ce': 434,
+    'Y': 383
+}
+
+# Молярные массы лигандов
+LIGAND_MOLAR_MASSES = {
+    'BTC': 207,
+    'BDC': 164,
+    'NH2-BDC': 179,
+    'BTB': 435
+}
+
+# Ионные радиусы металлов (Å)
+METAL_IONIC_RADIUS = {
+    'Cu': 0.73,
+    'Zn': 0.74,
+    'Al': 0.53,
+    'Fe': 0.65,
+    'Zr': 0.72,
+    'Mg': 0.72,
+    'La': 1.06,
+    'Ce': 1.01,
+    'Y': 0.90
+}
+
+# Электроотрицательность металлов
+METAL_ELECTRONEGATIVITY = {
+    'Cu': 1.90,
+    'Zn': 1.65,
+    'Al': 1.61,
+    'Fe': 1.83,
+    'Zr': 1.33,
+    'Mg': 1.31,
+    'La': 1.10,
+    'Ce': 1.12,
+    'Y': 1.22
+}
+
+# SMILES структуры лигандов
+LIGAND_SMILES = {
+    'BTC': 'C1(=CC(=CC(=C1)C(=O)[O-])C(=O)[O-])C(=O)[O-]',
+    'BDC': 'O=C([O-])C1=CC=C(C=C1)C(=O)[O-]',
+    'NH2-BDC': 'NC1=C(C=CC(=C1)C(=O)[O-])C(=O)[O-]',
+    'BTB': 'c1cc(ccc1c2cc(cc(c2)c3ccc(cc3)C(=O)[O-])c4ccc(cc4)C(=O)[O-])C(=O)[O-]'
+}
+
+# SMILES структуры растворителей
+SOLVENT_SMILES = {
+    'ДМФА': 'O=CN(C)C',
+    'Этанол': 'CCO',
+    'Вода': 'O',
+    'ДМСО': 'CS(=O)C',
+    'Ацетонитрил': 'CC#N'
+}
+
+================
+File: src/domain/features.py
+================
+"""
+Модуль с определениями признаков для моделей.
+"""
+
+# Признаки для металлов
+features_metal = [
+    "W0, см3/г",
+    "E0, кДж/моль",
+    "х0, нм",
+    "а0, ммоль/г",
+    "E,  кДж/моль",
+    "SБЭТ, м2/г",
+    "Ws, см3/г",
+    "Sme, м2/г",
+    "Wme, см3/г",
+    "Adsorption_Potential",
+    "Capacity_Density",
+    "K_equilibrium",
+    "Delta_G",
+    "SurfaceArea_MicroVol_Ratio",
+    "Adsorption_Energy_Ratio",
+    "S_BET_E",
+    "x0_W0",
+    "B_micropore",
+]
+
+# Признаки для лигандов
+features_ligand = [
+    "W0, см3/г",
+    "E0, кДж/моль",
+    "х0, нм",
+    "а0, ммоль/г",
+    "E,  кДж/моль",
+    "SБЭТ, м2/г",
+    "Ws, см3/г",
+    "Sme, м2/г",
+    "Wme, см3/г",
+    "Adsorption_Potential",
+    "Capacity_Density",
+    "K_equilibrium",
+    "Delta_G",
+    "SurfaceArea_MicroVol_Ratio",
+    "Adsorption_Energy_Ratio",
+    "S_BET_E",
+    "x0_W0",
+    "B_micropore",
+    
+    "Металл_Al",
+    "Металл_Cu",
+    "Металл_Fe",
+    "Металл_La",
+    "Металл_Zn",
+    "Металл_Zr",
+    
+    "Total molecular weight (metal)",
+    "Average ionic radius (metal)",
+    "Average electronegativity (metal)",
+]
+
+# Признаки для растворителей
+features_solvent = [
+    "W0, см3/г",
+    "E0, кДж/моль",
+    "х0, нм",
+    "а0, ммоль/г",
+    "E,  кДж/моль",
+    "SБЭТ, м2/г",
+    "Ws, см3/г",
+    "Sme, м2/г",
+    "Wme, см3/г",
+    "Adsorption_Potential",
+    "Capacity_Density",
+    "K_equilibrium",
+    "Delta_G",
+    "SurfaceArea_MicroVol_Ratio",
+    "Adsorption_Energy_Ratio",
+    "S_BET_E",
+    "x0_W0",
+    "B_micropore",
+    
+    "Металл_Al",
+    "Металл_Cu",
+    "Металл_Fe",
+    "Металл_La",
+    "Металл_Zn",
+    "Металл_Zr",
+    
+    "Total molecular weight (metal)",
+    "Average ionic radius (metal)",
+    "Average electronegativity (metal)",
+    
+    "Молярка_соли",
+    "Молярка_кислоты",
+    
+    "Лиганд_BDC",
+    "Лиганд_BTB",
+    "Лиганд_BTC",
+    
+    "carboxyl_groups (ligand)",
+    "aromatic_rings (ligand)",
+    "carbon_atoms (ligand)",
+    "oxygen_atoms (ligand)",
+    "nitrogen_atoms (ligand)",
+    "molecular_weight (ligand)",
+    "amino_groups (ligand)",
+    "logP (ligand)",
+    "TPSA (ligand)",
+    "h_bond_acceptors (ligand)",
+    "h_bond_donors (ligand)",
+]
+
+# Признаки для массы соли
+features_salt_mass = [
+    'W0, см3/г', 'E0, кДж/моль', 'х0, нм', 'а0, ммоль/г', 'E,  кДж/моль',
+    'SБЭТ, м2/г', 'Ws, см3/г', 'Sme, м2/г', 'Wme, см3/г', 
+    'Adsorption_Potential', 'Capacity_Density', 'K_equilibrium', 'Delta_G', 
+    'SurfaceArea_MicroVol_Ratio', 'Adsorption_Energy_Ratio', 'S_BET_E', 'x0_W0', 'B_micropore',
+    
+    'Металл_Al', 'Металл_Cu', 'Металл_Fe', 'Металл_La', 'Металл_Zn',
+    'Металл_Zr', 'Total molecular weight (metal)', 
+    'Average ionic radius (metal)', 'Average electronegativity (metal)',
+    
+    'Молярка_соли', 'Молярка_кислоты',
+    
+    'Лиганд_BDC', 'Лиганд_BTB', 'Лиганд_BTC',
+    
+    'carboxyl_groups (ligand)', 'aromatic_rings (ligand)',
+    'carbon_atoms (ligand)', 'oxygen_atoms (ligand)',
+    'nitrogen_atoms (ligand)', 'molecular_weight (ligand)',
+    'amino_groups (ligand)', 'logP (ligand)', 'TPSA (ligand)',
+    'h_bond_acceptors (ligand)', 'h_bond_donors (ligand)',
+    
+    'Растворитель_ДМФА', 'Растворитель_ДМФА/Этанол/Вода',
+    'MolWt', 'LogP', 'NumHDonors',
+    'NumHAcceptors'
+]
+
+# Признаки для массы кислоты
+features_acid_mass = [
+    'W0, см3/г', 'E0, кДж/моль', 'х0, нм', 'а0, ммоль/г', 'E,  кДж/моль',
+    'SБЭТ, м2/г', 'Ws, см3/г', 'Sme, м2/г', 'Wme, см3/г', 
+    'Adsorption_Potential', 'Capacity_Density', 'K_equilibrium', 'Delta_G', 
+    'SurfaceArea_MicroVol_Ratio', 'Adsorption_Energy_Ratio', 'S_BET_E', 'x0_W0', 'B_micropore',
+    
+    'Металл_Al', 'Металл_Cu', 'Металл_Fe', 'Металл_La', 'Металл_Zn',
+    'Металл_Zr', 'Total molecular weight (metal)', 
+    'Average ionic radius (metal)', 'Average electronegativity (metal)',
+    
+    'Молярка_соли', 'Молярка_кислоты',
+    
+    'Лиганд_BDC', 'Лиганд_BTB', 'Лиганд_BTC',
+    
+    'carboxyl_groups (ligand)', 'aromatic_rings (ligand)',
+    'carbon_atoms (ligand)', 'oxygen_atoms (ligand)',
+    'nitrogen_atoms (ligand)', 'molecular_weight (ligand)',
+    'amino_groups (ligand)', 'logP (ligand)', 'TPSA (ligand)',
+    'h_bond_acceptors (ligand)', 'h_bond_donors (ligand)',
+    
+    'Растворитель_ДМФА', 'Растворитель_ДМФА/Этанол/Вода',
+    'MolWt', 'LogP', 'NumHDonors',
+    'NumHAcceptors',
+    
+    "m (соли), г", 'n_соли'
+]
+
+# Признаки для объема синтеза
+features_Vsyn = [
+    'W0, см3/г', 'E0, кДж/моль', 'х0, нм', 'а0, ммоль/г', 'E,  кДж/моль',
+    'SБЭТ, м2/г', 'Ws, см3/г', 'Sme, м2/г', 'Wme, см3/г', 
+    'Adsorption_Potential', 'Capacity_Density', 'K_equilibrium', 'Delta_G', 
+    'SurfaceArea_MicroVol_Ratio', 'Adsorption_Energy_Ratio', 'S_BET_E', 'x0_W0', 'B_micropore',
+    
+    'Металл_Al', 'Металл_Cu', 'Металл_Fe', 'Металл_La',
+    'Металл_Zn', 'Металл_Zr', 'Total molecular weight (metal)', 'Average ionic radius (metal)', 'Average electronegativity (metal)',
+    
+    'Молярка_соли', 'Молярка_кислоты', 'Лиганд_BDC', 'Лиганд_BTB', 'Лиганд_BTC', 'carboxyl_groups (ligand)', 'aromatic_rings (ligand)',
+    'carbon_atoms (ligand)', 'oxygen_atoms (ligand)', 'nitrogen_atoms (ligand)', 'molecular_weight (ligand)', 'amino_groups (ligand)',
+    'logP (ligand)', 'TPSA (ligand)', 'h_bond_acceptors (ligand)', 'h_bond_donors (ligand)', 'Растворитель_ДМФА', 'Растворитель_ДМФА/Этанол/Вода',
+    'MolWt', 'LogP', 'NumHDonors', 'NumHAcceptors', 'm (соли), г', 'n_соли', 'm(кис-ты), г', 'n_кислоты'
+]
+
+# Признаки для температуры синтеза
+features_Tsyn = [
+    'W0, см3/г', 'E0, кДж/моль', 'х0, нм', 'а0, ммоль/г', 'E,  кДж/моль',
+    'SБЭТ, м2/г', 'Ws, см3/г', 'Sme, м2/г', 'Wme, см3/г', 
+    'Adsorption_Potential', 'Capacity_Density', 'K_equilibrium', 'Delta_G', 
+    'SurfaceArea_MicroVol_Ratio', 'Adsorption_Energy_Ratio', 'S_BET_E', 'x0_W0', 'B_micropore',
+    
+    'Металл_Al', 'Металл_Cu', 'Металл_Fe', 'Металл_La',
+    'Металл_Zn', 'Металл_Zr', 'Total molecular weight (metal)', 'Average ionic radius (metal)', 'Average electronegativity (metal)',
+    
+    'Молярка_соли', 'Молярка_кислоты', 'Лиганд_BDC', 'Лиганд_BTB', 'Лиганд_BTC', 'carboxyl_groups (ligand)', 'aromatic_rings (ligand)',
+    'carbon_atoms (ligand)', 'oxygen_atoms (ligand)', 'nitrogen_atoms (ligand)', 'molecular_weight (ligand)', 'amino_groups (ligand)',
+    'logP (ligand)', 'TPSA (ligand)', 'h_bond_acceptors (ligand)', 'h_bond_donors (ligand)', 'Растворитель_ДМФА', 'Растворитель_ДМФА/Этанол/Вода',
+    'MolWt', 'LogP', 'NumHDonors', 'NumHAcceptors', 'm (соли), г', 'n_соли', 'm(кис-ты), г', 'n_кислоты', 'Vсин. (р-ля), мл'
+]
+
+# Признаки для температуры сушки
+features_Tdry = [
+    'W0, см3/г', 'E0, кДж/моль', 'х0, нм', 'а0, ммоль/г', 'E,  кДж/моль',
+    'SБЭТ, м2/г', 'Ws, см3/г', 'Sme, м2/г', 'Wme, см3/г', 
+    'Adsorption_Potential', 'Capacity_Density', 'K_equilibrium', 'Delta_G', 
+    'SurfaceArea_MicroVol_Ratio', 'Adsorption_Energy_Ratio', 'S_BET_E', 'x0_W0', 'B_micropore',
+    
+    'Металл_Al', 'Металл_Cu', 'Металл_Fe', 'Металл_La',
+    'Металл_Zn', 'Металл_Zr', 'Total molecular weight (metal)', 'Average ionic radius (metal)', 'Average electronegativity (metal)',
+    
+    'Молярка_соли', 'Молярка_кислоты', 'Лиганд_BDC', 'Лиганд_BTB', 'Лиганд_BTC', 'carboxyl_groups (ligand)', 'aromatic_rings (ligand)',
+    'carbon_atoms (ligand)', 'oxygen_atoms (ligand)', 'nitrogen_atoms (ligand)', 'molecular_weight (ligand)', 'amino_groups (ligand)',
+    'logP (ligand)', 'TPSA (ligand)', 'h_bond_acceptors (ligand)', 'h_bond_donors (ligand)', 'Растворитель_ДМФА', 'Растворитель_ДМФА/Этанол/Вода',
+    'MolWt', 'LogP', 'NumHDonors', 'NumHAcceptors', 'm (соли), г', 'n_соли', 'm(кис-ты), г', 'n_кислоты', 'Vсин. (р-ля), мл', 'Т.син., °С'
+]
+
+# Признаки для температуры регенерации
+features_Treg = [
+    'W0, см3/г', 'E0, кДж/моль', 'х0, нм', 'а0, ммоль/г', 'E,  кДж/моль',
+    'SБЭТ, м2/г', 'Ws, см3/г', 'Sme, м2/г', 'Wme, см3/г', 
+    'Adsorption_Potential', 'Capacity_Density', 'K_equilibrium', 'Delta_G', 
+    'SurfaceArea_MicroVol_Ratio', 'Adsorption_Energy_Ratio', 'S_BET_E', 'x0_W0', 'B_micropore',
+    
+    'Металл_Al', 'Металл_Cu', 'Металл_Fe', 'Металл_La',
+    'Металл_Zn', 'Металл_Zr', 'Total molecular weight (metal)',
+    'Average ionic radius (metal)', 'Average electronegativity (metal)',
+    
+    'Молярка_соли', 'Молярка_кислоты', 'Лиганд_BDC', 'Лиганд_BTB', 'Лиганд_BTC', 
+    'carboxyl_groups (ligand)', 'aromatic_rings (ligand)',
+    'carbon_atoms (ligand)', 'oxygen_atoms (ligand)', 'nitrogen_atoms (ligand)', 
+    'molecular_weight (ligand)', 'amino_groups (ligand)',
+    'logP (ligand)', 'TPSA (ligand)', 'h_bond_acceptors (ligand)', 'h_bond_donors (ligand)', 
+    'Растворитель_ДМФА', 'Растворитель_ДМФА/Этанол/Вода',
+    'MolWt', 'LogP', 'NumHDonors', 'NumHAcceptors', 'm (соли), г',
+    'n_соли', 'm(кис-ты), г', 'n_кислоты', 'Vсин. (р-ля), мл', 'Т.син., °С', 'Т суш., °С'
+]
+
+# Колонки для one-hot кодирования
+metal_columns = [
+    "Металл_Al",
+    "Металл_Cu",
+    "Металл_Fe",
+    "Металл_La",
+    "Металл_Zn",
+    "Металл_Zr",
+]
+
+ligand_columns = ["Лиганд_BDC", "Лиганд_BTB", "Лиганд_BTC"]
+
+solvent_columns = ['Растворитель_ДМФА', 'Растворитель_ДМФА/Этанол/Вода']
+
+================
+File: src/models/__init__.py
+================
+from .metal_classifier import MetalClassifier, MetalNet
+from .ligand_classifier import LigandClassifier
+from .solvent_classifier import SolventClassifier
+from .temperature_classifier import TemperatureNet, BaseTemperatureClassifier
+from .temperature_classifiers import TsynClassifier, TdryClassifier, TregClassifier
+
+__all__ = [
+    'MetalClassifier',
+    'MetalNet',
+    'LigandClassifier',
+    'SolventClassifier',
+    'TemperatureNet',
+    'BaseTemperatureClassifier',
+    'TsynClassifier',
+    'TdryClassifier',
+    'TregClassifier'
+]
+
+================
+File: src/models/base_model.py
+================
+from abc import ABC, abstractmethod
+import torch
+import logging
+from typing import Any, Dict, Optional, List, Tuple
+from ..utils.cache import create_cache_key, cached_prediction
+from ..utils.batch_processing import BatchProcessor
+from ..utils.quantization import ModelQuantizer
+from ..utils.cuda_optimization import CUDAOptimizer
+from ..utils.profiling import ModelProfiler
+from ..utils.pruning import ModelPruner
+
+logger = logging.getLogger(__name__)
+
+class BaseModel(ABC):
+    """Базовый класс для всех моделей в проекте."""
+    
+    def __init__(
+        self,
+        model_path: str,
+        device: Optional[str] = None,
+        use_cache: bool = True,
+        batch_size: int = 32,
+        use_quantization: bool = False,
+        enable_profiling: bool = False,
+        enable_pruning: bool = False,
+        pruning_amount: float = 0.3,
+        pruning_method: str = "l1_unstructured"
+    ):
+        """
+        Инициализация базовой модели.
+        
+        Args:
+            model_path: Путь к файлу модели
+            device: Устройство для вычислений (cuda/cpu)
+            use_cache: Использовать ли кэширование
+            batch_size: Размер пакета для пакетной обработки
+            use_quantization: Использовать ли квантизацию модели
+            enable_profiling: Включить ли профилирование
+            enable_pruning: Включить ли прунинг
+            pruning_amount: Доля параметров для удаления при прунинге
+            pruning_method: Метод прунинга
+        """
+        self.model_path = model_path
+        self.use_cache = use_cache
+        self.use_quantization = use_quantization
+        self.enable_profiling = enable_profiling
+        self.enable_pruning = enable_pruning
+        
+        # Оптимизация CUDA
+        if device is None:
+            self.device = CUDAOptimizer.get_optimal_device()
+        else:
+            self.device = torch.device(device)
+        
+        if self.device.type == 'cuda':
+            CUDAOptimizer.optimize_cuda_memory()
+            CUDAOptimizer.enable_cudnn_autotuner()
+        
+        self.model = None
+        self.batch_processor = BatchProcessor(batch_size=batch_size)
+        
+        # Инициализация профилировщика
+        if self.enable_profiling:
+            self.profiler = ModelProfiler()
+            
+        # Инициализация прунера
+        if self.enable_pruning:
+            self.pruner = ModelPruner(
+                amount=pruning_amount,
+                pruning_method=pruning_method
+            )
+        
+        logger.info(f"Инициализация модели из {model_path} на устройстве {self.device}")
+    
+    def _optimize_model(self, model: torch.nn.Module) -> torch.nn.Module:
+        """
+        Применяет оптимизации к модели.
+        
+        Args:
+            model: Исходная модель
+            
+        Returns:
+            torch.nn.Module: Оптимизированная модель
+        """
+        if self.use_quantization and self.device.type == 'cpu':
+            model = ModelQuantizer.quantize_dynamic(model)
+            
+        if self.enable_pruning:
+            pruning_results = self.pruner.prune_model(model)
+            self.pruner.print_summary(pruning_results)
+            
+        return model
+    
+    @abstractmethod
+    def load_model(self) -> None:
+        """Загрузка модели из файла."""
+        pass
+    
+    @abstractmethod
+    def preprocess_input(self, input_data: Dict[str, Any]) -> torch.Tensor:
+        """
+        Предобработка входных данных.
+        
+        Args:
+            input_data: Входные данные
+            
+        Returns:
+            torch.Tensor: Предобработанные данные
+        """
+        pass
+    
+    @abstractmethod
+    def predict(self, input_tensor: torch.Tensor) -> torch.Tensor:
+        """
+        Выполнение предсказания.
+        
+        Args:
+            input_tensor: Входной тензор
+            
+        Returns:
+            torch.Tensor: Результат предсказания
+        """
+        pass
+    
+    @abstractmethod
+    def postprocess_output(self, predictions: torch.Tensor) -> Dict[str, Any]:
+        """
+        Постобработка выходных данных.
+        
+        Args:
+            predictions: Предсказания модели
+            
+        Returns:
+            Dict[str, Any]: Обработанный результат
+        """
+        pass
+    
+    def process_single(self, input_data: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Обработка одного элемента данных.
+        
+        Args:
+            input_data: Входные данные
+            
+        Returns:
+            Dict[str, Any]: Результат предсказания
+        """
+        if self.use_cache:
+            cache_key = create_cache_key(input_data)
+            cached_result = cached_prediction(cache_key, self.__class__.__name__)
+            if cached_result is not None:
+                return cached_result
+        
+        # Загружаем модель при первом использовании
+        if self.model is None:
+            self.load_model()
+            self.model = self._optimize_model(self.model)
+        
+        # Выполняем предсказание
+        input_tensor = self.preprocess_input(input_data)
+        predictions = self.predict(input_tensor)
+        result = self.postprocess_output(predictions)
+        
+        # Сохраняем в кэш
+        if self.use_cache:
+            cached_prediction.cache_info = result
+            
+        return result
+    
+    def process_batch(self, batch_data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """
+        Пакетная обработка данных.
+        
+        Args:
+            batch_data: Список входных данных
+            
+        Returns:
+            List[Dict[str, Any]]: Список результатов предсказаний
+        """
+        return self.batch_processor.process_all(batch_data, self.process_single)
+    
+    def get_memory_stats(self) -> Tuple[int, int, int]:
+        """
+        Получает статистику использования памяти.
+        
+        Returns:
+            Tuple[int, int, int]: (всего памяти, использовано памяти, свободно памяти)
+        """
+        return CUDAOptimizer.get_memory_stats(self.device)
+
+    def __call__(self, input_data: Any) -> Any:
+        """
+        Выполнение полного пайплайна предсказания.
+        
+        Args:
+            input_data: Входные данные
+            
+        Returns:
+            Результат предсказания
+        """
+        try:
+            if self.model is None:
+                self.load_model()
+            
+            preprocessed_data = self.preprocess_input(input_data)
+            predictions = self.predict(preprocessed_data)
+            result = self.postprocess_output(predictions)
+            
+            return result
+        except Exception as e:
+            logger.error(f"Ошибка при выполнении предсказания: {str(e)}")
+            raise
+
+    def profile_inference(self, input_data: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Профилирование процесса предсказания.
+        
+        Args:
+            input_data: Входные данные
+            
+        Returns:
+            Dict[str, Any]: Результаты профилирования
+        """
+        if not self.enable_profiling:
+            logger.warning("Профилирование отключено")
+            return {}
+            
+        if self.model is None:
+            self.load_model()
+            self.model = self._optimize_model(self.model)
+            
+        results = self.profiler.profile_model(self, input_data)
+        self.profiler.print_summary(results)
+        return results
+    
+    def create_trace(self, input_data: Dict[str, Any], trace_file: str) -> None:
+        """
+        Создает trace-файл для анализа производительности.
+        
+        Args:
+            input_data: Входные данные
+            trace_file: Путь для сохранения trace-файла
+        """
+        if not self.enable_profiling:
+            logger.warning("Профилирование отключено")
+            return
+            
+        if self.model is None:
+            self.load_model()
+            self.model = self._optimize_model(self.model)
+            
+        self.profiler.analyze_trace(self, input_data, trace_file)
+
+    def analyze_model_parameters(self) -> Dict[str, Any]:
+        """
+        Анализирует параметры модели.
+        
+        Returns:
+            Dict[str, Any]: Статистика модели
+        """
+        if self.model is None:
+            self.load_model()
+            self.model = self._optimize_model(self.model)
+            
+        if self.enable_pruning:
+            return self.pruner.analyze_model(self.model)
+        return {}
+
+================
+File: src/models/classifiers.py
+================
+import torch
+import torch.nn as nn
+
+class MetalClassifier(nn.Module):
+    """Классификатор для определения типа металла"""
+    def __init__(self, input_dim):
+        super().__init__()
+        self.layers = nn.Sequential(
+            nn.Linear(input_dim, 128),
+            nn.ReLU(),
+            nn.Dropout(0.3),
+            nn.Linear(128, 64),
+            nn.ReLU(),
+            nn.Dropout(0.2),
+            nn.Linear(64, 1)
+        )
+    
+    def forward(self, x):
+        return self.layers(x)
+
+class TransformerClassifier(nn.Module):
+    """Классификатор на основе трансформера"""
+    def __init__(self, input_dim, num_classes):
+        super().__init__()
+        self.embedding = nn.Linear(input_dim, 128)
+        self.transformer = nn.TransformerEncoderLayer(
+            d_model=128,
+            nhead=4,
+            dim_feedforward=256,
+            dropout=0.1
+        )
+        self.classifier = nn.Linear(128, num_classes)
+    
+    def forward(self, x):
+        x = self.embedding(x).unsqueeze(1)  # Add sequence dimension
+        x = self.transformer(x)
+        x = x.squeeze(1)  # Remove sequence dimension
+        return self.classifier(x)
+
+class TransformerTsynClassifier(TransformerClassifier):
+    """Классификатор температуры синтеза"""
+    pass
+
+class TransformerTdryClassifier(TransformerClassifier):
+    """Классификатор температуры сушки"""
+    pass
+
+class TransformerTregClassifier(TransformerClassifier):
+    """Классификатор температуры регенерации"""
+    pass
+
+================
+File: src/models/ligand_classifier.py
+================
+import numpy as np
+import xgboost as xgb
+import logging
+from typing import Dict, Any, List
+from .base_model import BaseModel
+from ..config import MODEL_CONFIG, SCALER_CONFIG
+import joblib
+
+logger = logging.getLogger(__name__)
+
+class LigandClassifier(BaseModel):
+    """Классификатор для определения типа лиганда на основе XGBoost."""
+    
+    def __init__(self, device: str = None):
+        """
+        Инициализация классификатора лигандов.
+        
+        Args:
+            device (str, optional): Устройство для вычислений (не используется для XGBoost)
+        """
+        super().__init__(
+            model_path=str(MODEL_CONFIG['ligand_classifier']['path']),
+            device=device
+        )
+        
+        # Загрузка скейлера
+        self.scaler = joblib.load(SCALER_CONFIG['ligand'])
+        self.label_encoder = joblib.load('saved_scalers/label_encoder_ligand.pkl')
+        
+    def load_model(self) -> None:
+        """Загрузка модели из файла."""
+        try:
+            self.model = xgb.Booster()
+            self.model.load_model(self.model_path)
+            logger.info("Модель классификации лигандов успешно загружена")
+        except Exception as e:
+            logger.error(f"Ошибка при загрузке модели: {str(e)}")
+            raise
+    
+    def preprocess_input(self, input_data: Dict[str, Any]) -> np.ndarray:
+        """
+        Предобработка входных данных.
+        
+        Args:
+            input_data: Словарь с входными параметрами
+            
+        Returns:
+            np.ndarray: Подготовленные данные для модели
+        """
+        try:
+            # Преобразуем входные данные в numpy массив
+            features = np.array(list(input_data.values())).reshape(1, -1)
+            
+            # Нормализуем данные
+            scaled_features = self.scaler.transform(features)
+            
+            # Преобразуем в формат DMatrix для XGBoost
+            return xgb.DMatrix(scaled_features)
+        except Exception as e:
+            logger.error(f"Ошибка при предобработке данных: {str(e)}")
+            raise
+    
+    def predict(self, input_data: xgb.DMatrix) -> np.ndarray:
+        """
+        Выполнение предсказания.
+        
+        Args:
+            input_data: Данные в формате DMatrix
+            
+        Returns:
+            np.ndarray: Массив с вероятностями классов
+        """
+        try:
+            return self.model.predict(input_data)
+        except Exception as e:
+            logger.error(f"Ошибка при выполнении предсказания: {str(e)}")
+            raise
+    
+    def postprocess_output(self, predictions: np.ndarray) -> Dict[str, Any]:
+        """
+        Постобработка выходных данных.
+        
+        Args:
+            predictions: Массив с предсказаниями
+            
+        Returns:
+            Dict[str, Any]: Словарь с результатами предсказания
+        """
+        try:
+            # Получаем индекс класса с максимальной вероятностью
+            class_idx = np.argmax(predictions[0])
+            confidence = float(predictions[0][class_idx])
+            
+            # Преобразуем индекс в название лиганда
+            ligand_type = self.label_encoder.inverse_transform([class_idx])[0]
+            
+            return {
+                'ligand_type': ligand_type,
+                'confidence': confidence,
+                'all_probabilities': {
+                    ligand: float(prob)
+                    for ligand, prob in zip(self.label_encoder.classes_, predictions[0])
+                }
+            }
+        except Exception as e:
+            logger.error(f"Ошибка при постобработке результатов: {str(e)}")
+            raise
+
+================
+File: src/models/metal_classifier.py
+================
+import torch
+import torch.nn as nn
+import numpy as np
+import logging
+from typing import Dict, Any, List, Tuple
+from .base_model import BaseModel
+from ..config import MODEL_CONFIG, SCALER_CONFIG
+import joblib
+
+logger = logging.getLogger(__name__)
+
+class MetalNet(nn.Module):
+    """Нейронная сеть для классификации металлов."""
+    
+    def __init__(self, input_dim: int, num_classes: int = 2):
+        super().__init__()
+        self.network = nn.Sequential(
+            nn.Linear(input_dim, 128),
+            nn.ReLU(),
+            nn.Dropout(0.3),
+            nn.Linear(128, 64),
+            nn.ReLU(),
+            nn.Dropout(0.2),
+            nn.Linear(64, num_classes)
+        )
+    
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return self.network(x)
+
+class MetalClassifier(BaseModel):
+    """Классификатор для определения типа металла."""
+    
+    def __init__(self, model_type: str = 'binary', device: str = None):
+        """
+        Инициализация классификатора металлов.
+        
+        Args:
+            model_type (str): Тип модели ('binary', 'major', 'minor')
+            device (str, optional): Устройство для вычислений
+        """
+        self.model_type = model_type
+        model_key = {
+            'binary': 'metal_binary_classifier',
+            'major': 'major_metal_classifier',
+            'minor': 'minor_metal_classifier'
+        }[model_type]
+        
+        super().__init__(
+            model_path=str(MODEL_CONFIG[model_key]['path']),
+            device=device
+        )
+        
+        # Загрузка скейлера
+        scaler_key = {
+            'binary': 'binary_metals',
+            'major': 'major_metal',
+            'minor': 'minor_metal'
+        }[model_type]
+        
+        self.scaler = joblib.load(SCALER_CONFIG[scaler_key])
+        self.input_features = None  # Будет установлено при загрузке модели
+        
+    def load_model(self) -> None:
+        """Загрузка модели из файла."""
+        try:
+            # Определяем размерность входа на основе скейлера
+            self.input_features = self.scaler.n_features_in_
+            
+            # Создаем модель с правильной размерностью
+            num_classes = 2 if self.model_type == 'binary' else {
+                'major': 9,  # Количество основных металлов
+                'minor': 9   # Количество второстепенных металлов
+            }[self.model_type]
+            
+            self.model = MetalNet(self.input_features, num_classes)
+            self.model.load_state_dict(
+                torch.load(self.model_path, map_location=self.device)
+            )
+            self.model.to(self.device)
+            self.model.eval()
+            
+            logger.info(f"Модель {self.model_type} успешно загружена")
+        except Exception as e:
+            logger.error(f"Ошибка при загрузке модели: {str(e)}")
+            raise
+    
+    def preprocess_input(self, input_data: Dict[str, Any]) -> torch.Tensor:
+        """
+        Предобработка входных данных.
+        
+        Args:
+            input_data: Словарь с входными параметрами
+            
+        Returns:
+            torch.Tensor: Подготовленный тензор для модели
+        """
+        try:
+            # Преобразуем входные данные в numpy массив
+            features = np.array(list(input_data.values())).reshape(1, -1)
+            
+            # Нормализуем данные
+            scaled_features = self.scaler.transform(features)
+            
+            # Преобразуем в тензор PyTorch
+            return torch.FloatTensor(scaled_features).to(self.device)
+        except Exception as e:
+            logger.error(f"Ошибка при предобработке данных: {str(e)}")
+            raise
+    
+    def predict(self, input_tensor: torch.Tensor) -> torch.Tensor:
+        """
+        Выполнение предсказания.
+        
+        Args:
+            input_tensor: Входной тензор
+            
+        Returns:
+            torch.Tensor: Тензор с предсказаниями
+        """
+        try:
+            with torch.no_grad():
+                outputs = self.model(input_tensor)
+                if self.model_type == 'binary':
+                    predictions = torch.sigmoid(outputs)
+                else:
+                    predictions = torch.softmax(outputs, dim=1)
+                return predictions
+        except Exception as e:
+            logger.error(f"Ошибка при выполнении предсказания: {str(e)}")
+            raise
+    
+    def postprocess_output(self, output_tensor: torch.Tensor) -> Dict[str, Any]:
+        """
+        Постобработка выходных данных.
+        
+        Args:
+            output_tensor: Тензор с предсказаниями
+            
+        Returns:
+            Dict[str, Any]: Словарь с результатами предсказания
+        """
+        try:
+            predictions = output_tensor.cpu().numpy()
+            
+            if self.model_type == 'binary':
+                is_binary = predictions[0][0] > 0.5
+                confidence = float(predictions[0][0])
+                return {
+                    'is_binary': bool(is_binary),
+                    'confidence': confidence
+                }
+            else:
+                class_idx = np.argmax(predictions[0])
+                confidence = float(predictions[0][class_idx])
+                metal_type = {
+                    'major': ['Cu', 'Zn', 'Al', 'Fe', 'Zr', 'Mg', 'La', 'Ce', 'Y'],
+                    'minor': ['Cu', 'Zn', 'Al', 'Fe', 'Zr', 'Mg', 'La', 'Ce', 'Y']
+                }[self.model_type][class_idx]
+                
+                return {
+                    'metal_type': metal_type,
+                    'confidence': confidence
+                }
+        except Exception as e:
+            logger.error(f"Ошибка при постобработке результатов: {str(e)}")
+            raise
+
+================
+File: src/models/solvent_classifier.py
+================
+import numpy as np
+import xgboost as xgb
+import logging
+from typing import Dict, Any, List
+from .base_model import BaseModel
+from ..config import MODEL_CONFIG, SCALER_CONFIG
+import joblib
+
+logger = logging.getLogger(__name__)
+
+class SolventClassifier(BaseModel):
+    """Классификатор для определения типа растворителя на основе XGBoost."""
+    
+    def __init__(self, device: str = None):
+        """
+        Инициализация классификатора растворителей.
+        
+        Args:
+            device (str, optional): Устройство для вычислений (не используется для XGBoost)
+        """
+        super().__init__(
+            model_path=str(MODEL_CONFIG['solvent_classifier']['path']),
+            device=device
+        )
+        
+        # Загрузка скейлера и энкодера
+        self.scaler = joblib.load(SCALER_CONFIG['solvent'])
+        self.label_encoder = joblib.load('saved_scalers/label_encoder_solvent.pkl')
+        
+    def load_model(self) -> None:
+        """Загрузка модели из файла."""
+        try:
+            self.model = xgb.Booster()
+            self.model.load_model(self.model_path)
+            logger.info("Модель классификации растворителей успешно загружена")
+        except Exception as e:
+            logger.error(f"Ошибка при загрузке модели: {str(e)}")
+            raise
+    
+    def preprocess_input(self, input_data: Dict[str, Any]) -> xgb.DMatrix:
+        """
+        Предобработка входных данных.
+        
+        Args:
+            input_data: Словарь с входными параметрами
+            
+        Returns:
+            xgb.DMatrix: Подготовленные данные для модели
+        """
+        try:
+            # Преобразуем входные данные в numpy массив
+            features = np.array(list(input_data.values())).reshape(1, -1)
+            
+            # Нормализуем данные
+            scaled_features = self.scaler.transform(features)
+            
+            # Преобразуем в формат DMatrix для XGBoost
+            return xgb.DMatrix(scaled_features)
+        except Exception as e:
+            logger.error(f"Ошибка при предобработке данных: {str(e)}")
+            raise
+    
+    def predict(self, input_data: xgb.DMatrix) -> np.ndarray:
+        """
+        Выполнение предсказания.
+        
+        Args:
+            input_data: Данные в формате DMatrix
+            
+        Returns:
+            np.ndarray: Массив с вероятностями классов
+        """
+        try:
+            return self.model.predict(input_data)
+        except Exception as e:
+            logger.error(f"Ошибка при выполнении предсказания: {str(e)}")
+            raise
+    
+    def postprocess_output(self, predictions: np.ndarray) -> Dict[str, Any]:
+        """
+        Постобработка выходных данных.
+        
+        Args:
+            predictions: Массив с предсказаниями
+            
+        Returns:
+            Dict[str, Any]: Словарь с результатами предсказания
+        """
+        try:
+            # Получаем индекс класса с максимальной вероятностью
+            class_idx = np.argmax(predictions[0])
+            confidence = float(predictions[0][class_idx])
+            
+            # Преобразуем индекс в название растворителя
+            solvent_type = self.label_encoder.inverse_transform([class_idx])[0]
+            
+            # Формируем словарь с вероятностями для всех классов
+            probabilities = {
+                solvent: float(prob)
+                for solvent, prob in zip(self.label_encoder.classes_, predictions[0])
+            }
+            
+            # Сортируем растворители по убыванию вероятности
+            sorted_solvents = sorted(
+                probabilities.items(),
+                key=lambda x: x[1],
+                reverse=True
+            )
+            
+            return {
+                'solvent_type': solvent_type,
+                'confidence': confidence,
+                'all_probabilities': probabilities,
+                'top_3_solvents': [
+                    {'type': solv, 'probability': prob}
+                    for solv, prob in sorted_solvents[:3]
+                ]
+            }
+        except Exception as e:
+            logger.error(f"Ошибка при постобработке результатов: {str(e)}")
+            raise
+
+================
+File: src/models/temperature_classifier.py
+================
+import torch
+import torch.nn as nn
+import numpy as np
+import logging
+from typing import Dict, Any, List
+from .base_model import BaseModel
+from ..config import MODEL_CONFIG, SCALER_CONFIG
+import joblib
+
+logger = logging.getLogger(__name__)
+
+class TemperatureNet(nn.Module):
+    """Базовая архитектура нейронной сети для классификации температур."""
+    
+    def __init__(self, input_dim: int, hidden_dim: int = 128, num_classes: int = 5):
+        super().__init__()
+        self.network = nn.Sequential(
+            nn.Linear(input_dim, hidden_dim),
+            nn.BatchNorm1d(hidden_dim),
+            nn.ReLU(),
+            nn.Dropout(0.3),
+            nn.Linear(hidden_dim, hidden_dim // 2),
+            nn.BatchNorm1d(hidden_dim // 2),
+            nn.ReLU(),
+            nn.Dropout(0.2),
+            nn.Linear(hidden_dim // 2, num_classes)
+        )
+    
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return self.network(x)
+
+class BaseTemperatureClassifier(BaseModel):
+    """Базовый класс для классификации температур."""
+    
+    def __init__(self, temp_type: str, device: str = None):
+        """
+        Инициализация классификатора температур.
+        
+        Args:
+            temp_type (str): Тип температуры ('Tsyn', 'Tdry', 'Treg')
+            device (str, optional): Устройство для вычислений
+        """
+        self.temp_type = temp_type
+        model_key = f'model_{temp_type.lower()}'
+        
+        super().__init__(
+            model_path=str(MODEL_CONFIG[model_key]['path']),
+            device=device
+        )
+        
+        # Загрузка скейлера и энкодера
+        self.scaler = joblib.load(SCALER_CONFIG[temp_type.lower()])
+        self.label_encoder = joblib.load(f'saved_scalers/label_encoder_{temp_type}.pkl')
+        self.input_features = None
+        
+    def load_model(self) -> None:
+        """Загрузка модели из файла."""
+        try:
+            # Определяем размерность входа на основе скейлера
+            self.input_features = self.scaler.n_features_in_
+            
+            # Создаем модель с правильной размерностью
+            self.model = TemperatureNet(
+                input_dim=self.input_features,
+                num_classes=len(self.label_encoder.classes_)
+            )
+            
+            # Загружаем веса
+            self.model.load_state_dict(
+                torch.load(self.model_path, map_location=self.device)
+            )
+            self.model.to(self.device)
+            self.model.eval()
+            
+            logger.info(f"Модель классификации {self.temp_type} успешно загружена")
+        except Exception as e:
+            logger.error(f"Ошибка при загрузке модели: {str(e)}")
+            raise
+    
+    def preprocess_input(self, input_data: Dict[str, Any]) -> torch.Tensor:
+        """
+        Предобработка входных данных.
+        
+        Args:
+            input_data: Словарь с входными параметрами
+            
+        Returns:
+            torch.Tensor: Подготовленный тензор для модели
+        """
+        try:
+            # Преобразуем входные данные в numpy массив
+            features = np.array(list(input_data.values())).reshape(1, -1)
+            
+            # Нормализуем данные
+            scaled_features = self.scaler.transform(features)
+            
+            # Преобразуем в тензор PyTorch
+            return torch.FloatTensor(scaled_features).to(self.device)
+        except Exception as e:
+            logger.error(f"Ошибка при предобработке данных: {str(e)}")
+            raise
+    
+    def predict(self, input_tensor: torch.Tensor) -> torch.Tensor:
+        """
+        Выполнение предсказания.
+        
+        Args:
+            input_tensor: Входной тензор
+            
+        Returns:
+            torch.Tensor: Тензор с предсказаниями
+        """
+        try:
+            with torch.no_grad():
+                outputs = self.model(input_tensor)
+                return torch.softmax(outputs, dim=1)
+        except Exception as e:
+            logger.error(f"Ошибка при выполнении предсказания: {str(e)}")
+            raise
+    
+    def postprocess_output(self, predictions: torch.Tensor) -> Dict[str, Any]:
+        """
+        Постобработка выходных данных.
+        
+        Args:
+            predictions: Тензор с предсказаниями
+            
+        Returns:
+            Dict[str, Any]: Словарь с результатами предсказания
+        """
+        try:
+            predictions_np = predictions.cpu().numpy()
+            
+            # Получаем индекс класса с максимальной вероятностью
+            class_idx = np.argmax(predictions_np[0])
+            confidence = float(predictions_np[0][class_idx])
+            
+            # Преобразуем индекс в значение температуры
+            temperature = self.label_encoder.inverse_transform([class_idx])[0]
+            
+            # Формируем словарь с вероятностями для всех классов
+            probabilities = {
+                str(temp): float(prob)
+                for temp, prob in zip(self.label_encoder.classes_, predictions_np[0])
+            }
+            
+            # Сортируем температуры по убыванию вероятности
+            sorted_temps = sorted(
+                probabilities.items(),
+                key=lambda x: x[1],
+                reverse=True
+            )
+            
+            return {
+                'temperature': temperature,
+                'confidence': confidence,
+                'all_probabilities': probabilities,
+                'top_3_temperatures': [
+                    {'value': temp, 'probability': prob}
+                    for temp, prob in sorted_temps[:3]
+                ]
+            }
+        except Exception as e:
+            logger.error(f"Ошибка при постобработке результатов: {str(e)}")
+            raise
+
+================
+File: src/models/temperature_classifiers.py
+================
+from .temperature_classifier import BaseTemperatureClassifier
+
+class TsynClassifier(BaseTemperatureClassifier):
+    """Классификатор для температуры синтеза."""
+    
+    def __init__(self, device: str = None):
+        super().__init__(temp_type='Tsyn', device=device)
+
+class TdryClassifier(BaseTemperatureClassifier):
+    """Классификатор для температуры сушки."""
+    
+    def __init__(self, device: str = None):
+        super().__init__(temp_type='Tdry', device=device)
+
+class TregClassifier(BaseTemperatureClassifier):
+    """Классификатор для температуры регенерации."""
+    
+    def __init__(self, device: str = None):
+        super().__init__(temp_type='Treg', device=device)
+
+================
+File: src/pages/analysis.py
+================
+"""
+Страница анализа структуры MOF.
+"""
+
+import streamlit as st
+import pandas as pd
+import plotly.express as px
+import numpy as np
+from src.utils.page_config import load_theme_css
+
+def show():
+    """Отображает страницу анализа структуры."""
+    load_theme_css()
+    
+    st.title("Анализ структуры MOF")
+    
+    st.markdown("""
+    ### 📊 Анализ структурных характеристик
+    
+    Загрузите файл с данными о структуре MOF для анализа. 
+    Поддерживаемые форматы: .csv, .xlsx
+    """)
+    
+    uploaded_file = st.file_uploader("Выберите файл", type=['csv', 'xlsx'])
+    
+    if uploaded_file is not None:
+        try:
+            # Определяем тип файла и читаем данные
+            if uploaded_file.name.endswith('.csv'):
+                df = pd.read_csv(uploaded_file)
+            else:
+                df = pd.read_excel(uploaded_file)
+            
+            st.success("Файл успешно загружен!")
+            
+            # Показываем основные статистики
+            st.subheader("Основные статистики")
+            st.write(df.describe())
+            
+            # Выбор колонок для визуализации
+            numeric_cols = df.select_dtypes(include=[np.number]).columns
+            if len(numeric_cols) > 0:
+                x_col = st.selectbox("Выберите параметр для оси X:", numeric_cols)
+                y_col = st.selectbox("Выберите параметр для оси Y:", numeric_cols)
+                
+                # Создаем график
+                fig = px.scatter(df, x=x_col, y=y_col, 
+                               title=f"Зависимость {y_col} от {x_col}",
+                               labels={x_col: x_col, y_col: y_col})
+                st.plotly_chart(fig)
+                
+                # Показываем корреляционную матрицу
+                st.subheader("Корреляционная матрица")
+                corr_matrix = df[numeric_cols].corr()
+                fig_corr = px.imshow(corr_matrix,
+                                   labels=dict(color="Корреляция"),
+                                   x=corr_matrix.columns,
+                                   y=corr_matrix.columns)
+                st.plotly_chart(fig_corr)
+            
+            else:
+                st.warning("В загруженном файле нет числовых колонок для анализа")
+                
+        except Exception as e:
+            st.error(f"Ошибка при обработке файла: {str(e)}")
+    
+    st.markdown("""
+    ### 📝 Рекомендации по анализу
+    
+    1. **Подготовка данных**:
+       - Убедитесь, что данные очищены от выбросов
+       - Проверьте корректность форматов данных
+       
+    2. **Анализ корреляций**:
+       - Обратите внимание на сильные корреляции (>0.7)
+       - Исследуйте отрицательные корреляции
+       
+    3. **Визуальный анализ**:
+       - Используйте графики для выявления трендов
+       - Проверьте наличие кластеров данных
+    """)
+
+    # Добавляем боковую панель с настройками
+    with st.sidebar:
+        st.markdown("### Настройки анализа")
+        st.slider("Точность расчетов", 1, 10, 5)
+        st.checkbox("Расширенный анализ")
+        st.checkbox("Сохранить результаты")
+
+if __name__ == "__main__":
+    show()
+
+================
+File: src/pages/home.py
+================
+"""
+Главная страница приложения.
+"""
+
+import streamlit as st
+from src.utils import load_theme_css
+
+def show():
+    """Отображает главную страницу."""
+    load_theme_css()
+    
+    st.title("Добро пожаловать в AdsorpNET!")
+    
+    st.markdown("""
+    ### 🎯 О проекте
+    
+    AdsorpNET - это инновационный AI сервис для разработки пористых материалов. 
+    Наша система использует передовые методы машинного обучения для предсказания 
+    оптимальных параметров синтеза металлорганических каркасных структур (MOFs).
+    
+    ### 🔬 Возможности
+    
+    - **Предсказание параметров синтеза MOFs**
+    - **Анализ структурных характеристик**
+    - **Оптимизация условий синтеза**
+    - **Подбор оптимальных компонентов**
+    
+    ### 🚀 Начало работы
+    
+    1. Перейдите в раздел "𝐀𝐈 синтез MOFs"
+    2. Введите характеристики желаемого материала
+    3. Получите рекомендации по синтезу
+    
+    ### 📊 Преимущества
+    
+    - **Точность предсказаний**: Наши модели обучены на обширной базе экспериментальных данных
+    - **Скорость**: Мгновенное получение результатов
+    - **Экономия ресурсов**: Минимизация количества экспериментов
+    - **Оптимизация**: Подбор наилучших условий синтеза
+    """)
+    
+    # Добавляем изображение
+    try:
+        st.image("images/MOF_Synthesis_Prediction.png", 
+                caption="Процесс синтеза MOF структур",
+                use_column_width=True)
+    except:
+        st.warning("Изображение не найдено. Проверьте наличие файла images/MOF_Synthesis_Prediction.png")
+    
+    # Добавляем статистику использования
+    with st.sidebar:
+        st.markdown("### Статистика")
+        col1, col2 = st.columns(2)
+        with col1:
+            st.metric(label="Проанализировано MOF", value="1.2K")
+        with col2:
+            st.metric(label="Точность", value="95%")
+            
+    # Добавляем последние обновления
+    st.markdown("### 🆕 Последние обновления")
+    with st.expander("Показать историю обновлений"):
+        st.markdown("""
+        - Добавлена поддержка новых типов MOF
+        - Улучшена точность прогнозирования
+        - Оптимизирована производительность
+        - Добавлены новые визуализации
+        """)
+
+if __name__ == "__main__":
+    show()
+
+================
+File: src/pages/info.py
+================
+"""
+Страница с информацией о MOF структурах.
+"""
+
+import streamlit as st
+from src.utils import load_theme_css
+
+def show():
+    """Отображает страницу с информацией о MOF."""
+    load_theme_css()
+    
+    st.title("Металлоорганические каркасы (MOF)")
+    
+    st.markdown("""
+    ### 🔬 Что такое MOF?
+    
+    Металлоорганические каркасы (Metal-Organic Frameworks, MOF) - это класс 
+    кристаллических материалов, состоящих из ионов металлов или кластеров, 
+    соединенных органическими лигандами с образованием пористых структур.
+    
+    ### 🎯 Основные характеристики
+    
+    1. **Пористость**
+       - Высокая удельная площадь поверхности (до 10,000 м²/г)
+       - Регулируемый размер пор
+       - Большой объем пор
+    
+    2. **Структура**
+       - Кристаллическая решетка
+       - Модульный дизайн
+       - Возможность функционализации
+    
+    3. **Свойства**
+       - Низкая плотность
+       - Высокая термическая стабильность
+       - Химическая устойчивость
+    
+    ### 🚀 Применение
+    
+    - Хранение газов
+    - Разделение газовых смесей
+    - Катализ
+    - Сенсоры
+    - Доставка лекарств
+    
+    ### ⚗️ Синтез
+    
+    Основные методы синтеза MOF:
+    
+    1. **Сольвотермальный синтез**
+       - Высокая температура и давление
+       - Использование органических растворителей
+    
+    2. **Механохимический синтез**
+       - Без использования растворителей
+       - Механическое воздействие
+    
+    3. **Микроволновый синтез**
+       - Быстрый нагрев
+       - Равномерное распределение энергии
+    """)
+    
+    # Добавляем изображения структур MOF
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        try:
+            st.image("images/1page.jpg", 
+                    caption="Структура типичного MOF",
+                    use_column_width=True)
+        except:
+            st.warning("Изображение не найдено (images/1page.jpg)")
+            
+    with col2:
+        try:
+            st.image("images/2page.jpg", 
+                    caption="Примеры применения MOF",
+                    use_column_width=True)
+        except:
+            st.warning("Изображение не найдено (images/2page.jpg)")
+
+if __name__ == "__main__":
+    show()
+
+================
+File: src/pages/predict.py
+================
+"""
+Страница предсказания методики синтеза MOF.
+"""
+
+import streamlit as st
+import pandas as pd
+import base64
+from io import BytesIO
+from typing import Dict, Any, List
+
+from src.utils import load_theme_css
+from src.services.predictor_service import PredictorService
+
+def get_img_as_base64(file_path: str) -> str:
+    """
+    Преобразует изображение в base64 для встраивания в HTML.
+    
+    Args:
+        file_path: Путь к файлу изображения
+        
+    Returns:
+        str: Строка base64
+    """
+    with open(file_path, "rb") as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+def display_predicted_parameters(parameters: List[Dict[str, Any]]) -> None:
+    """
+    Отображает предсказанные параметры в виде сетки.
+    
+    Args:
+        parameters: Список словарей с параметрами
+    """
+    st.markdown(
+        """
+        <style>
+        .parameter-card {
+            border: 2px solid #000000;
+            border-radius: 10px;
+            padding: 10px;
+            background-color: #FFFFFF;
+            text-align: center;
+            height: 180px;
+        }
+        .parameter-name {
+            color: #000000;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .parameter-value {
+            color: #000000;
+            margin-top: 5px;
+            font-size: 18px;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+    
+    st.header("Предсказанные Параметры Синтеза MOF Адсорбента")
+    st.markdown("---")
+    
+    rows = [parameters[i:i + 5] for i in range(0, len(parameters), 5)]
+    
+    for row in rows:
+        cols = st.columns(len(row))
+        for col, param in zip(cols, row):
+            with col:
+                param_html = f"""
+                <div class="parameter-card">
+                    <img src="data:image/png;base64,{param['image_base64']}" width="81" height="81">
+                    <div class="parameter-name">{param['name']}</div>
+                    <div class="parameter-value">{param['value']}"""
+                
+                if param['prob'] is not None:
+                    param_html += f""" (Вероятность: {param['prob']*100:.1f}%)"""
+                
+                param_html += """</div></div>"""
+                st.markdown(param_html, unsafe_allow_html=True)
+        st.markdown("")
+
+def prepare_download_df(
+    input_params: Dict[str, float], 
+    prediction_results: Dict[str, Any]
+) -> pd.DataFrame:
+    """
+    Подготавливает DataFrame для скачивания результатов.
+    
+    Args:
+        input_params: Входные параметры
+        prediction_results: Результаты предсказаний
+        
+    Returns:
+        pd.DataFrame: DataFrame для скачивания
+    """
+    # Базовые параметры
+    data = {
+        'SБЭТ, м2/г': [input_params['SBAT_m2_gr']],
+        'а0, ммоль/г': [input_params['a0_mmoll_gr']],
+        'E, кДж/моль': [input_params['E_kDg_moll']],
+        'Ws, см3/г': [input_params['Ws_cm3_gr']],
+        'Sme, м2/г': [input_params['Sme_m2_gr']]
+    }
+    
+    # Добавляем производные признаки
+    derived = prediction_results['derived_features']
+    data.update({
+        'W0, см3/г': [derived['W0_cm3_g']],
+        'E0, кДж/моль': [derived['E0_KDG_moll']],
+        'х0, нм': [derived['x0_nm']],
+        'Wme, см3/г': [derived['Wme_cm3_gr']]
+    })
+    
+    # Добавляем результаты предсказаний
+    data.update({
+        'Металл': [prediction_results['metal']['metal_type']],
+        'Лиганд': [prediction_results['ligand']['ligand_type']],
+        'Растворитель': [prediction_results['solvent']['solvent_type']],
+        'm (соли), г': [prediction_results['salt_mass']],
+        'm(кис-ты), г': [prediction_results['acid_mass']],
+        'Vсин. (р-ля), мл': [prediction_results['synthesis_volume']],
+        'Т.син., °С': [prediction_results['tsyn']['temperature']],
+        'Т суш., °С': [prediction_results['tdry']['temperature']],
+        'Tрег, ᵒС': [prediction_results['treg']['temperature']]
+    })
+    
+    return pd.DataFrame(data)
+
+def format_prediction_results_for_display(prediction_results: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """
+    Форматирует результаты предсказаний для отображения.
+    
+    Args:
+        prediction_results: Результаты предсказаний
+        
+    Returns:
+        List[Dict[str, Any]]: Форматированные результаты для отображения
+    """
+    parameters = [
+        {
+            "image": "images/Treg.png",
+            "image_base64": get_img_as_base64("images/Treg.png"),
+            "name": "Tрег, ᵒС",
+            "value": prediction_results['treg']['temperature'],
+            "prob": prediction_results['treg']['confidence']
+        },
+        {
+            "image": "images/Metal.png",
+            "image_base64": get_img_as_base64("images/Metal.png"),
+            "name": "Металл",
+            "value": prediction_results['metal']['metal_type'],
+            "prob": prediction_results['metal']['confidence']
+        },
+        {
+            "image": "images/Ligand.png",
+            "image_base64": get_img_as_base64("images/Ligand.png"),
+            "name": "Лиганд",
+            "value": prediction_results['ligand']['ligand_type'],
+            "prob": prediction_results['ligand']['confidence']
+        },
+        {
+            "image": "images/Solvent.png",
+            "image_base64": get_img_as_base64("images/Solvent.png"),
+            "name": "Растворитель",
+            "value": prediction_results['solvent']['solvent_type'],
+            "prob": prediction_results['solvent']['confidence']
+        },
+        {
+            "image": "images/SaltMass.png",
+            "image_base64": get_img_as_base64("images/SaltMass.png"),
+            "name": "m (соли), г",
+            "value": prediction_results['salt_mass'],
+            "prob": None  # Регрессия, нет вероятности
+        },
+        {
+            "image": "images/AcidMass.png",
+            "image_base64": get_img_as_base64("images/AcidMass.png"),
+            "name": "m(кис-ты), г",
+            "value": prediction_results['acid_mass'],
+            "prob": None  # Регрессия, нет вероятности
+        },
+        {
+            "image": "images/Tsyn.png",
+            "image_base64": get_img_as_base64("images/Tsyn.png"),
+            "name": "Т.син., °С",
+            "value": prediction_results['tsyn']['temperature'],
+            "prob": prediction_results['tsyn']['confidence']
+        },
+        {
+            "image": "images/Tdry.png",
+            "image_base64": get_img_as_base64("images/Tdry.png"),
+            "name": "Т суш., °С",
+            "value": prediction_results['tdry']['temperature'],
+            "prob": prediction_results['tdry']['confidence']
+        },
+        {
+            "image": "images/Vsyn.png",
+            "image_base64": get_img_as_base64("images/Vsyn.png"),
+            "name": "Vсин. (р-ля), мл",
+            "value": prediction_results['synthesis_volume'],
+            "prob": None  # Регрессия, нет вероятности
+        },
+    ]
+    
+    return parameters
+
+def render_input_form() -> Dict[str, float]:
+    """
+    Отрисовывает форму ввода параметров и возвращает введенные значения.
+    
+    Returns:
+        Dict[str, float]: Введенные параметры
+    """
+    # Ввод пользовательских параметров
+    SBAT_m2_gr = st.number_input("SБЭТ, м2/г - удельная площадь поверхности", min_value=100.0)
+    a0_mmoll_gr = st.number_input("а0, ммоль/г - предельная адсорбция", min_value=0.0)
+    E_kDg_moll = st.number_input("E, кДж/моль - энергия адсорбции азота", min_value=0.0)
+    
+    # Расчет зависимых параметров
+    W0_cm3_g = 0.034692 * a0_mmoll_gr
+    E0_KDG_moll = E_kDg_moll / 0.33 if E_kDg_moll > 0 else 1e-6
+    x0_nm = 12 / E0_KDG_moll
+    approx_Ws_cm3_gr = a0_mmoll_gr * 0.034692
+    
+    Ws_cm3_gr = st.number_input(
+        f"Ws, см³/г - общий объем пор (приблизительное значение: {approx_Ws_cm3_gr:.4f} см³/г)", 
+        min_value=0.0
+    )
+    
+    Wme_cm3_gr = Ws_cm3_gr - W0_cm3_g
+    Sme_m2_gr = st.number_input("Sme, м2/г - площадь поверхности мезопор")
+
+    # Вывод расчетных значений
+    with st.expander("Показать расчетные значения"):
+        st.write(f"Объем микропор (W0): {W0_cm3_g:.4f} см³/г")
+        st.write(f"Энергия адсорбции по бензолу (E0): {E0_KDG_moll:.4f} кДж/моль")
+        st.write(f"Полуширина пор (x0): {x0_nm:.4f} нм")
+        st.write(f"Объем мезопор (Wme): {Wme_cm3_gr:.4f} см³/г")
+    
+    return {
+        'SBAT_m2_gr': SBAT_m2_gr,
+        'a0_mmoll_gr': a0_mmoll_gr,
+        'E_kDg_moll': E_kDg_moll,
+        'Ws_cm3_gr': Ws_cm3_gr,
+        'Sme_m2_gr': Sme_m2_gr
+    }
+
+def show():
+    """Отображает страницу предсказания методики синтеза MOF."""
+    load_theme_css()
+    
+    st.title("Предсказание методики синтеза MOFs")
+
+    # Инициализация session state
+    if 'predictor_service' not in st.session_state:
+        st.session_state.predictor_service = PredictorService()
+        
+    if 'prediction_results' not in st.session_state:
+        st.session_state.prediction_results = None
+        
+    if 'input_params' not in st.session_state:
+        st.session_state.input_params = None
+    
+    # Отрисовка формы ввода
+    input_params = render_input_form()
+    
+    # Обработка нажатия кнопки
+    if st.button("Отправить на анализ и получить методику синтеза"):
+        with st.spinner('Пожалуйста, подождите...'):
+            # Выполнение предсказания
+            prediction_results = st.session_state.predictor_service.run_full_prediction(
+                input_params['SBAT_m2_gr'],
+                input_params['a0_mmoll_gr'],
+                input_params['E_kDg_moll'],
+                input_params['Ws_cm3_gr'],
+                input_params['Sme_m2_gr']
+            )
+            
+            # Сохранение результатов в session state
+            st.session_state.prediction_results = prediction_results
+            st.session_state.input_params = input_params
+    
+    # Отображение результатов, если они есть
+    if st.session_state.prediction_results is not None:
+        # Форматирование результатов для отображения
+        display_params = format_prediction_results_for_display(st.session_state.prediction_results)
+        
+        # Отображение результатов
+        display_predicted_parameters(display_params)
+        
+        # Подготовка DataFrame для скачивания
+        download_df = prepare_download_df(st.session_state.input_params, st.session_state.prediction_results)
+        
+        # Добавление кнопки скачивания
+        buffer = BytesIO()
+        with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
+            download_df.to_excel(writer, index=False)
+        buffer.seek(0)
+        
+        st.download_button(
+            label="📥 Скачать предсказанные параметры",
+            data=buffer,
+            file_name='predicted_parameters.xlsx',
+            mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        )
+
+if __name__ == "__main__":
+    show()
+
+================
+File: src/pages/team.py
+================
+"""
+Страница с информацией о команде проекта.
+"""
+
+import streamlit as st
+from src.utils import load_theme_css
+
+def show():
+    """Отображает страницу с информацией о команде."""
+    load_theme_css()
+    
+    st.title("Наша команда")
+    
+    st.markdown("""
+    ### 👥 О нас
+    
+    Мы - команда исследователей и разработчиков, объединенных целью создания 
+    инновационных решений в области материаловедения и искусственного интеллекта.
+    
+    ### 🎯 Наша миссия
+    
+    Разработка передовых технологий для ускорения процесса создания новых 
+    материалов с заданными свойствами, делая этот процесс более эффективным 
+    и доступным для исследователей по всему миру.
+    
+    ### 👨‍💻 Команда разработчиков
+    
+    #### Руководитель проекта
+    - **Проф. Иванов И.И.**
+      - Доктор химических наук
+      - Эксперт в области материаловедения
+      - 15+ лет опыта в разработке MOF
+    
+    #### Ведущие исследователи
+    - **Петров П.П.**
+      - Кандидат физико-математических наук
+      - Специалист по машинному обучению
+      - Разработчик моделей предсказания
+    
+    - **Сидорова С.С.**
+      - Кандидат химических наук
+      - Эксперт по синтезу MOF
+      - Руководитель лабораторных исследований
+    
+    ### 📞 Контакты
+    
+    - **Email**: contact@adsorpnet.ru
+    - **Телефон**: +7 (XXX) XXX-XX-XX
+    - **Адрес**: г. Москва, ул. Научная, д. 1
+    
+    ### 🤝 Сотрудничество
+    
+    Мы открыты для сотрудничества с исследовательскими группами и промышленными 
+    партнерами. Если у вас есть предложения или вопросы, пожалуйста, свяжитесь 
+    с нами.
+    """)
+    
+    # Добавляем изображение команды
+    try:
+        st.image("images/MOF_Synthesis_Prediction.png", 
+                caption="Наша команда за работой",
+                use_column_width=True)
+    except:
+        st.warning("Изображение не найдено (images/MOF_Synthesis_Prediction.png)")
+
+if __name__ == "__main__":
+    show()
+
+================
+File: src/services/__init__.py
+================
+from .model_service import ModelService
+from .predictor_service import PredictorService
+
+__all__ = ['ModelService', 'PredictorService']
+
+================
+File: src/services/model_service.py
+================
+"""
+Сервис для загрузки и управления моделями.
+Реализует паттерны Singleton и Registry для эффективного управления моделями.
+"""
+
+import torch
+import xgboost as xgb
+import joblib
+import logging
+from pathlib import Path
+from typing import Dict, Any, Optional, Type, Union
+from functools import lru_cache
+
+from src.config.model_config import MODELS_DIR, SCALERS_DIR
+from src.domain import (
+    features_metal, features_ligand, features_solvent,
+    features_Tsyn, features_Tdry, features_Treg
+)
+
+logger = logging.getLogger(__name__)
+
+class ModelService:
+    """
+    Сервис для управления моделями машинного обучения.
+    Реализует ленивую загрузку и кэширование моделей.
+    """
+    
+    _instance = None  # Синглтон-инстанс
+    
+    def __new__(cls):
+        """Реализация паттерна Singleton."""
+        if cls._instance is None:
+            cls._instance = super(ModelService, cls).__new__(cls)
+            cls._instance._initialized = False
+        return cls._instance
+    
+    def __init__(self):
+        """Инициализация сервиса моделей."""
+        if self._initialized:
+            return
+            
+        self._models = {}
+        self._encoders = {}
+        self._scalers = {}
+        
+        # Принудительно используем CPU для совместимости
+        self._device = torch.device('cpu')
+        
+        self._initialized = True
+        logger.info(f"Инициализирован сервис моделей (устройство: {self._device})")
+        
+    def get_device(self) -> torch.device:
+        """Возвращает устройство, используемое для моделей."""
+        return self._device
+    
+    def _load_torch_model(
+        self, 
+        model_class: Type, 
+        model_path: str, 
+        input_dim: int,
+        num_classes: Optional[int] = None
+    ) -> torch.nn.Module:
+        """
+        Загружает модель PyTorch.
+        
+        Args:
+            model_class: Класс модели
+            model_path: Путь к файлу модели
+            input_dim: Размерность входных данных
+            num_classes: Количество классов (для классификаторов)
+            
+        Returns:
+            torch.nn.Module: Загруженная модель
+        """
+        if num_classes is not None:
+            model = model_class(input_dim=input_dim, num_classes=num_classes)
+        else:
+            model = model_class(input_dim=input_dim)
+        
+        model.load_state_dict(
+            torch.load(
+                model_path,
+                map_location=self._device,  # Используем устройство из экземпляра
+                weights_only=True
+            )
+        )
+        model = model.to(self._device)  # Гарантируем, что модель на правильном устройстве
+        model.eval()
+        logger.info(f"Загружена PyTorch модель: {model_path}")
+        return model
+    
+    def _load_xgb_model(self, model_path: str) -> xgb.Booster:
+        """
+        Загружает модель XGBoost.
+        
+        Args:
+            model_path: Путь к файлу модели
+            
+        Returns:
+            xgb.Booster: Загруженная модель
+        """
+        model = xgb.Booster()
+        model.load_model(model_path)
+        logger.info(f"Загружена XGBoost модель: {model_path}")
+        return model
+    
+    def _load_scaler(self, scaler_path: str) -> Any:
+        """
+        Загружает sklearn скейлер.
+        
+        Args:
+            scaler_path: Путь к файлу скейлера
+            
+        Returns:
+            Any: Загруженный скейлер
+        """
+        scaler = joblib.load(scaler_path)
+        logger.info(f"Загружен скейлер: {scaler_path}")
+        return scaler
+    
+    def _load_encoder(self, encoder_path: str) -> Any:
+        """
+        Загружает sklearn энкодер.
+        
+        Args:
+            encoder_path: Путь к файлу энкодера
+            
+        Returns:
+            Any: Загруженный энкодер
+        """
+        encoder = joblib.load(encoder_path)
+        logger.info(f"Загружен энкодер: {encoder_path}")
+        return encoder
+    
+    @lru_cache(maxsize=None)
+    def get_model(self, model_name: str) -> Any:
+        """
+        Получает модель по имени. Реализует ленивую загрузку.
+        
+        Args:
+            model_name: Имя модели
+            
+        Returns:
+            Any: Загруженная модель
+            
+        Raises:
+            ValueError: Если модель с указанным именем не найдена
+        """
+        if model_name in self._models:
+            return self._models[model_name]
+            
+        # Загрузка моделей по запросу
+        from saved_models.models_list import (
+            MetalClassifier, TransformerClassifier,
+            TransformerTsynClassifier, TransformerTdryClassifier,
+            TransformerTregClassifier
+        )
+        
+        # Получаем сначала необходимые энкодеры, если нужны
+        if model_name.startswith('major_metal') and 'label_encoder_major_metal' not in self._encoders:
+            self._encoders['label_encoder_major_metal'] = self._load_encoder(
+                SCALERS_DIR / 'label_encoder_major_metal.pkl'
+            )
+        elif model_name.startswith('minor_metal') and 'label_encoder_minor_metal' not in self._encoders:
+            self._encoders['label_encoder_minor_metal'] = self._load_encoder(
+                SCALERS_DIR / 'label_encoder_minor_metal.pkl'
+            )
+        elif model_name.startswith('Tsyn') and 'label_encoder_Tsyn' not in self._encoders:
+            self._encoders['label_encoder_Tsyn'] = self._load_encoder(
+                SCALERS_DIR / 'label_encoder_Tsyn.pkl'
+            )
+        elif model_name.startswith('Tdry') and 'label_encoder_Tdry' not in self._encoders:
+            self._encoders['label_encoder_Tdry'] = self._load_encoder(
+                SCALERS_DIR / 'label_encoder_Tdry.pkl'
+            )
+        elif model_name.startswith('Treg') and 'label_encoder_Treg' not in self._encoders:
+            self._encoders['label_encoder_Treg'] = self._load_encoder(
+                SCALERS_DIR / 'label_encoder_Treg.pkl'
+            )
+        
+        # Загрузка модели в зависимости от имени
+        if model_name == 'metal_binary':
+            model = self._load_torch_model(
+                MetalClassifier,
+                MODELS_DIR / 'dnn_metal_binary_classifier.pth',
+                len(features_metal)
+            )
+        elif model_name == 'major_metal':
+            model = self._load_torch_model(
+                TransformerClassifier,
+                MODELS_DIR / 'best_major_classifier_metal.pth',
+                len(features_metal),
+                len(self._encoders['label_encoder_major_metal'].classes_)
+            )
+        elif model_name == 'minor_metal':
+            model = self._load_torch_model(
+                TransformerClassifier,
+                MODELS_DIR / 'best_minor_classifier_metal.pth',
+                len(features_metal),
+                len(self._encoders['label_encoder_minor_metal'].classes_)
+            )
+        elif model_name == 'ligand':
+            model = self._load_xgb_model(MODELS_DIR / 'xgb_ligand_classifier.json')
+        elif model_name == 'solvent':
+            model = self._load_xgb_model(MODELS_DIR / 'xgb_solvent_classifier.json')
+        elif model_name == 'salt_mass':
+            model = self._load_xgb_model(MODELS_DIR / 'xgb_mass_salt_classifier.json')
+        elif model_name == 'acid_mass':
+            model = self._load_xgb_model(MODELS_DIR / 'xgb_acid_mass_regressor.json')
+        elif model_name == 'Vsyn':
+            model = self._load_xgb_model(MODELS_DIR / 'model_xgb_V_syn_regressor.json')
+        elif model_name == 'Tsyn':
+            model = self._load_torch_model(
+                TransformerTsynClassifier,
+                MODELS_DIR / 'model_Tsyn.pth',
+                len(features_Tsyn),
+                len(self._encoders['label_encoder_Tsyn'].classes_)
+            )
+        elif model_name == 'Tdry':
+            model = self._load_torch_model(
+                TransformerTdryClassifier,
+                MODELS_DIR / 'model_Tdry.pth',
+                len(features_Tdry),
+                len(self._encoders['label_encoder_Tdry'].classes_)
+            )
+        elif model_name == 'Treg':
+            model = self._load_torch_model(
+                TransformerTregClassifier,
+                MODELS_DIR / 'model_Treg.pth',
+                len(features_Treg),
+                len(self._encoders['label_encoder_Treg'].classes_)
+            )
+        else:
+            raise ValueError(f"Неизвестная модель: {model_name}")
+        
+        self._models[model_name] = model
+        return model
+    
+    @lru_cache(maxsize=None)
+    def get_scaler(self, scaler_name: str) -> Any:
+        """
+        Получает скейлер по имени. Реализует ленивую загрузку.
+        
+        Args:
+            scaler_name: Имя скейлера
+            
+        Returns:
+            Any: Загруженный скейлер
+            
+        Raises:
+            ValueError: Если скейлер с указанным именем не найден
+        """
+        if scaler_name in self._scalers:
+            return self._scalers[scaler_name]
+            
+        scaler_mapping = {
+            'binary_metals': 'scaler_binary_metals.pkl',
+            'major_metal': 'scaler_major_metal.pkl',
+            'minor_metal': 'scaler_minor_metal.pkl',
+            'ligand': 'scaler_ligand.pkl',
+            'solvent': 'scaler_solvent.pkl',
+            'salt_mass': 'scaler_salt_mass.pkl',
+            'acid_mass': 'scaler_acid_mass.pkl',
+            'Vsyn': 'scaler_Vsyn.pkl',
+            'Tsyn': 'scaler_Tsyn.pkl',
+            'Tdry': 'scaler_Tdry.pkl',
+            'Treg': 'scaler_Treg.pkl'
+        }
+        
+        if scaler_name not in scaler_mapping:
+            raise ValueError(f"Неизвестный скейлер: {scaler_name}")
+            
+        scaler_path = SCALERS_DIR / scaler_mapping[scaler_name]
+        scaler = self._load_scaler(scaler_path)
+        self._scalers[scaler_name] = scaler
+        
+        return scaler
+    
+    @lru_cache(maxsize=None)
+    def get_encoder(self, encoder_name: str) -> Any:
+        """
+        Получает энкодер по имени. Реализует ленивую загрузку.
+        
+        Args:
+            encoder_name: Имя энкодера
+            
+        Returns:
+            Any: Загруженный энкодер
+            
+        Raises:
+            ValueError: Если энкодер с указанным именем не найден
+        """
+        if encoder_name in self._encoders:
+            return self._encoders[encoder_name]
+            
+        encoder_mapping = {
+            'major_metal': 'label_encoder_major_metal.pkl',
+            'minor_metal': 'label_encoder_minor_metal.pkl',
+            'ligand': 'label_encoder_ligand.pkl',
+            'solvent': 'label_encoder_solvent.pkl',
+            'Tsyn': 'label_encoder_Tsyn.pkl',
+            'Tdry': 'label_encoder_Tdry.pkl',
+            'Treg': 'label_encoder_Treg.pkl'
+        }
+        
+        if encoder_name not in encoder_mapping:
+            raise ValueError(f"Неизвестный энкодер: {encoder_name}")
+            
+        encoder_path = SCALERS_DIR / encoder_mapping[encoder_name]
+        encoder = self._load_encoder(encoder_path)
+        self._encoders[encoder_name] = encoder
+        
+        return encoder
+    
+    def get_all_models(self) -> Dict[str, Any]:
+        """
+        Загружает все модели.
+        
+        Returns:
+            Dict[str, Any]: Словарь с загруженными моделями
+        """
+        # Перечень всех доступных моделей
+        model_names = [
+            'metal_binary', 'major_metal', 'minor_metal',
+            'ligand', 'solvent', 'salt_mass', 'acid_mass',
+            'Vsyn', 'Tsyn', 'Tdry', 'Treg'
+        ]
+        
+        # Загружаем все модели
+        for name in model_names:
+            if name not in self._models:
+                self.get_model(name)
+                
+        return self._models
+    
+    def get_all_scalers(self) -> Dict[str, Any]:
+        """
+        Загружает все скейлеры.
+        
+        Returns:
+            Dict[str, Any]: Словарь с загруженными скейлерами
+        """
+        # Перечень всех доступных скейлеров
+        scaler_names = [
+            'binary_metals', 'major_metal', 'minor_metal',
+            'ligand', 'solvent', 'salt_mass', 'acid_mass',
+            'Vsyn', 'Tsyn', 'Tdry', 'Treg'
+        ]
+        
+        # Загружаем все скейлеры
+        for name in scaler_names:
+            if name not in self._scalers:
+                self.get_scaler(name)
+                
+        return self._scalers
+    
+    def get_all_encoders(self) -> Dict[str, Any]:
+        """
+        Загружает все энкодеры.
+        
+        Returns:
+            Dict[str, Any]: Словарь с загруженными энкодерами
+        """
+        # Перечень всех доступных энкодеров
+        encoder_names = [
+            'major_metal', 'minor_metal', 'ligand', 'solvent',
+            'Tsyn', 'Tdry', 'Treg'
+        ]
+        
+        # Загружаем все энкодеры
+        for name in encoder_names:
+            if name not in self._encoders:
+                self.get_encoder(name)
+                
+        return self._encoders
+    
+    def clear_cache(self) -> None:
+        """Очищает кэш моделей, скейлеров и энкодеров."""
+        self._models = {}
+        self._scalers = {}
+        self._encoders = {}
+        
+        # Очищаем также кэш декораторов
+        self.get_model.cache_clear()
+        self.get_scaler.cache_clear()
+        self.get_encoder.cache_clear()
+        
+        logger.info("Кэш моделей очищен")
+
+================
+File: src/services/predictor_service.py
+================
+"""
+Сервис для предсказания параметров синтеза MOF.
+Содержит бизнес-логику для выполнения предсказаний.
+"""
+
+import numpy as np
+import pandas as pd
+import torch
+import torch.nn.functional as F
+import xgboost as xgb
+import logging
+from typing import Dict, Any, List, Tuple, Union, Optional
+import pymatgen.core as mg
+
+from src.services.model_service import ModelService
+from src.domain.constants import METAL_MOLAR_MASSES, LIGAND_MOLAR_MASSES
+from src.domain.features import (
+    features_metal, features_ligand, features_solvent,
+    features_salt_mass, features_acid_mass, features_Vsyn,
+    features_Tsyn, features_Tdry, features_Treg,
+    metal_columns, ligand_columns, solvent_columns
+)
+from src.utils.feature_generation import (
+    safe_generate_features, safe_generate_solvent_features
+)
+
+logger = logging.getLogger(__name__)
+
+class PredictorService:
+    """
+    Сервис для предсказания параметров синтеза MOF.
+    """
+
+    def __init__(self):
+        """Инициализация сервиса предсказаний."""
+        self.model_service = ModelService()
+        
+        # Используем то же устройство, что и в ModelService
+        self.device = self.model_service.get_device()
+        
+        logger.info(f"Сервис предсказаний инициализирован (устройство: {self.device})")
+
+    def calculate_derived_features(
+        self,
+        SBAT_m2_gr: float,
+        a0_mmoll_gr: float,
+        E_kDg_moll: float,
+        Ws_cm3_gr: float,
+        Sme_m2_gr: float
+    ) -> pd.DataFrame:
+        """
+        Рассчитывает производные признаки на основе базовых параметров.
+        
+        Args:
+            SBAT_m2_gr: Удельная площадь поверхности (м²/г)
+            a0_mmoll_gr: Предельная адсорбция (ммоль/г)
+            E_kDg_moll: Энергия адсорбции азота (кДж/моль)
+            Ws_cm3_gr: Общий объем пор (см³/г)
+            Sme_m2_gr: Площадь поверхности мезопор (м²/г)
+            
+        Returns:
+            pd.DataFrame: Датафрейм с рассчитанными параметрами
+        """
+        # Расчет объема микропор
+        W0_cm3_g = 0.034692 * a0_mmoll_gr
+        
+        # Расчет энергии адсорбции по бензолу
+        E0_KDG_moll = E_kDg_moll / 0.33 if E_kDg_moll > 0 else 1e-6
+        
+        # Расчет полуширины пор
+        x0_nm = 12 / E0_KDG_moll
+        
+        # Расчет объема мезопор
+        Wme_cm3_gr = Ws_cm3_gr - W0_cm3_g
+        
+        # Создаем DataFrame
+        data = {
+            'SБЭТ, м2/г': [SBAT_m2_gr],
+            'а0, ммоль/г': [a0_mmoll_gr],
+            'E,  кДж/моль': [E_kDg_moll],
+            'W0, см3/г': [W0_cm3_g],
+            'Ws, см3/г': [Ws_cm3_gr],
+            'E0, кДж/моль': [E0_KDG_moll],
+            'х0, нм': [x0_nm],
+            'Wme, см3/г': [Wme_cm3_gr],
+            'Sme, м2/г': [Sme_m2_gr]
+        }
+        
+        df = pd.DataFrame(data)
+        
+        # Расчет дополнительных параметров
+        R = 8.314  # J/(mol·K)
+        T = 298.15  # Kelvin (25°C)
+
+        df['Adsorption_Potential'] = df['E,  кДж/моль'] * df['Ws, см3/г']
+        df['Capacity_Density'] = df['а0, ммоль/г'] / df['SБЭТ, м2/г']
+        df['K_equilibrium'] = np.exp(df['E,  кДж/моль'] / (R / 1000 * T))
+        df['Delta_G'] = -R / 1000 * T * np.log(df['K_equilibrium'])
+        df['SurfaceArea_MicroVol_Ratio'] = df['SБЭТ, м2/г'] / df['W0, см3/г']
+        df['Adsorption_Energy_Ratio'] = df['E,  кДж/моль'] / df['E0, кДж/моль']
+        df['S_BET_E'] = df['SБЭТ, м2/г'] * df['E,  кДж/моль']
+        df['x0_W0'] = df['х0, нм'] * df['W0, см3/г']
+        df["B_micropore"] = np.power(((2.3 * R) / df['E,  кДж/моль']), 2)
+        
+        return df
+    
+    def predict_metal(self, features_df: pd.DataFrame) -> Dict[str, Any]:
+        """
+        Предсказывает тип металла для MOF.
+        
+        Args:
+            features_df: DataFrame с признаками
+            
+        Returns:
+            Dict[str, Any]: Результаты предсказания (тип металла, вероятность)
+        """
+        # 1. Бинарная классификация металла
+        binary_scaler = self.model_service.get_scaler('binary_metals')
+        scaled_features = binary_scaler.transform(features_df[features_metal].values)
+        
+        # Используем устройство из экземпляра
+        input_tensor = torch.tensor(scaled_features, dtype=torch.float32).to(self.device)
+        
+        binary_model = self.model_service.get_model('metal_binary')
+        
+        with torch.no_grad():
+            logits = binary_model(input_tensor)
+            prob = torch.sigmoid(logits)
+            pred = (prob >= 0.5).int()
+        
+        class_mapping = {0: 'La-Zn-Zr', 1: 'Cu-Al-Fe'}
+        predicted_class = class_mapping.get(pred.item(), "Unknown")
+        
+        # 2. Классификация конкретного металла
+        if predicted_class == 'Cu-Al-Fe':
+            # Используем классификатор основных металлов
+            major_scaler = self.model_service.get_scaler('major_metal')
+            scaled_features = major_scaler.transform(features_df[features_metal].values)
+            input_tensor = torch.tensor(scaled_features, dtype=torch.float32).to(self.device)
+            
+            major_model = self.model_service.get_model('major_metal')
+            encoder = self.model_service.get_encoder('major_metal')
+            
+            with torch.no_grad():
+                logits = major_model(input_tensor)
+                probs = F.softmax(logits, dim=1)
+                preds = torch.argmax(probs, dim=1)
+            
+            predicted_metal = encoder.inverse_transform(preds.cpu().numpy())[0]
+            metal_probability = probs[0][preds].item()
+            
+        elif predicted_class == 'La-Zn-Zr':
+            # Используем классификатор второстепенных металлов
+            minor_scaler = self.model_service.get_scaler('minor_metal')
+            scaled_features = minor_scaler.transform(features_df[features_metal].values)
+            input_tensor = torch.tensor(scaled_features, dtype=torch.float32).to(self.device)
+            
+            minor_model = self.model_service.get_model('minor_metal')
+            encoder = self.model_service.get_encoder('minor_metal')
+            
+            with torch.no_grad():
+                logits = minor_model(input_tensor)
+                probs = F.softmax(logits, dim=1)
+                preds = torch.argmax(probs, dim=1)
+            
+            predicted_metal = encoder.inverse_transform(preds.cpu().numpy())[0]
+            metal_probability = probs[0][preds].item()
+            
+        else:
+            return {
+                'metal_type': None,
+                'confidence': 0.0,
+                'error': f"Unknown metal class: {predicted_class}"
+            }
+        
+        return {
+            'metal_type': predicted_metal,
+            'confidence': metal_probability
+        }
+    
+    def predict_ligand(self, features_df: pd.DataFrame, metal_type: str) -> Dict[str, Any]:
+        """
+        Предсказывает тип лиганда для MOF.
+        
+        Args:
+            features_df: DataFrame с признаками
+            metal_type: Тип металла
+            
+        Returns:
+            Dict[str, Any]: Результаты предсказания (тип лиганда, вероятность)
+        """
+        # Обогащаем признаки информацией о металле
+        df_ligand = features_df.copy()
+        
+        # One-Hot Encoding для металла
+        for metal in metal_columns:
+            metal_label = metal.split('_')[1]  # Extract 'Al', 'Cu', etc.
+            df_ligand[metal] = 1 if metal_label == metal_type else 0
+        
+        # Добавляем дескрипторы металла
+        df_ligand['Total molecular weight (metal)'] = mg.Composition(metal_type).weight
+        df_ligand['Average ionic radius (metal)'] = mg.Element(mg.Composition(metal_type).elements[0]).average_ionic_radius
+        df_ligand['Average electronegativity (metal)'] = mg.Composition(metal_type).average_electroneg
+        
+        # Масштабируем признаки
+        ligand_scaler = self.model_service.get_scaler('ligand')
+        categorical_columns = metal_columns
+        numeric_columns = np.setdiff1d(features_ligand, categorical_columns)
+        
+        df_ligand_numeric = df_ligand[numeric_columns].copy()
+        df_ligand_numeric = pd.DataFrame(
+            ligand_scaler.transform(df_ligand_numeric),
+            columns=numeric_columns
+        )
+        
+        # Объединяем числовые и категориальные признаки
+        for col in categorical_columns:
+            if col in df_ligand.columns:
+                df_ligand_numeric[col] = df_ligand[col]
+        
+        # Создаем DMatrix для XGBoost
+        dligand = xgb.DMatrix(df_ligand_numeric[features_ligand])
+        
+        # Получаем модель и делаем предсказание
+        ligand_model = self.model_service.get_model('ligand')
+        encoder = self.model_service.get_encoder('ligand')
+        
+        y_pred_proba = ligand_model.predict(dligand)
+        y_pred = np.argmax(y_pred_proba, axis=1)
+        y_pred_proba_max = y_pred_proba[np.arange(len(y_pred)), y_pred]
+        
+        # Декодируем предсказание
+        predicted_ligand = encoder.inverse_transform(y_pred)[0]
+        ligand_probability = y_pred_proba_max[0]
+        
+        # Формируем словарь с вероятностями для всех классов
+        probabilities = {
+            ligand: float(prob)
+            for ligand, prob in zip(encoder.classes_, y_pred_proba[0])
+        }
+        
+        return {
+            'ligand_type': predicted_ligand,
+            'confidence': ligand_probability,
+            'all_probabilities': probabilities
+        }
+    
+    def predict_solvent(
+        self, 
+        features_df: pd.DataFrame, 
+        metal_type: str, 
+        ligand_type: str
+    ) -> Dict[str, Any]:
+        """
+        Предсказывает тип растворителя для MOF.
+        
+        Args:
+            features_df: DataFrame с признаками
+            metal_type: Тип металла
+            ligand_type: Тип лиганда
+            
+        Returns:
+            Dict[str, Any]: Результаты предсказания (тип растворителя, вероятность)
+        """
+        # Обогащаем признаки информацией о металле и лиганде
+        df_solvent = features_df.copy()
+        
+        # One-Hot Encoding для металла
+        for metal in metal_columns:
+            metal_label = metal.split('_')[1]
+            df_solvent[metal] = 1 if metal_label == metal_type else 0
+        
+        # Добавляем дескрипторы металла
+        df_solvent['Total molecular weight (metal)'] = mg.Composition(metal_type).weight
+        df_solvent['Average ionic radius (metal)'] = mg.Element(mg.Composition(metal_type).elements[0]).average_ionic_radius
+        df_solvent['Average electronegativity (metal)'] = mg.Composition(metal_type).average_electroneg
+        
+        # Добавляем информацию о молярных массах
+        df_solvent["Молярка_соли"] = METAL_MOLAR_MASSES[metal_type]
+        df_solvent["Молярка_кислоты"] = LIGAND_MOLAR_MASSES[ligand_type]
+        
+        # One-Hot Encoding для лиганда
+        for ligand in ligand_columns:
+            ligand_label = ligand.split('_')[1]
+            df_solvent[ligand] = 1 if ligand_label == ligand_type else 0
+            
+        # Добавляем дескрипторы лиганда
+        ligand_descriptors, _ = safe_generate_features(ligand_type)
+        for column, value in ligand_descriptors.items():
+            df_solvent[column] = value
+        
+        # Масштабируем признаки
+        solvent_scaler = self.model_service.get_scaler('solvent')
+        categorical_columns = metal_columns + ligand_columns
+        numeric_columns = np.setdiff1d(features_solvent, categorical_columns)
+        
+        df_solvent_numeric = df_solvent[numeric_columns].copy()
+        df_solvent_numeric = pd.DataFrame(
+            solvent_scaler.transform(df_solvent_numeric),
+            columns=numeric_columns
+        )
+        
+        # Объединяем числовые и категориальные признаки
+        for col in categorical_columns:
+            if col in df_solvent.columns:
+                df_solvent_numeric[col] = df_solvent[col]
+        
+        # Создаем DMatrix для XGBoost
+        dsolvent = xgb.DMatrix(df_solvent_numeric[features_solvent])
+        
+        # Получаем модель и делаем предсказание
+        solvent_model = self.model_service.get_model('solvent')
+        encoder = self.model_service.get_encoder('solvent')
+        
+        y_pred_proba = solvent_model.predict(dsolvent)
+        y_pred = np.argmax(y_pred_proba, axis=1)
+        y_pred_proba_max = y_pred_proba[np.arange(len(y_pred)), y_pred]
+        
+        # Декодируем предсказание
+        predicted_solvent = encoder.inverse_transform(y_pred)[0]
+        solvent_probability = y_pred_proba_max[0]
+        
+        # Формируем словарь с вероятностями для всех классов
+        probabilities = {
+            solvent: float(prob)
+            for solvent, prob in zip(encoder.classes_, y_pred_proba[0])
+        }
+        
+        # Сортируем растворители по убыванию вероятности
+        sorted_solvents = sorted(
+            probabilities.items(),
+            key=lambda x: x[1],
+            reverse=True
+        )
+        
+        return {
+            'solvent_type': predicted_solvent,
+            'confidence': solvent_probability,
+            'all_probabilities': probabilities,
+            'top_3_solvents': [
+                {'type': solv, 'probability': prob}
+                for solv, prob in sorted_solvents[:3]
+            ]
+        }
+    
+    def predict_salt_mass(
+        self, 
+        features_df: pd.DataFrame, 
+        metal_type: str, 
+        ligand_type: str, 
+        solvent_type: str
+    ) -> float:
+        """
+        Предсказывает массу соли для синтеза MOF.
+        
+        Args:
+            features_df: DataFrame с признаками
+            metal_type: Тип металла
+            ligand_type: Тип лиганда
+            solvent_type: Тип растворителя
+            
+        Returns:
+            float: Предсказанная масса соли
+        """
+        # Обогащаем признаки информацией о металле, лиганде и растворителе
+        df_salt = features_df.copy()
+        
+        # One-Hot Encoding для металла
+        for metal in metal_columns:
+            metal_label = metal.split('_')[1]
+            df_salt[metal] = 1 if metal_label == metal_type else 0
+        
+        # Добавляем дескрипторы металла
+        df_salt['Total molecular weight (metal)'] = mg.Composition(metal_type).weight
+        df_salt['Average ionic radius (metal)'] = mg.Element(mg.Composition(metal_type).elements[0]).average_ionic_radius
+        df_salt['Average electronegativity (metal)'] = mg.Composition(metal_type).average_electroneg
+        
+        # Добавляем информацию о молярных массах
+        df_salt["Молярка_соли"] = METAL_MOLAR_MASSES[metal_type]
+        df_salt["Молярка_кислоты"] = LIGAND_MOLAR_MASSES[ligand_type]
+        
+        # One-Hot Encoding для лиганда
+        for ligand in ligand_columns:
+            ligand_label = ligand.split('_')[1]
+            df_salt[ligand] = 1 if ligand_label == ligand_type else 0
+            
+        # Добавляем дескрипторы лиганда
+        ligand_descriptors, _ = safe_generate_features(ligand_type)
+        for column, value in ligand_descriptors.items():
+            df_salt[column] = value
+        
+        # One-Hot Encoding для растворителя
+        for solvent in solvent_columns:
+            solvent_label = solvent.split('_')[1]
+            df_salt[solvent] = 1 if solvent_label == solvent_type else 0
+            
+        # Добавляем дескрипторы растворителя
+        solvent_descriptors, _ = safe_generate_solvent_features(solvent_type)
+        for column, value in solvent_descriptors.items():
+            df_salt[column] = value
+        
+        # Масштабируем признаки
+        salt_scaler = self.model_service.get_scaler('salt_mass')
+        categorical_columns = metal_columns + ligand_columns + solvent_columns
+        numeric_columns = np.setdiff1d(features_salt_mass, categorical_columns)
+        
+        df_salt_numeric = df_salt[numeric_columns].copy()
+        df_salt_numeric = pd.DataFrame(
+            salt_scaler.transform(df_salt_numeric),
+            columns=numeric_columns
+        )
+        
+        # Объединяем числовые и категориальные признаки
+        for col in categorical_columns:
+            if col in df_salt.columns:
+                df_salt_numeric[col] = df_salt[col]
+        
+        # Создаем DMatrix для XGBoost
+        dsalt = xgb.DMatrix(df_salt_numeric[features_salt_mass])
+        
+        # Получаем модель и делаем предсказание
+        salt_model = self.model_service.get_model('salt_mass')
+        
+        salt_mass = float(salt_model.predict(dsalt)[0])
+        return round(salt_mass, 3)
+    
+    def predict_acid_mass(
+        self, 
+        features_df: pd.DataFrame, 
+        metal_type: str, 
+        ligand_type: str, 
+        solvent_type: str, 
+        salt_mass: float
+    ) -> float:
+        """
+        Предсказывает массу кислоты для синтеза MOF.
+        
+        Args:
+            features_df: DataFrame с признаками
+            metal_type: Тип металла
+            ligand_type: Тип лиганда
+            solvent_type: Тип растворителя
+            salt_mass: Масса соли
+            
+        Returns:
+            float: Предсказанная масса кислоты
+        """
+        # Аналогично salt_mass, но добавляем информацию о массе соли
+        df_acid = features_df.copy()
+        
+        # Заполняем признаки как в предыдущих методах
+        # (металл, лиганд, растворитель)
+        
+        # One-Hot Encoding для металла
+        for metal in metal_columns:
+            metal_label = metal.split('_')[1]
+            df_acid[metal] = 1 if metal_label == metal_type else 0
+        
+        # Добавляем дескрипторы металла
+        df_acid['Total molecular weight (metal)'] = mg.Composition(metal_type).weight
+        df_acid['Average ionic radius (metal)'] = mg.Element(mg.Composition(metal_type).elements[0]).average_ionic_radius
+        df_acid['Average electronegativity (metal)'] = mg.Composition(metal_type).average_electroneg
+        
+        # Добавляем информацию о молярных массах
+        df_acid["Молярка_соли"] = METAL_MOLAR_MASSES[metal_type]
+        df_acid["Молярка_кислоты"] = LIGAND_MOLAR_MASSES[ligand_type]
+        
+        # One-Hot Encoding для лиганда
+        for ligand in ligand_columns:
+            ligand_label = ligand.split('_')[1]
+            df_acid[ligand] = 1 if ligand_label == ligand_type else 0
+            
+        # Добавляем дескрипторы лиганда
+        ligand_descriptors, _ = safe_generate_features(ligand_type)
+        for column, value in ligand_descriptors.items():
+            df_acid[column] = value
+        
+        # One-Hot Encoding для растворителя
+        for solvent in solvent_columns:
+            solvent_label = solvent.split('_')[1]
+            df_acid[solvent] = 1 if solvent_label == solvent_type else 0
+            
+        # Добавляем дескрипторы растворителя
+        solvent_descriptors, _ = safe_generate_solvent_features(solvent_type)
+        for column, value in solvent_descriptors.items():
+            df_acid[column] = value
+            
+        # Добавляем информацию о массе соли
+        df_acid["m (соли), г"] = salt_mass
+        df_acid["n_соли"] = salt_mass / METAL_MOLAR_MASSES[metal_type]
+        
+        # Масштабируем признаки
+        acid_scaler = self.model_service.get_scaler('acid_mass')
+        categorical_columns = metal_columns + ligand_columns + solvent_columns
+        numeric_columns = np.setdiff1d(features_acid_mass, categorical_columns)
+        
+        df_acid_numeric = df_acid[numeric_columns].copy()
+        df_acid_numeric = pd.DataFrame(
+            acid_scaler.transform(df_acid_numeric),
+            columns=numeric_columns
+        )
+        
+        # Объединяем числовые и категориальные признаки
+        for col in categorical_columns:
+            if col in df_acid.columns:
+                df_acid_numeric[col] = df_acid[col]
+        
+        # Создаем DMatrix для XGBoost
+        dacid = xgb.DMatrix(df_acid_numeric[features_acid_mass])
+        
+        # Получаем модель и делаем предсказание
+        acid_model = self.model_service.get_model('acid_mass')
+        
+        acid_mass = float(acid_model.predict(dacid)[0])
+        return round(acid_mass, 3)
+
+    def predict_synthesis_volume(
+        self,
+        features_df: pd.DataFrame,
+        metal_type: str,
+        ligand_type: str,
+        solvent_type: str,
+        salt_mass: float,
+        acid_mass: float
+    ) -> float:
+        """
+        Предсказывает объем синтеза MOF.
+        
+        Args:
+            features_df: DataFrame с признаками
+            metal_type: Тип металла
+            ligand_type: Тип лиганда
+            solvent_type: Тип растворителя
+            salt_mass: Масса соли
+            acid_mass: Масса кислоты
+            
+        Returns:
+            float: Предсказанный объем синтеза
+        """
+        # Аналогично предыдущим, но добавляем информацию о массе соли и кислоты
+        df_vsyn = features_df.copy()
+        
+        # Заполняем признаки как в предыдущих методах
+        # (металл, лиганд, растворитель, масса соли)
+        
+        # One-Hot Encoding для металла
+        for metal in metal_columns:
+            metal_label = metal.split('_')[1]
+            df_vsyn[metal] = 1 if metal_label == metal_type else 0
+        
+        # Добавляем дескрипторы металла
+        df_vsyn['Total molecular weight (metal)'] = mg.Composition(metal_type).weight
+        df_vsyn['Average ionic radius (metal)'] = mg.Element(mg.Composition(metal_type).elements[0]).average_ionic_radius
+        df_vsyn['Average electronegativity (metal)'] = mg.Composition(metal_type).average_electroneg
+        
+        # Добавляем информацию о молярных массах
+        df_vsyn["Молярка_соли"] = METAL_MOLAR_MASSES[metal_type]
+        df_vsyn["Молярка_кислоты"] = LIGAND_MOLAR_MASSES[ligand_type]
+        
+        # One-Hot Encoding для лиганда
+        for ligand in ligand_columns:
+            ligand_label = ligand.split('_')[1]
+            df_vsyn[ligand] = 1 if ligand_label == ligand_type else 0
+            
+        # Добавляем дескрипторы лиганда
+        ligand_descriptors, _ = safe_generate_features(ligand_type)
+        for column, value in ligand_descriptors.items():
+            df_vsyn[column] = value
+        
+        # One-Hot Encoding для растворителя
+        for solvent in solvent_columns:
+            solvent_label = solvent.split('_')[1]
+            df_vsyn[solvent] = 1 if solvent_label == solvent_type else 0
+            
+        # Добавляем дескрипторы растворителя
+        solvent_descriptors, _ = safe_generate_solvent_features(solvent_type)
+        for column, value in solvent_descriptors.items():
+            df_vsyn[column] = value
+            
+        # Добавляем информацию о массе соли и кислоты
+        df_vsyn["m (соли), г"] = salt_mass
+        df_vsyn["n_соли"] = salt_mass / METAL_MOLAR_MASSES[metal_type]
+        df_vsyn["m(кис-ты), г"] = acid_mass
+        df_vsyn["n_кислоты"] = acid_mass / LIGAND_MOLAR_MASSES[ligand_type]
+        
+        # Масштабируем признаки
+        vsyn_scaler = self.model_service.get_scaler('Vsyn')
+        categorical_columns = metal_columns + ligand_columns + solvent_columns
+        numeric_columns = np.setdiff1d(features_Vsyn, categorical_columns)
+        
+        df_vsyn_numeric = df_vsyn[numeric_columns].copy()
+        df_vsyn_numeric = pd.DataFrame(
+            vsyn_scaler.transform(df_vsyn_numeric),
+            columns=numeric_columns
+        )
+        
+        # Объединяем числовые и категориальные признаки
+        for col in categorical_columns:
+            if col in df_vsyn.columns:
+                df_vsyn_numeric[col] = df_vsyn[col]
+        
+        # Создаем DMatrix для XGBoost
+        dvsyn = xgb.DMatrix(df_vsyn_numeric[features_Vsyn])
+        
+        # Получаем модель и делаем предсказание
+        vsyn_model = self.model_service.get_model('Vsyn')
+        
+        vsyn = float(vsyn_model.predict(dvsyn)[0])
+        return round(vsyn, 3)
+    
+    def predict_temperature(
+        self,
+        features_df: pd.DataFrame,
+        metal_type: str,
+        ligand_type: str,
+        solvent_type: str,
+        salt_mass: float,
+        acid_mass: float,
+        vsyn: float = None,
+        tsyn: float = None,
+        tdry: float = None,
+        temp_type: str = 'Tsyn'
+    ) -> Dict[str, Any]:
+        """
+        Предсказывает температуру для синтеза, сушки или регенерации MOF.
+        
+        Args:
+            features_df: DataFrame с признаками
+            metal_type: Тип металла
+            ligand_type: Тип лиганда
+            solvent_type: Тип растворителя
+            salt_mass: Масса соли
+            acid_mass: Масса кислоты
+            vsyn: Объем синтеза
+            tsyn: Температура синтеза (для Tdry и Treg)
+            tdry: Температура сушки (для Treg)
+            temp_type: Тип температуры ('Tsyn', 'Tdry', 'Treg')
+            
+        Returns:
+            Dict[str, Any]: Результаты предсказания (температура, вероятность)
+        """
+        # Подготавливаем DataFrame с признаками
+        df_temp = features_df.copy()
+        
+        # Заполняем признаки как в предыдущих методах
+        # (металл, лиганд, растворитель, масса соли, масса кислоты)
+        
+        # One-Hot Encoding для металла
+        for metal in metal_columns:
+            metal_label = metal.split('_')[1]
+            df_temp[metal] = 1 if metal_label == metal_type else 0
+        
+        # Добавляем дескрипторы металла
+        df_temp['Total molecular weight (metal)'] = mg.Composition(metal_type).weight
+        df_temp['Average ionic radius (metal)'] = mg.Element(mg.Composition(metal_type).elements[0]).average_ionic_radius
+        df_temp['Average electronegativity (metal)'] = mg.Composition(metal_type).average_electroneg
+        
+        # Добавляем информацию о молярных массах
+        df_temp["Молярка_соли"] = METAL_MOLAR_MASSES[metal_type]
+        df_temp["Молярка_кислоты"] = LIGAND_MOLAR_MASSES[ligand_type]
+        
+        # One-Hot Encoding для лиганда
+        for ligand in ligand_columns:
+            ligand_label = ligand.split('_')[1]
+            df_temp[ligand] = 1 if ligand_label == ligand_type else 0
+            
+        # Добавляем дескрипторы лиганда
+        ligand_descriptors, _ = safe_generate_features(ligand_type)
+        for column, value in ligand_descriptors.items():
+            df_temp[column] = value
+        
+        # One-Hot Encoding для растворителя
+        for solvent in solvent_columns:
+            solvent_label = solvent.split('_')[1]
+            df_temp[solvent] = 1 if solvent_label == solvent_type else 0
+            
+        # Добавляем дескрипторы растворителя
+        solvent_descriptors, _ = safe_generate_solvent_features(solvent_type)
+        for column, value in solvent_descriptors.items():
+            df_temp[column] = value
+            
+        # Добавляем информацию о массе соли и кислоты
+        df_temp["m (соли), г"] = salt_mass
+        df_temp["n_соли"] = salt_mass / METAL_MOLAR_MASSES[metal_type]
+        df_temp["m(кис-ты), г"] = acid_mass
+        df_temp["n_кислоты"] = acid_mass / LIGAND_MOLAR_MASSES[ligand_type]
+        
+        # Добавляем информацию об объеме синтеза, если указано
+        if vsyn is not None:
+            df_temp["Vсин. (р-ля), мл"] = vsyn
+            
+        # Добавляем информацию о температуре синтеза, если указано
+        if tsyn is not None:
+            df_temp["Т.син., °С"] = tsyn
+            
+        # Добавляем информацию о температуре сушки, если указано
+        if tdry is not None:
+            df_temp["Т суш., °С"] = tdry
+            
+        # Выбираем признаки и скейлер в зависимости от типа температуры
+        if temp_type == 'Tsyn':
+            features = features_Tsyn
+            scaler_name = 'Tsyn'
+            model_name = 'Tsyn'
+        elif temp_type == 'Tdry':
+            features = features_Tdry
+            scaler_name = 'Tdry'
+            model_name = 'Tdry'
+        elif temp_type == 'Treg':
+            features = features_Treg
+            scaler_name = 'Treg'
+            model_name = 'Treg'
+        else:
+            raise ValueError(f"Неизвестный тип температуры: {temp_type}")
+            
+        # Масштабируем признаки
+        temp_scaler = self.model_service.get_scaler(scaler_name)
+        categorical_columns = metal_columns + ligand_columns + solvent_columns
+        
+        # Проверяем, что все нужные признаки есть в df_temp
+        for feature in features:
+            if feature not in df_temp.columns and feature not in categorical_columns:
+                logger.warning(f"Feature '{feature}' not found in DataFrame")
+        
+        numeric_columns = np.setdiff1d(features, categorical_columns)
+        
+        df_temp_numeric = df_temp[numeric_columns].copy()
+        df_temp_numeric = pd.DataFrame(
+            temp_scaler.transform(df_temp_numeric),
+            columns=numeric_columns
+        )
+        
+        # Объединяем числовые и категориальные признаки
+        for col in categorical_columns:
+            if col in df_temp.columns and col in features:
+                df_temp_numeric[col] = df_temp[col]
+        
+        # Преобразуем в тензор для PyTorch
+        input_tensor = torch.tensor(df_temp_numeric[features].values, dtype=torch.float32).to(self.device)
+        
+        # Получаем модель и энкодер
+        temp_model = self.model_service.get_model(model_name)
+        encoder = self.model_service.get_encoder(scaler_name)
+        
+        # Делаем предсказание
+        with torch.no_grad():
+            logits = temp_model(input_tensor)
+            probs = F.softmax(logits, dim=1)
+            preds = torch.argmax(probs, dim=1)
+        
+        # Декодируем предсказание
+        predicted_temp = encoder.inverse_transform(preds.cpu().numpy())[0]
+        temp_probability = probs[0][preds].item()
+        
+        # Формируем словарь с вероятностями для всех классов
+        probabilities = {
+            str(temp): float(prob)
+            for temp, prob in zip(encoder.classes_, probs[0].cpu().numpy())
+        }
+        
+        # Сортируем температуры по убыванию вероятности
+        sorted_temps = sorted(
+            probabilities.items(),
+            key=lambda x: x[1],
+            reverse=True
+        )
+        
+        return {
+            'temperature': predicted_temp,
+            'confidence': temp_probability,
+            'all_probabilities': probabilities,
+            'top_3_temperatures': [
+                {'value': temp, 'probability': prob}
+                for temp, prob in sorted_temps[:3]
+            ]
+        }
+    
+    def run_full_prediction(
+        self,
+        SBAT_m2_gr: float,
+        a0_mmoll_gr: float,
+        E_kDg_moll: float,
+        Ws_cm3_gr: float,
+        Sme_m2_gr: float
+    ) -> Dict[str, Any]:
+        """
+        Выполняет полное предсказание всех параметров синтеза MOF.
+        
+        Args:
+            SBAT_m2_gr: Удельная площадь поверхности (м²/г)
+            a0_mmoll_gr: Предельная адсорбция (ммоль/г)
+            E_kDg_moll: Энергия адсорбции азота (кДж/моль)
+            Ws_cm3_gr: Общий объем пор (см³/г)
+            Sme_m2_gr: Площадь поверхности мезопор (м²/г)
+            
+        Returns:
+            Dict[str, Any]: Результаты всех предсказаний
+        """
+        # Рассчитываем производные признаки
+        features_df = self.calculate_derived_features(
+            SBAT_m2_gr, a0_mmoll_gr, E_kDg_moll, Ws_cm3_gr, Sme_m2_gr
+        )
+        
+        # Предсказываем тип металла
+        metal_result = self.predict_metal(features_df)
+        metal_type = metal_result['metal_type']
+        
+        # Предсказываем тип лиганда
+        ligand_result = self.predict_ligand(features_df, metal_type)
+        ligand_type = ligand_result['ligand_type']
+        
+        # Предсказываем тип растворителя
+        solvent_result = self.predict_solvent(features_df, metal_type, ligand_type)
+        solvent_type = solvent_result['solvent_type']
+        
+        # Предсказываем массу соли
+        salt_mass = self.predict_salt_mass(features_df, metal_type, ligand_type, solvent_type)
+        
+        # Предсказываем массу кислоты
+        acid_mass = self.predict_acid_mass(features_df, metal_type, ligand_type, solvent_type, salt_mass)
+        
+        # Предсказываем объем синтеза
+        vsyn = self.predict_synthesis_volume(features_df, metal_type, ligand_type, solvent_type, salt_mass, acid_mass)
+        
+        # Предсказываем температуру синтеза
+        tsyn_result = self.predict_temperature(
+            features_df, metal_type, ligand_type, solvent_type, salt_mass, acid_mass, vsyn, 
+            temp_type='Tsyn'
+        )
+        tsyn = tsyn_result['temperature']
+        
+        # Предсказываем температуру сушки
+        tdry_result = self.predict_temperature(
+            features_df, metal_type, ligand_type, solvent_type, salt_mass, acid_mass, vsyn, tsyn, 
+            temp_type='Tdry'
+        )
+        tdry = tdry_result['temperature']
+        
+        # Предсказываем температуру регенерации
+        treg_result = self.predict_temperature(
+            features_df, metal_type, ligand_type, solvent_type, salt_mass, acid_mass, vsyn, tsyn, tdry, 
+            temp_type='Treg'
+        )
+        
+        # Формируем результат
+        return {
+            'metal': metal_result,
+            'ligand': ligand_result,
+            'solvent': solvent_result,
+            'salt_mass': salt_mass,
+            'acid_mass': acid_mass,
+            'synthesis_volume': vsyn,
+            'tsyn': tsyn_result,
+            'tdry': tdry_result,
+            'treg': treg_result,
+            'derived_features': {
+                'W0_cm3_g': features_df['W0, см3/г'][0],
+                'E0_KDG_moll': features_df['E0, кДж/моль'][0],
+                'x0_nm': features_df['х0, нм'][0],
+                'Wme_cm3_gr': features_df['Wme, см3/г'][0]
+            }
+        }
+
+================
+File: src/utils.py
+================
+import streamlit as st
+from pathlib import Path
+import json
+
+def set_page_config():
+    """Устанавливает базовую конфигурацию страницы"""
+    st.set_page_config(
+        page_title="AdsorpNET",
+        page_icon="🧪",
+        layout="wide",
+        initial_sidebar_state="expanded",
+    )
+    
+    # Загружаем пользовательские стили
+    load_custom_css()
+    
+    # Устанавливаем тему
+    if "theme" not in st.session_state:
+        st.session_state.theme = "light"
+    
+    # Добавляем переключатель темы в сайдбар
+    with st.sidebar:
+        theme = st.radio(
+            "Тема оформления",
+            ("light", "dark"),
+            key="theme",
+            on_change=switch_theme
+        )
+
+def load_custom_css():
+    """Загружает пользовательские стили CSS"""
+    custom_css = """
+    <style>
+        /* Light theme */
+        [data-theme="light"] {
+            --background-color: #ffffff;
+            --text-color: #000000;
+            --primary-color: #ff4b4b;
+        }
+        
+        /* Dark theme */
+        [data-theme="dark"] {
+            --background-color: #0e1117;
+            --text-color: #ffffff;
+            --primary-color: #ff4b4b;
+        }
+        
+        /* Common styles */
+        .stButton>button {
+            border-radius: 20px;
+            padding: 10px 24px;
+            transition: all 0.3s ease;
+        }
+        
+        .stButton>button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .stProgress > div > div {
+            background-color: var(--primary-color);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .st-emotion-cache-1v0mbdj {
+            animation: fadeIn 0.5s ease-in;
+        }
+    </style>
+    """
+    st.markdown(custom_css, unsafe_allow_html=True)
+
+def switch_theme():
+    """Переключает тему оформления"""
+    st.session_state.theme = "dark" if st.session_state.theme == "light" else "light"
+    
+def save_user_preferences():
+    """Сохраняет пользовательские настройки"""
+    prefs_path = Path("user_preferences.json")
+    preferences = {
+        "theme": st.session_state.theme,
+    }
+    with open(prefs_path, "w") as f:
+        json.dump(preferences, f)
+        
+def load_user_preferences():
+    """Загружает пользовательские настройки"""
+    prefs_path = Path("user_preferences.json")
+    if prefs_path.exists():
+        with open(prefs_path) as f:
+            preferences = json.load(f)
+            st.session_state.update(preferences)
+
+def show_error_message(message: str):
+    """Показывает сообщение об ошибке"""
+    st.error(f"❌ {message}")
+    
+def show_success_message(message: str):
+    """Показывает сообщение об успехе"""
+    st.success(f"✅ {message}")
+    
+def show_info_message(message: str):
+    """Показывает информационное сообщение"""
+    st.info(f"ℹ️ {message}")
+    
+def show_warning_message(message: str):
+    """Показывает предупреждение"""
+    st.warning(f"⚠️ {message}")
+
+def rate_limit(key: str, max_calls: int, time_window: int = 60):
+    """
+    Простой rate limiter для ограничения частоты вызовов
+    
+    Args:
+        key (str): Уникальный ключ для идентификации вызова
+        max_calls (int): Максимальное количество вызовов
+        time_window (int): Временное окно в секундах
+    
+    Returns:
+        bool: True если вызов разрешен, False если превышен лимит
+    """
+    import time
+    
+    if "rate_limit" not in st.session_state:
+        st.session_state.rate_limit = {}
+    
+    current_time = time.time()
+    rate_limit_key = f"rate_limit_{key}"
+    
+    if rate_limit_key not in st.session_state.rate_limit:
+        st.session_state.rate_limit[rate_limit_key] = []
+    
+    # Очищаем старые записи
+    st.session_state.rate_limit[rate_limit_key] = [
+        t for t in st.session_state.rate_limit[rate_limit_key]
+        if current_time - t < time_window
+    ]
+    
+    # Проверяем лимит
+    if len(st.session_state.rate_limit[rate_limit_key]) >= max_calls:
+        return False
+    
+    # Добавляем новый вызов
+    st.session_state.rate_limit[rate_limit_key].append(current_time)
+    return True
+
+================
+File: src/utils/__init__.py
+================
+"""
+Пакет утилит для проекта AdsorpNET.
+"""
+
+from .page_config import load_theme_css, load_user_preferences
+from .feature_generation import safe_generate_features, safe_generate_solvent_features
+from .messages import show_success_message, show_info_message, show_warning_message, show_error_message
+
+__all__ = [
+    'load_theme_css',
+    'load_user_preferences',
+    'safe_generate_features',
+    'safe_generate_solvent_features',
+    'show_success_message',
+    'show_info_message',
+    'show_warning_message',
+    'show_error_message'
+]
+
+================
+File: src/utils/batch_processing.py
+================
+import torch
+from typing import List, Dict, Any, Callable
+from concurrent.futures import ThreadPoolExecutor
+import numpy as np
+from ..config import MODEL_CONFIG
+
+class BatchProcessor:
+    """Класс для пакетной обработки данных."""
+    
+    def __init__(self, batch_size: int = 32, max_workers: int = 4):
+        """
+        Инициализация процессора пакетной обработки.
+        
+        Args:
+            batch_size: Размер пакета
+            max_workers: Максимальное количество параллельных потоков
+        """
+        self.batch_size = batch_size
+        self.max_workers = max_workers
+    
+    def create_batches(self, data: List[Dict[str, Any]]) -> List[List[Dict[str, Any]]]:
+        """
+        Разделяет данные на пакеты.
+        
+        Args:
+            data: Список словарей с входными данными
+            
+        Returns:
+            List[List[Dict[str, Any]]]: Список пакетов данных
+        """
+        return [
+            data[i:i + self.batch_size]
+            for i in range(0, len(data), self.batch_size)
+        ]
+    
+    def process_batch(
+        self,
+        batch: List[Dict[str, Any]],
+        process_fn: Callable[[Dict[str, Any]], Dict[str, Any]]
+    ) -> List[Dict[str, Any]]:
+        """
+        Обрабатывает один пакет данных.
+        
+        Args:
+            batch: Пакет данных
+            process_fn: Функция обработки одного элемента
+            
+        Returns:
+            List[Dict[str, Any]]: Результаты обработки пакета
+        """
+        with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
+            return list(executor.map(process_fn, batch))
+    
+    def process_all(
+        self,
+        data: List[Dict[str, Any]],
+        process_fn: Callable[[Dict[str, Any]], Dict[str, Any]]
+    ) -> List[Dict[str, Any]]:
+        """
+        Обрабатывает все данные пакетами.
+        
+        Args:
+            data: Список входных данных
+            process_fn: Функция обработки одного элемента
+            
+        Returns:
+            List[Dict[str, Any]]: Результаты обработки всех данных
+        """
+        batches = self.create_batches(data)
+        results = []
+        
+        for batch in batches:
+            batch_results = self.process_batch(batch, process_fn)
+            results.extend(batch_results)
+        
+        return results
+
+================
+File: src/utils/cache.py
+================
+from functools import lru_cache
+from typing import Dict, Any, Tuple
+import hashlib
+import json
+
+def create_cache_key(input_data: Dict[str, Any]) -> str:
+    """
+    Создает уникальный ключ для кэширования на основе входных данных.
+    
+    Args:
+        input_data: Словарь входных параметров
+        
+    Returns:
+        str: Уникальный хеш-ключ
+    """
+    # Сортируем ключи для обеспечения консистентности
+    sorted_items = sorted(input_data.items())
+    # Создаем строку для хэширования
+    cache_str = json.dumps(sorted_items)
+    # Создаем хеш
+    return hashlib.md5(cache_str.encode()).hexdigest()
+
+@lru_cache(maxsize=1000)
+def cached_prediction(cache_key: str, model_name: str) -> Dict[str, Any]:
+    """
+    Декоратор для кэширования результатов предсказаний.
+    
+    Args:
+        cache_key: Ключ кэша
+        model_name: Имя модели
+        
+    Returns:
+        Dict[str, Any]: Результат предсказания
+    """
+    return None  # Реальные значения будут сохраняться при использовании
+
+def clear_prediction_cache():
+    """Очищает кэш предсказаний."""
+    cached_prediction.cache_clear()
+
+================
+File: src/utils/cuda_optimization.py
+================
+import torch
+import logging
+from typing import Optional, Tuple
+
+logger = logging.getLogger(__name__)
+
+class CUDAOptimizer:
+    """Класс для оптимизации работы с CUDA."""
+    
+    @staticmethod
+    def get_optimal_device() -> torch.device:
+        """
+        Определяет оптимальное устройство для вычислений.
+        
+        Returns:
+            torch.device: Оптимальное устройство
+        """
+        if torch.cuda.is_available():
+            # Выбираем GPU с наибольшим объемом свободной памяти
+            device_count = torch.cuda.device_count()
+            if device_count > 1:
+                max_free_memory = 0
+                optimal_device = 0
+                
+                for i in range(device_count):
+                    torch.cuda.set_device(i)
+                    torch.cuda.empty_cache()
+                    free_memory = torch.cuda.get_device_properties(i).total_memory - torch.cuda.memory_allocated(i)
+                    if free_memory > max_free_memory:
+                        max_free_memory = free_memory
+                        optimal_device = i
+                
+                return torch.device(f'cuda:{optimal_device}')
+            return torch.device('cuda:0')
+        return torch.device('cpu')
+    
+    @staticmethod
+    def optimize_cuda_memory() -> None:
+        """Оптимизирует использование памяти CUDA."""
+        if torch.cuda.is_available():
+            # Очищаем кэш CUDA
+            torch.cuda.empty_cache()
+            # Включаем оптимизацию памяти
+            torch.cuda.set_per_process_memory_fraction(0.8)  # Используем 80% доступной памяти
+    
+    @staticmethod
+    def get_memory_stats(device: Optional[torch.device] = None) -> Tuple[int, int, int]:
+        """
+        Получает статистику использования памяти.
+        
+        Args:
+            device: Устройство для проверки
+            
+        Returns:
+            Tuple[int, int, int]: (всего памяти, использовано памяти, свободно памяти)
+        """
+        if device is None:
+            device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+            
+        if device.type == 'cuda':
+            total = torch.cuda.get_device_properties(device).total_memory
+            allocated = torch.cuda.memory_allocated(device)
+            free = total - allocated
+            return total, allocated, free
+        return 0, 0, 0  # Для CPU
+    
+    @staticmethod
+    def enable_cudnn_autotuner() -> None:
+        """Включает автонастройку cuDNN."""
+        if torch.cuda.is_available():
+            torch.backends.cudnn.benchmark = True
+            logger.info("cuDNN autotuner включен")
+
+================
+File: src/utils/data_processing.py
+================
+import numpy as np
+import pandas as pd
+from typing import Dict, Any, Union, Tuple
+from ..config import CALCULATION_CONSTANTS, VALIDATION_RULES
+import logging
+
+logger = logging.getLogger(__name__)
+
+class ValidationError(Exception):
+    """Исключение для ошибок валидации данных."""
+    pass
+
+def validate_input_parameters(parameters: Dict[str, float]) -> None:
+    """
+    Валидация входных параметров.
+    
+    Args:
+        parameters: Словарь с входными параметрами
+        
+    Raises:
+        ValidationError: Если параметры не проходят валидацию
+    """
+    for param_name, value in parameters.items():
+        if param_name in VALIDATION_RULES:
+            rules = VALIDATION_RULES[param_name]
+            if value < rules['min'] or value > rules['max']:
+                raise ValidationError(
+                    f"Параметр {param_name} должен быть в диапазоне "
+                    f"[{rules['min']}, {rules['max']}]"
+                )
+
+def calculate_derived_parameters(
+    SBAT_m2_gr: float,
+    a0_mmoll_gr: float,
+    E_kDg_moll: float,
+    Ws_cm3_gr: float,
+    Sme_m2_gr: float
+) -> Dict[str, float]:
+    """
+    Рассчитывает производные параметры на основе входных данных.
+    
+    Args:
+        SBAT_m2_gr: Удельная площадь поверхности (м2/г)
+        a0_mmoll_gr: Предельная адсорбция (ммоль/г)
+        E_kDg_moll: Энергия адсорбции азота (кДж/моль)
+        Ws_cm3_gr: Общий объем пор (см3/г)
+        Sme_m2_gr: Площадь поверхности мезопор (м2/г)
+        
+    Returns:
+        Dict[str, float]: Словарь с рассчитанными параметрами
+    """
+    # Объем микропор
+    W0_cm3_g = 0.034692 * a0_mmoll_gr
+    
+    # Энергия адсорбции по бензолу
+    E0_KDG_moll = E_kDg_moll / 0.33 if E_kDg_moll > 0 else 1e-6
+    
+    # Полуширина пор
+    x0_nm = 12 / E0_KDG_moll
+    
+    # Объем мезопор
+    Wme_cm3_gr = Ws_cm3_gr - W0_cm3_g
+    
+    return {
+        'W0_cm3_g': W0_cm3_g,
+        'E0_KDG_moll': E0_KDG_moll,
+        'x0_nm': x0_nm,
+        'Wme_cm3_gr': Wme_cm3_gr
+    }
+
+def normalize_features(
+    features: np.ndarray,
+    scaler: Any
+) -> np.ndarray:
+    """
+    Нормализация признаков с помощью переданного скейлера.
+    
+    Args:
+        features: Массив признаков
+        scaler: Объект скейлера
+        
+    Returns:
+        np.ndarray: Нормализованные признаки
+    """
+    try:
+        return scaler.transform(features)
+    except Exception as e:
+        logger.error(f"Ошибка при нормализации признаков: {str(e)}")
+        raise
+
+def prepare_features(
+    input_data: Dict[str, float],
+    features_list: list,
+    scaler: Any
+) -> np.ndarray:
+    """
+    Подготавливает признаки для модели.
+    
+    Args:
+        input_data: Словарь с входными данными
+        features_list: Список признаков в нужном порядке
+        scaler: Обученный скейлер
+        
+    Returns:
+        np.ndarray: Подготовленные признаки
+    """
+    # Создаем DataFrame с одной строкой
+    df = pd.DataFrame([input_data])
+    
+    # Выбираем только нужные признаки в правильном порядке
+    features = df[features_list].values
+    
+    # Нормализуем признаки
+    features_scaled = scaler.transform(features)
+    
+    return features_scaled
+
+def process_model_output(
+    output: np.ndarray,
+    label_encoder: Any,
+    top_k: int = 3
+) -> Tuple[str, float, list]:
+    """
+    Обрабатывает выход модели.
+    
+    Args:
+        output: Выход модели (вероятности классов)
+        label_encoder: Энкодер меток
+        top_k: Количество лучших предсказаний
+        
+    Returns:
+        Tuple[str, float, list]: (лучший класс, его вероятность, список топ-k предсказаний)
+    """
+    # Получаем вероятности
+    probabilities = output.flatten()
+    
+    # Находим индексы top_k лучших предсказаний
+    top_indices = np.argsort(probabilities)[-top_k:][::-1]
+    
+    # Получаем классы и их вероятности
+    predictions = [
+        (label_encoder.inverse_transform([idx])[0], float(probabilities[idx]))
+        for idx in top_indices
+    ]
+    
+    # Возвращаем лучший класс, его вероятность и все топ предсказания
+    return predictions[0][0], predictions[0][1], predictions
+
+================
+File: src/utils/feature_generation.py
+================
+from rdkit import Chem
+from rdkit.Chem import Descriptors, Lipinski
+import numpy as np
+
+def analyze_ligand(ligand_name):
+    """
+    Analyzes a ligand and computes various molecular descriptors.
+
+    Parameters:
+    - ligand_name (str): The name of the ligand.
+
+    Returns:
+    - dict: A dictionary containing molecular descriptors.
+    """
+    ligand_smiles = {
+        'BTC': 'C1(=CC(=CC(=C1)C(=O)[O-])C(=O)[O-])C(=O)[O-]',
+        'BDC': 'O=C([O-])C1=CC=C(C=C1)C(=O)[O-]',
+        'NH2-BDC': 'NC1=C(C=CC(=C1)C(=O)[O-])C(=O)[O-]',
+        'BTB': 'c1cc(ccc1c2cc(cc(c2)c3ccc(cc3)C(=O)[O-])c4ccc(cc4)C(=O)[O-])C(=O)[O-]'
+    }
+
+    smiles = ligand_smiles.get(ligand_name)
+    if not smiles:
+        return f"Ligand {ligand_name} not found in the dictionary."
+
+    mol = Chem.MolFromSmiles(smiles)
+    if not mol:
+        return "Invalid SMILES string."
+
+    def count_substructures(pattern):
+        return len(mol.GetSubstructMatches(pattern))
+
+    # Define SMARTS patterns
+    carboxylate_pattern = Chem.MolFromSmarts('C(=O)[O-]')
+    carboxylic_acid_pattern = Chem.MolFromSmarts('C(=O)O')
+    amino_group_pattern = Chem.MolFromSmarts('N([H])[H]')  # Specifically -NH₂
+
+    # Counting carboxyl groups
+    carboxyl_groups = count_substructures(carboxylate_pattern) + count_substructures(carboxylic_acid_pattern)
+    
+    # Counting aromatic rings using RDKit's ring info
+    aromatic_rings = sum(1 for ring in mol.GetRingInfo().AtomRings() 
+                         if all(mol.GetAtomWithIdx(idx).GetIsAromatic() for idx in ring))
+    
+    # Counting amino groups
+    amino_groups = count_substructures(amino_group_pattern)
+
+    # Counting atoms
+    carbon_atoms = sum(1 for atom in mol.GetAtoms() if atom.GetSymbol() == 'C')
+    oxygen_atoms = sum(1 for atom in mol.GetAtoms() if atom.GetSymbol() == 'O')
+    nitrogen_atoms = sum(1 for atom in mol.GetAtoms() if atom.GetSymbol() == 'N')
+
+    # Calculating descriptors
+    molecular_weight = Descriptors.MolWt(mol)
+    logP = Descriptors.MolLogP(mol)
+    TPSA = Descriptors.TPSA(mol)
+    h_bond_acceptors = Lipinski.NumHAcceptors(mol)
+    h_bond_donors = Lipinski.NumHDonors(mol)
+
+    return {
+        'carboxyl_groups (ligand)': carboxyl_groups,
+        'aromatic_rings (ligand)': aromatic_rings,
+        'carbon_atoms (ligand)': carbon_atoms,
+        'oxygen_atoms (ligand)': oxygen_atoms,
+        'nitrogen_atoms (ligand)': nitrogen_atoms,
+        'molecular_weight (ligand)': molecular_weight,
+        'amino_groups (ligand)': amino_groups,
+        'logP (ligand)': logP,
+        'TPSA (ligand)': TPSA,
+        'h_bond_acceptors (ligand)': h_bond_acceptors,
+        'h_bond_donors (ligand)': h_bond_donors
+    }
+
+def safe_generate_features(ligand_type):
+    """
+    Safely generates molecular descriptors for a given ligand.
+
+    Parameters:
+    - ligand_type (str): The name of the ligand.
+
+    Returns:
+    - tuple: (dict of molecular descriptors, list of column names)
+    """
+    # Define the new_columns first
+    new_columns = [
+        'carboxyl_groups (ligand)', 
+        'aromatic_rings (ligand)', 
+        'carbon_atoms (ligand)', 
+        'oxygen_atoms (ligand)', 
+        'nitrogen_atoms (ligand)', 
+        'molecular_weight (ligand)', 
+        'amino_groups (ligand)', 
+        'logP (ligand)', 
+        'TPSA (ligand)', 
+        'h_bond_acceptors (ligand)', 
+        'h_bond_donors (ligand)'
+    ]
+    
+    try:
+        result = analyze_ligand(ligand_type)
+        if isinstance(result, str):
+            return {column: None for column in new_columns}, new_columns
+        return result, new_columns
+    except Exception as e:
+        print(f"Error processing ligand {ligand_type}: {e}")
+        return {column: None for column in new_columns}, new_columns
+
+def parse_solvent_mixture(solvent_str):
+    """
+    Parses a solvent mixture string separated by '/' and retrieves their SMILES strings.
+
+    Parameters:
+    - solvent_str (str): The solvent mixture string (e.g., 'Этанол/Вода').
+
+    Returns:
+    - list: A list of SMILES strings corresponding to the solvents.
+    """
+    solvent_smiles_russian = {
+        'ДМФА': 'O=CN(C)C',
+        'Этанол': 'CCO',
+        'Вода': 'O',
+        'ДМСО': 'CS(=O)C',
+        'Ацетонитрил': 'CC#N'
+    }
+    
+    components = solvent_str.split('/')
+    return [solvent_smiles_russian.get(comp.strip()) for comp in components]
+
+def compute_solvent_descriptors(smiles_list):
+    """
+    Computes molecular descriptors for a list of SMILES strings and aggregates them.
+
+    Parameters:
+    - smiles_list (list): A list of SMILES strings.
+
+    Returns:
+    - dict or None: A dictionary of aggregated descriptors or None if no valid SMILES.
+    """
+    descriptors_list = []
+    for smiles in smiles_list:
+        if not smiles:
+            continue  # Skip if SMILES is None
+        mol = Chem.MolFromSmiles(smiles)
+        if mol:
+            descriptors = {
+                'MolWt': Descriptors.MolWt(mol),
+                'LogP': Descriptors.MolLogP(mol),
+                'NumHDonors': Descriptors.NumHDonors(mol),
+                'NumHAcceptors': Descriptors.NumHAcceptors(mol)
+            }
+            descriptors_list.append(descriptors)
+        else:
+            print(f"Invalid SMILES string encountered: {smiles}")
+    
+    # Aggregate descriptors (mean)
+    if descriptors_list:
+        aggregated = {
+            key: np.mean([d[key] for d in descriptors_list])
+            for key in descriptors_list[0]
+        }
+        return aggregated
+    else:
+        return None
+
+def analyze_solvent(solvent_str):
+    """
+    Analyzes a solvent mixture and computes aggregated molecular descriptors.
+
+    Parameters:
+    - solvent_str (str): The solvent mixture string (e.g., 'Этанол/Вода').
+
+    Returns:
+    - dict: A dictionary of aggregated molecular descriptors.
+    """
+    smiles_list = parse_solvent_mixture(solvent_str)
+    descriptors = compute_solvent_descriptors(smiles_list)
+    if descriptors:
+        return descriptors
+    else:
+        return f"Solvent mixture '{solvent_str}' could not be processed."
+
+def safe_generate_solvent_features(solvent_str):
+    """
+    Safely generates molecular descriptors for a given solvent mixture.
+
+    Parameters:
+    - solvent_str (str): The solvent mixture string.
+
+    Returns:
+    - tuple: (dict of molecular descriptors, list of column names)
+    """
+    # Define the new_columns for solvent descriptors
+    solvent_new_columns = [
+        'MolWt',
+        'LogP',
+        'NumHDonors',
+        'NumHAcceptors'
+    ]
+
+    try:
+        result = analyze_solvent(solvent_str)
+        if isinstance(result, str):
+            # If an error message is returned from analyze_solvent
+            return {column: None for column in solvent_new_columns}, solvent_new_columns
+        return result, solvent_new_columns
+    except Exception as e:
+        print(f"Error processing solvent '{solvent_str}': {e}")
+        return {column: None for column in solvent_new_columns}, solvent_new_columns
+
+================
+File: src/utils/messages.py
+================
+"""
+Модуль для отображения различных типов сообщений в приложении.
+"""
+
+import streamlit as st
+
+def show_success_message(message: str):
+    """
+    Отображает сообщение об успехе.
+    
+    Args:
+        message (str): Текст сообщения
+    """
+    st.success(message)
+
+def show_info_message(message: str):
+    """
+    Отображает информационное сообщение.
+    
+    Args:
+        message (str): Текст сообщения
+    """
+    st.info(message)
+
+def show_warning_message(message: str):
+    """
+    Отображает предупреждающее сообщение.
+    
+    Args:
+        message (str): Текст сообщения
+    """
+    st.warning(message)
+
+def show_error_message(message: str):
+    """
+    Отображает сообщение об ошибке.
+    
+    Args:
+        message (str): Текст сообщения
+    """
+    st.error(message)
+
+================
+File: src/utils/page_config.py
+================
+"""
+Модуль для конфигурации страниц Streamlit.
+"""
+
+import streamlit as st
+
+def load_theme_css():
+    """
+    Загружает стили темы без вызова set_page_config.
+    Используется для сохранения темы в страницах.
+    """
+    # Загружаем пользовательские стили
+    css = """
+    <style>
+        /* Light theme */
+        [data-theme="light"] {
+            --background-color: #ffffff;
+            --text-color: #000000;
+            --primary-color: #ff4b4b;
+        }
+        
+        /* Dark theme */
+        [data-theme="dark"] {
+            --background-color: #0e1117;
+            --text-color: #ffffff;
+            --primary-color: #ff4b4b;
+        }
+        
+        /* Common styles */
+        .stButton>button {
+            border-radius: 20px;
+            padding: 10px 24px;
+            transition: all 0.3s ease;
+        }
+        
+        .stButton>button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .stProgress > div > div {
+            background-color: var(--primary-color);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .st-emotion-cache-1v0mbdj {
+            animation: fadeIn 0.5s ease-in;
+        }
+    </style>
+    """
+    st.markdown(css, unsafe_allow_html=True)
+
+def load_user_preferences():
+    """Загружает пользовательские настройки."""
+    # Здесь можно добавить загрузку пользовательских настроек из файла или базы данных
+    if "theme" not in st.session_state:
+        st.session_state.theme = "light"
+
+================
+File: src/utils/profiling.py
+================
+import torch
+from torch.profiler import profile, record_function, ProfilerActivity
+from typing import List, Optional, Dict, Any
+import logging
+from pathlib import Path
+import json
+from datetime import datetime
+
+logger = logging.getLogger(__name__)
+
+class ModelProfiler:
+    """Класс для профилирования моделей."""
+    
+    def __init__(
+        self,
+        activities: Optional[List[ProfilerActivity]] = None,
+        profile_memory: bool = True,
+        with_stack: bool = True,
+        output_dir: str = "profiling_results"
+    ):
+        """
+        Инициализация профилировщика.
+        
+        Args:
+            activities: Список активностей для профилирования
+            profile_memory: Профилировать ли использование памяти
+            with_stack: Включать ли информацию о стеке вызовов
+            output_dir: Директория для сохранения результатов
+        """
+        self.activities = activities or [
+            ProfilerActivity.CPU,
+            ProfilerActivity.CUDA
+        ]
+        self.profile_memory = profile_memory
+        self.with_stack = with_stack
+        self.output_dir = Path(output_dir)
+        self.output_dir.mkdir(exist_ok=True)
+        
+    def profile_model(
+        self,
+        model: torch.nn.Module,
+        input_data: Dict[str, Any],
+        warm_up: int = 5,
+        steps: int = 10
+    ) -> Dict[str, Any]:
+        """
+        Профилирование модели.
+        
+        Args:
+            model: Модель для профилирования
+            input_data: Входные данные
+            warm_up: Количество прогревочных итераций
+            steps: Количество итераций для профилирования
+            
+        Returns:
+            Dict[str, Any]: Результаты профилирования
+        """
+        results = {}
+        
+        with profile(
+            activities=self.activities,
+            profile_memory=self.profile_memory,
+            with_stack=self.with_stack,
+            record_shapes=True
+        ) as prof:
+            # Прогрев
+            for _ in range(warm_up):
+                with record_function("warm_up"):
+                    _ = model(input_data)
+            
+            # Профилирование
+            for _ in range(steps):
+                with record_function("inference"):
+                    _ = model(input_data)
+        
+        # Анализ результатов
+        results["execution_time"] = {
+            "avg_ms": prof.key_averages().total_average().cpu_time_total / 1000,
+            "max_ms": max(e.cpu_time_total for e in prof.events()) / 1000
+        }
+        
+        if self.profile_memory:
+            results["memory"] = {
+                "max_allocated_mb": torch.cuda.max_memory_allocated() / 1024**2,
+                "max_reserved_mb": torch.cuda.max_memory_reserved() / 1024**2
+            }
+        
+        # Анализ узких мест
+        results["bottlenecks"] = []
+        for event in prof.key_averages():
+            if event.cpu_time_total > 1000:  # > 1ms
+                results["bottlenecks"].append({
+                    "name": event.key,
+                    "cpu_time_ms": event.cpu_time_total / 1000,
+                    "cuda_time_ms": event.cuda_time_total / 1000 if event.cuda_time_total else 0,
+                    "memory_mb": event.cpu_memory_usage / 1024**2 if event.cpu_memory_usage else 0
+                })
+        
+        # Сохранение результатов
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        output_file = self.output_dir / f"profile_{timestamp}.json"
+        with open(output_file, "w") as f:
+            json.dump(results, f, indent=4)
+        
+        logger.info(f"Результаты профилирования сохранены в {output_file}")
+        return results
+    
+    @staticmethod
+    def analyze_trace(
+        model: torch.nn.Module,
+        input_data: Dict[str, Any],
+        trace_file: str
+    ) -> None:
+        """
+        Создает trace-файл для анализа в Chrome Trace Viewer.
+        
+        Args:
+            model: Модель для профилирования
+            input_data: Входные данные
+            trace_file: Путь для сохранения trace-файла
+        """
+        with profile(
+            activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA],
+            with_stack=True,
+            record_shapes=True
+        ) as prof:
+            model(input_data)
+        
+        prof.export_chrome_trace(trace_file)
+        logger.info(f"Trace-файл сохранен в {trace_file}")
+    
+    @staticmethod
+    def print_summary(results: Dict[str, Any]) -> None:
+        """
+        Выводит сводку результатов профилирования.
+        
+        Args:
+            results: Результаты профилирования
+        """
+        print("\n=== Результаты профилирования ===")
+        print(f"Среднее время выполнения: {results['execution_time']['avg_ms']:.2f} мс")
+        print(f"Максимальное время выполнения: {results['execution_time']['max_ms']:.2f} мс")
+        
+        if "memory" in results:
+            print(f"\nИспользование памяти:")
+            print(f"Максимально выделено: {results['memory']['max_allocated_mb']:.2f} МБ")
+            print(f"Максимально зарезервировано: {results['memory']['max_reserved_mb']:.2f} МБ")
+        
+        if results["bottlenecks"]:
+            print("\nУзкие места:")
+            for b in results["bottlenecks"]:
+                print(f"\nОперация: {b['name']}")
+                print(f"CPU время: {b['cpu_time_ms']:.2f} мс")
+                print(f"CUDA время: {b['cuda_time_ms']:.2f} мс")
+                print(f"Использование памяти: {b['memory_mb']:.2f} МБ")
+
+================
+File: src/utils/pruning.py
+================
+import torch
+import torch.nn.utils.prune as prune
+from typing import Dict, Any, List, Union, Optional
+import logging
+from pathlib import Path
+import json
+
+logger = logging.getLogger(__name__)
+
+class ModelPruner:
+    """Класс для прунинга моделей PyTorch."""
+    
+    def __init__(
+        self,
+        amount: float = 0.3,
+        pruning_method: str = "l1_unstructured",
+        save_dir: str = "pruning_results"
+    ):
+        """
+        Инициализация прунера.
+        
+        Args:
+            amount: Доля параметров для удаления (0.0 - 1.0)
+            pruning_method: Метод прунинга ('l1_unstructured', 'random_unstructured')
+            save_dir: Директория для сохранения результатов
+        """
+        self.amount = amount
+        self.pruning_method = pruning_method
+        self.save_dir = Path(save_dir)
+        self.save_dir.mkdir(exist_ok=True)
+        
+        self._pruning_methods = {
+            "l1_unstructured": prune.l1_unstructured,
+            "random_unstructured": prune.random_unstructured
+        }
+    
+    def _get_pruning_method(self):
+        """Получает функцию прунинга по имени."""
+        if self.pruning_method not in self._pruning_methods:
+            raise ValueError(f"Неподдерживаемый метод прунинга: {self.pruning_method}")
+        return self._pruning_methods[self.pruning_method]
+    
+    def analyze_model(self, model: torch.nn.Module) -> Dict[str, Any]:
+        """
+        Анализирует модель перед прунингом.
+        
+        Args:
+            model: Модель для анализа
+            
+        Returns:
+            Dict[str, Any]: Статистика модели
+        """
+        stats = {
+            "total_params": 0,
+            "zero_params": 0,
+            "layers": {}
+        }
+        
+        for name, module in model.named_modules():
+            if isinstance(module, (torch.nn.Linear, torch.nn.Conv2d)):
+                params = torch.numel(module.weight)
+                zeros = torch.sum(module.weight == 0).item()
+                stats["total_params"] += params
+                stats["zero_params"] += zeros
+                stats["layers"][name] = {
+                    "type": module.__class__.__name__,
+                    "params": params,
+                    "zeros": zeros,
+                    "sparsity": zeros / params if params > 0 else 0
+                }
+        
+        return stats
+    
+    def prune_model(
+        self,
+        model: torch.nn.Module,
+        layer_types: Optional[List[str]] = None
+    ) -> Dict[str, Any]:
+        """
+        Применяет прунинг к модели.
+        
+        Args:
+            model: Модель для прунинга
+            layer_types: Типы слоев для прунинга (по умолчанию Linear и Conv2d)
+            
+        Returns:
+            Dict[str, Any]: Результаты прунинга
+        """
+        if layer_types is None:
+            layer_types = ["Linear", "Conv2d"]
+            
+        pruning_fn = self._get_pruning_method()
+        before_stats = self.analyze_model(model)
+        
+        # Применяем прунинг
+        for name, module in model.named_modules():
+            if any(isinstance(module, getattr(torch.nn, t)) for t in layer_types):
+                pruning_fn(module, name='weight', amount=self.amount)
+                prune.remove(module, 'weight')  # Делаем прунинг постоянным
+        
+        after_stats = self.analyze_model(model)
+        
+        results = {
+            "method": self.pruning_method,
+            "amount": self.amount,
+            "before": before_stats,
+            "after": after_stats,
+            "compression_ratio": before_stats["total_params"] / (after_stats["total_params"] - after_stats["zero_params"])
+        }
+        
+        # Сохраняем результаты
+        output_file = self.save_dir / f"pruning_results_{self.pruning_method}.json"
+        with open(output_file, "w") as f:
+            json.dump(results, f, indent=4)
+        
+        logger.info(f"Результаты прунинга сохранены в {output_file}")
+        return results
+    
+    @staticmethod
+    def print_summary(results: Dict[str, Any]) -> None:
+        """
+        Выводит сводку результатов прунинга.
+        
+        Args:
+            results: Результаты прунинга
+        """
+        print("\n=== Результаты прунинга ===")
+        print(f"Метод: {results['method']}")
+        print(f"Доля параметров для удаления: {results['amount']:.2%}")
+        print(f"\nДо прунинга:")
+        print(f"Всего параметров: {results['before']['total_params']:,}")
+        print(f"Нулевых параметров: {results['before']['zero_params']:,}")
+        print(f"Начальная разреженность: {results['before']['zero_params']/results['before']['total_params']:.2%}")
+        print(f"\nПосле прунинга:")
+        print(f"Всего параметров: {results['after']['total_params']:,}")
+        print(f"Нулевых параметров: {results['after']['zero_params']:,}")
+        print(f"Конечная разреженность: {results['after']['zero_params']/results['after']['total_params']:.2%}")
+        print(f"\nКоэффициент сжатия: {results['compression_ratio']:.2f}x")
+
+================
+File: src/utils/quantization.py
+================
+import torch
+from typing import Optional
+import logging
+
+logger = logging.getLogger(__name__)
+
+class ModelQuantizer:
+    """Класс для квантизации моделей PyTorch."""
+    
+    @staticmethod
+    def quantize_dynamic(model: torch.nn.Module, dtype: Optional[torch.dtype] = torch.qint8) -> torch.nn.Module:
+        """
+        Применяет динамическую квантизацию к модели.
+        
+        Args:
+            model: Исходная модель
+            dtype: Тип данных для квантизации
+            
+        Returns:
+            torch.nn.Module: Квантизированная модель
+        """
+        try:
+            quantized_model = torch.quantization.quantize_dynamic(
+                model,
+                {torch.nn.Linear, torch.nn.Conv2d},
+                dtype=dtype
+            )
+            logger.info("Модель успешно квантизирована")
+            return quantized_model
+        except Exception as e:
+            logger.error(f"Ошибка при квантизации модели: {str(e)}")
+            return model
+    
+    @staticmethod
+    def prepare_static_quantization(model: torch.nn.Module) -> torch.nn.Module:
+        """
+        Подготавливает модель к статической квантизации.
+        
+        Args:
+            model: Исходная модель
+            
+        Returns:
+            torch.nn.Module: Подготовленная модель
+        """
+        model.qconfig = torch.quantization.get_default_qconfig('fbgemm')
+        model_prepared = torch.quantization.prepare(model)
+        return model_prepared
+    
+    @staticmethod
+    def quantize_static(model: torch.nn.Module) -> torch.nn.Module:
+        """
+        Применяет статическую квантизацию к подготовленной модели.
+        
+        Args:
+            model: Подготовленная модель
+            
+        Returns:
+            torch.nn.Module: Квантизированная модель
+        """
+        try:
+            quantized_model = torch.quantization.convert(model)
+            logger.info("Модель успешно квантизирована статически")
+            return quantized_model
+        except Exception as e:
+            logger.error(f"Ошибка при статической квантизации: {str(e)}")
+            return model
+
+================
+File: static/style.css
+================
+/* static/style.css */
+
+/* Стиль для основного заголовка */
+.main-title {
+  font-size: 48px;
+  font-weight: bold;
+  color: white; /* Изменено на белый цвет */
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Стиль для секционных заголовков */
+.section-title {
+  font-size: 36px;
+  font-weight: bold;
+  color: white; /* Изменено на белый цвет */
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+/* Стиль для основного текста */
+.div_text {
+  font-size: 20px;
+  color: white; /* Изменено на белый цвет */
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Стиль для рамки вокруг изображения */
+.image-frame {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white; /* Белый фон для изображения */
+  padding: 10px;
+  border: 2px solid #483D8B;
+  border-radius: 10px;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Дополнительные стили для фона страницы, если необходимо */
+body {
+  background-color: #2c3e50; /* Тёмный фон для контраста с белым текстом */
+}
+
+
+.highlight {
+  border-radius: 0.4rem;
+  color: purple;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+.bold {
+  padding-left: 1rem;
+  font-weight: 700;
+}
+.blue {
+  background-color: yellow;
+}
+.red {
+  background-color: lightblue;
+}
+
+/*for information text */
+.div_text{
+  border:3px solid white;
+  padding:10px;
+  background-color: black;
+
+}
+
+/*for slider form */
+.css-1vq4p4l {
+    padding: 4rem 1rem 1.5rem;
+}
+
+/*for submit label */
+.css-1fv8s86 p{
+    word-break: break-word;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+/*for input box */
+.stNumberInput{
+    border:1px solid white;
+    padding:10px;
+    background-color: black;
+}
+
+/*for input labels */
+.css-1yy6isu p {
+    word-break: break-word;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+/*for features tables styling when predict*/
+.css-c34i5s {
+    border-bottom: 1px solid rgba(250, 250, 250, 0.1);
+    border-right: 1px solid rgba(250, 250, 250, 0.1);
+    vertical-align: middle;
+    padding: 0.25rem 0.375rem;
+    font-weight: 700;
+    color: rgb(250 250 250);
+    background-color: black;
+}
+
+/*for features values styling when predict*/
+.css-4sszyo {
+    border-bottom: 1px solid rgba(250, 250, 250, 0.1);
+    border-right: 1px solid rgba(250, 250, 250, 0.1);
+    vertical-align: middle;
+    padding: 0.25rem 0.375rem;
+    font-weight: 700;
+    background-color: black;
+}
+
+================
+File: saved_models/models_list.py
+================
+import streamlit as st
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import joblib
+import pandas as pd
+import numpy as np
+
+# ======================================
+# 1. Define the Model Architecture
+# ======================================
+
+# Define feature names as used during training
+features_metal = [
+    "W0, см3/г",
+    "E0, кДж/моль",
+    "х0, нм",
+    "а0, ммоль/г",
+    "E,  кДж/моль",
+    "SБЭТ, м2/г",
+    "Ws, см3/г",
+    "Sme, м2/г",
+    "Wme, см3/г",
+    "Adsorption_Potential",
+    "Capacity_Density",
+    "K_equilibrium",
+    "Delta_G",
+    "SurfaceArea_MicroVol_Ratio",
+    "Adsorption_Energy_Ratio",
+    "S_BET_E",
+    "x0_W0",
+    "B_micropore",
+]
+
+
+features_ligand = [
+    "W0, см3/г",
+    "E0, кДж/моль",
+    "х0, нм",
+    "а0, ммоль/г",
+    "E,  кДж/моль",
+    "SБЭТ, м2/г",
+    "Ws, см3/г",
+    "Sme, м2/г",
+    "Wme, см3/г",
+    "Adsorption_Potential",
+    "Capacity_Density",
+    "K_equilibrium",
+    "Delta_G",
+    "SurfaceArea_MicroVol_Ratio",
+    "Adsorption_Energy_Ratio",
+    "S_BET_E",
+    "x0_W0",
+    "B_micropore",
+    
+    "Металл_Al",
+    "Металл_Cu",
+    "Металл_Fe",
+    "Металл_La",
+    "Металл_Zn",
+    "Металл_Zr",
+    
+    "Total molecular weight (metal)",
+    "Average ionic radius (metal)",
+    "Average electronegativity (metal)",
+]
+
+features_solvent = [
+    "W0, см3/г",
+    "E0, кДж/моль",
+    "х0, нм",
+    "а0, ммоль/г",
+    "E,  кДж/моль",
+    "SБЭТ, м2/г",
+    "Ws, см3/г",
+    "Sme, м2/г",
+    "Wme, см3/г",
+    "Adsorption_Potential",
+    "Capacity_Density",
+    "K_equilibrium",
+    "Delta_G",
+    "SurfaceArea_MicroVol_Ratio",
+    "Adsorption_Energy_Ratio",
+    "S_BET_E",
+    "x0_W0",
+    "B_micropore",
+    
+    "Металл_Al",
+    "Металл_Cu",
+    "Металл_Fe",
+    "Металл_La",
+    "Металл_Zn",
+    "Металл_Zr",
+    
+    "Total molecular weight (metal)",
+    "Average ionic radius (metal)",
+    "Average electronegativity (metal)",
+    
+    "Молярка_соли",
+    "Молярка_кислоты",
+    
+    "Лиганд_BDC",
+    "Лиганд_BTB",
+    "Лиганд_BTC",
+    
+    "carboxyl_groups (ligand)",
+    "aromatic_rings (ligand)",
+    "carbon_atoms (ligand)",
+    "oxygen_atoms (ligand)",
+    "nitrogen_atoms (ligand)",
+    "molecular_weight (ligand)",
+    "amino_groups (ligand)",
+    "logP (ligand)",
+    "TPSA (ligand)",
+    "h_bond_acceptors (ligand)",
+    "h_bond_donors (ligand)",
+    
+]
+
+features_salt_mass = [
+    'W0, см3/г', 'E0, кДж/моль', 'х0, нм', 'а0, ммоль/г', 'E,  кДж/моль',
+    'SБЭТ, м2/г', 'Ws, см3/г', 'Sme, м2/г', 'Wme, см3/г', 
+    'Adsorption_Potential', 'Capacity_Density', 'K_equilibrium', 'Delta_G', 
+    'SurfaceArea_MicroVol_Ratio', 'Adsorption_Energy_Ratio', 'S_BET_E', 'x0_W0',"B_micropore",
+    
+     'Металл_Al', 'Металл_Cu', 'Металл_Fe', 'Металл_La', 'Металл_Zn',
+       'Металл_Zr', 'Total molecular weight (metal)', 
+    'Average ionic radius (metal)', 'Average electronegativity (metal)',
+    
+    'Молярка_соли','Молярка_кислоты',
+    
+    'Лиганд_BDC', 'Лиганд_BTB', 'Лиганд_BTC',
+    
+    'carboxyl_groups (ligand)', 'aromatic_rings (ligand)',
+       'carbon_atoms (ligand)', 'oxygen_atoms (ligand)',
+       'nitrogen_atoms (ligand)', 'molecular_weight (ligand)',
+       'amino_groups (ligand)', 'logP (ligand)', 'TPSA (ligand)',
+       'h_bond_acceptors (ligand)', 'h_bond_donors (ligand)',
+       
+       'Растворитель_ДМФА', 'Растворитель_ДМФА/Этанол/Вода',
+       'MolWt', 'LogP', 'NumHDonors',
+       'NumHAcceptors'
+]
+
+
+features_acid_mass = [
+    'W0, см3/г', 'E0, кДж/моль', 'х0, нм', 'а0, ммоль/г', 'E,  кДж/моль',
+    'SБЭТ, м2/г', 'Ws, см3/г', 'Sme, м2/г', 'Wme, см3/г', 
+    'Adsorption_Potential', 'Capacity_Density', 'K_equilibrium', 'Delta_G', 
+    'SurfaceArea_MicroVol_Ratio', 'Adsorption_Energy_Ratio', 'S_BET_E', 'x0_W0',"B_micropore",
+    
+     'Металл_Al', 'Металл_Cu', 'Металл_Fe', 'Металл_La', 'Металл_Zn',
+       'Металл_Zr', 'Total molecular weight (metal)', 
+    'Average ionic radius (metal)', 'Average electronegativity (metal)',
+    
+    'Молярка_соли','Молярка_кислоты',
+    
+    'Лиганд_BDC', 'Лиганд_BTB', 'Лиганд_BTC',
+    
+    'carboxyl_groups (ligand)', 'aromatic_rings (ligand)',
+       'carbon_atoms (ligand)', 'oxygen_atoms (ligand)',
+       'nitrogen_atoms (ligand)', 'molecular_weight (ligand)',
+       'amino_groups (ligand)', 'logP (ligand)', 'TPSA (ligand)',
+       'h_bond_acceptors (ligand)', 'h_bond_donors (ligand)',
+       
+       'Растворитель_ДМФА', 'Растворитель_ДМФА/Этанол/Вода',
+       'MolWt', 'LogP', 'NumHDonors',
+       'NumHAcceptors',
+       
+       "m (соли), г",'n_соли'
+]
+
+
+features_Vsyn = [
+    'W0, см3/г',  'E0, кДж/моль',  'х0, нм',  'а0, ммоль/г',  'E,  кДж/моль',  'SБЭТ, м2/г', 'Ws, см3/г',  'Sme, м2/г',
+    'Wme, см3/г',  'Adsorption_Potential',  'Capacity_Density',  'K_equilibrium',  'Delta_G',  'SurfaceArea_MicroVol_Ratio', 
+    'Adsorption_Energy_Ratio',  'S_BET_E',  'x0_W0',  'B_micropore', 
+    
+    'Металл_Al',  'Металл_Cu',  'Металл_Fe',  'Металл_La',
+    'Металл_Zn',  'Металл_Zr',  'Total molecular weight (metal)',  'Average ionic radius (metal)',  'Average electronegativity (metal)',
+    
+    'Молярка_соли',  'Молярка_кислоты',  'Лиганд_BDC',  'Лиганд_BTB',  'Лиганд_BTC',  'carboxyl_groups (ligand)',  'aromatic_rings (ligand)',
+    'carbon_atoms (ligand)',  'oxygen_atoms (ligand)',  'nitrogen_atoms (ligand)',  'molecular_weight (ligand)',  'amino_groups (ligand)',
+    'logP (ligand)',  'TPSA (ligand)',  'h_bond_acceptors (ligand)',  'h_bond_donors (ligand)',  'Растворитель_ДМФА',  'Растворитель_ДМФА/Этанол/Вода',
+    'MolWt',  'LogP',  'NumHDonors',  'NumHAcceptors',  'm (соли), г',  'n_соли','m(кис-ты), г','n_кислоты'
+]
+
+features_Tsyn = [
+    'W0, см3/г',  'E0, кДж/моль',  'х0, нм',  'а0, ммоль/г',  'E,  кДж/моль',  'SБЭТ, м2/г', 'Ws, см3/г',  'Sme, м2/г',
+    'Wme, см3/г',  'Adsorption_Potential',  'Capacity_Density',  'K_equilibrium',  'Delta_G',  'SurfaceArea_MicroVol_Ratio', 
+    'Adsorption_Energy_Ratio',  'S_BET_E',  'x0_W0',  'B_micropore', 
+    
+    'Металл_Al',  'Металл_Cu',  'Металл_Fe',  'Металл_La',
+    'Металл_Zn',  'Металл_Zr',  'Total molecular weight (metal)',  'Average ionic radius (metal)',  'Average electronegativity (metal)',
+    
+    'Молярка_соли',  'Молярка_кислоты',  'Лиганд_BDC',  'Лиганд_BTB',  'Лиганд_BTC',  'carboxyl_groups (ligand)',  'aromatic_rings (ligand)',
+    'carbon_atoms (ligand)',  'oxygen_atoms (ligand)',  'nitrogen_atoms (ligand)',  'molecular_weight (ligand)',  'amino_groups (ligand)',
+    'logP (ligand)',  'TPSA (ligand)',  'h_bond_acceptors (ligand)',  'h_bond_donors (ligand)',  'Растворитель_ДМФА',  'Растворитель_ДМФА/Этанол/Вода',
+    'MolWt',  'LogP',  'NumHDonors',  'NumHAcceptors',  'm (соли), г',  'n_соли','m(кис-ты), г','n_кислоты','Vсин. (р-ля), мл'
+]
+
+features_Tdry = [
+    'W0, см3/г',  'E0, кДж/моль',  'х0, нм',  'а0, ммоль/г',  'E,  кДж/моль',  'SБЭТ, м2/г', 'Ws, см3/г',  'Sme, м2/г',
+    'Wme, см3/г',  'Adsorption_Potential',  'Capacity_Density',  'K_equilibrium',  'Delta_G',  'SurfaceArea_MicroVol_Ratio', 
+    'Adsorption_Energy_Ratio',  'S_BET_E',  'x0_W0',  'B_micropore', 
+    
+    'Металл_Al',  'Металл_Cu',  'Металл_Fe',  'Металл_La',
+    'Металл_Zn',  'Металл_Zr',  'Total molecular weight (metal)',  'Average ionic radius (metal)',  'Average electronegativity (metal)',
+    
+    'Молярка_соли',  'Молярка_кислоты',  'Лиганд_BDC',  'Лиганд_BTB',  'Лиганд_BTC',  'carboxyl_groups (ligand)',  'aromatic_rings (ligand)',
+    'carbon_atoms (ligand)',  'oxygen_atoms (ligand)',  'nitrogen_atoms (ligand)',  'molecular_weight (ligand)',  'amino_groups (ligand)',
+    'logP (ligand)',  'TPSA (ligand)',  'h_bond_acceptors (ligand)',  'h_bond_donors (ligand)',  'Растворитель_ДМФА',  'Растворитель_ДМФА/Этанол/Вода',
+    'MolWt',  'LogP',  'NumHDonors',  'NumHAcceptors',  'm (соли), г',  'n_соли','m(кис-ты), г','n_кислоты','Vсин. (р-ля), мл','Т.син., °С'
+]
+
+features_Treg = [
+    'W0, см3/г',  'E0, кДж/моль',  'х0, нм',  'а0, ммоль/г',  'E,  кДж/моль',  'SБЭТ, м2/г', 'Ws, см3/г',  'Sme, м2/г',
+    'Wme, см3/г',  'Adsorption_Potential',  'Capacity_Density',  'K_equilibrium',  'Delta_G',  'SurfaceArea_MicroVol_Ratio', 
+    'Adsorption_Energy_Ratio',  'S_BET_E',  'x0_W0',  'B_micropore', 
+    
+    'Металл_Al',  'Металл_Cu',  'Металл_Fe',  'Металл_La',
+    'Металл_Zn',  'Металл_Zr',  'Total molecular weight (metal)',  'Average ionic radius (metal)',
+    'Average electronegativity (metal)',
+    
+    'Молярка_соли',  'Молярка_кислоты',  'Лиганд_BDC',  'Лиганд_BTB',  'Лиганд_BTC', 
+    'carboxyl_groups (ligand)',  'aromatic_rings (ligand)',
+    'carbon_atoms (ligand)',  'oxygen_atoms (ligand)',  'nitrogen_atoms (ligand)', 
+    'molecular_weight (ligand)',  'amino_groups (ligand)',
+    'logP (ligand)',  'TPSA (ligand)',  'h_bond_acceptors (ligand)',  'h_bond_donors (ligand)', 
+    'Растворитель_ДМФА',  'Растворитель_ДМФА/Этанол/Вода',
+    'MolWt',  'LogP',  'NumHDonors',  'NumHAcceptors',  'm (соли), г',
+    'n_соли','m(кис-ты), г','n_кислоты','Vсин. (р-ля), мл','Т.син., °С','Т суш., °С'
+]
+
+metal_columns = [
+    "Металл_Al",
+    "Металл_Cu",
+    "Металл_Fe",
+    "Металл_La",
+    "Металл_Zn",
+    "Металл_Zr",
+]
+
+ligand_columns = ["Лиганд_BDC", "Лиганд_BTB", "Лиганд_BTC"]
+
+solvent_columns = ['Растворитель_ДМФА', 'Растворитель_ДМФА/Этанол/Вода']
+
+
+class MetalClassifier(nn.Module):
+    def __init__(
+        self, input_dim, embed_dim=32, num_heads=2, num_layers=2, dropout=0.01
+    ):
+        super(MetalClassifier, self).__init__()
+        self.input_dim = input_dim
+
+        # Linear layer to project input features to embedding dimension
+        self.embedding = nn.Linear(input_dim, embed_dim)
+
+        # Transformer Encoder Layer with batch_first=True
+        encoder_layer = nn.TransformerEncoderLayer(
+            d_model=embed_dim,
+            nhead=num_heads,
+            dim_feedforward=embed_dim,
+            dropout=dropout,
+            activation="relu",
+            batch_first=True,
+        )
+        self.transformer_encoder = nn.TransformerEncoder(
+            encoder_layer, num_layers=num_layers
+        )
+
+        # Fully connected layers
+        self.fc1 = nn.Linear(embed_dim, 64)
+        self.bn1 = nn.BatchNorm1d(64)
+        self.dropout1 = nn.Dropout(dropout)
+
+        self.fc2 = nn.Linear(64, 32)
+        self.bn2 = nn.BatchNorm1d(32)
+        self.dropout2 = nn.Dropout(dropout)
+
+        self.fc3 = nn.Linear(32, 16)
+        self.bn3 = nn.BatchNorm1d(16)
+        self.dropout3 = nn.Dropout(dropout)
+
+        self.output = nn.Linear(16, 1)  # Binary classification
+
+    def forward(self, x):
+        # x: [batch_size, input_dim]
+        x = self.embedding(x)  # [batch_size, embed_dim]
+
+        # Transformer expects input as [batch_size, seq_len, embed_dim] because batch_first=True
+        x = x.unsqueeze(1)  # [batch_size, 1, embed_dim]  # Assuming seq_len=1
+        x = self.transformer_encoder(x)  # [batch_size, 1, embed_dim]
+        x = x.squeeze(1)  # [batch_size, embed_dim]
+
+        # Fully connected layers
+        x = F.relu(self.bn1(self.fc1(x)))
+        x = self.dropout1(x)
+
+        x = F.relu(self.bn2(self.fc2(x)))
+        x = self.dropout2(x)
+
+        x = F.relu(self.bn3(self.fc3(x)))
+        x = self.dropout3(x)
+
+        logits = self.output(x)  # [batch_size, 1]
+        return logits.squeeze()  # [batch_size]
+
+
+# --- Major and Minor Classes Classifier ---
+class TransformerClassifier(nn.Module):
+    def __init__(
+        self,
+        input_dim,
+        num_classes,
+        embed_dim=32,
+        num_heads=2,
+        num_layers=2,
+        dropout=0.01,
+    ):
+        super(TransformerClassifier, self).__init__()
+        self.input_dim = input_dim
+        self.num_classes = num_classes
+
+        # Linear layer to project input features to embedding dimension
+        self.embedding = nn.Linear(input_dim, embed_dim)
+
+        # Transformer Encoder Layer with batch_first=True
+        encoder_layer = nn.TransformerEncoderLayer(
+            d_model=embed_dim,
+            nhead=num_heads,
+            dim_feedforward=embed_dim * 2,
+            dropout=dropout,
+            activation="relu",
+            batch_first=True,  # Aligns with input format [batch_size, seq_len, embed_dim]
+        )
+        self.transformer_encoder = nn.TransformerEncoder(
+            encoder_layer, num_layers=num_layers
+        )
+
+        # Fully connected layers
+        self.fc1 = nn.Linear(embed_dim, 64)
+        self.bn1 = nn.BatchNorm1d(64)
+        self.dropout1 = nn.Dropout(dropout)
+
+        self.fc2 = nn.Linear(64, 32)
+        self.bn2 = nn.BatchNorm1d(32)
+        self.dropout2 = nn.Dropout(dropout)
+
+        self.fc3 = nn.Linear(32, 16)
+        self.bn3 = nn.BatchNorm1d(16)
+        self.dropout3 = nn.Dropout(dropout)
+
+        self.output = nn.Linear(16, num_classes)  # Multi-class classification
+
+    def forward(self, x):
+        # x: [batch_size, input_dim]
+        x = self.embedding(x)  # [batch_size, embed_dim]
+
+        # Transformer expects input as [batch_size, seq_len, embed_dim] because batch_first=True
+        x = x.unsqueeze(1)  # [batch_size, 1, embed_dim]  # Assuming seq_len=1
+        x = self.transformer_encoder(x)  # [batch_size, 1, embed_dim]
+        x = x.squeeze(1)  # [batch_size, embed_dim]
+
+        # Fully connected layers
+        x = F.relu(self.bn1(self.fc1(x)))
+        x = self.dropout1(x)
+
+        x = F.relu(self.bn2(self.fc2(x)))
+        x = self.dropout2(x)
+
+        x = F.relu(self.bn3(self.fc3(x)))
+        x = self.dropout3(x)
+
+        logits = self.output(x)  # [batch_size, num_classes]
+        return logits
+
+
+class TransformerTsynClassifier(nn.Module):
+    def __init__(
+        self,
+        input_dim,
+        num_classes,
+        embed_dim=32,
+        num_heads=2,
+        num_layers=2,
+        dropout=0.01,
+    ):
+        super(TransformerTsynClassifier, self).__init__()
+        self.input_dim = input_dim
+        self.num_classes = num_classes
+
+        # Linear layer to project input features to embedding dimension
+        self.embedding = nn.Linear(input_dim, embed_dim)
+
+        # Transformer Encoder Layer with batch_first=True
+        encoder_layer = nn.TransformerEncoderLayer(
+            d_model=embed_dim,
+            nhead=num_heads,
+            dim_feedforward=embed_dim,
+            dropout=dropout,
+            activation="relu",
+            batch_first=True,  # Aligns with input format [batch_size, seq_len, embed_dim]
+        )
+        self.transformer_encoder = nn.TransformerEncoder(
+            encoder_layer, num_layers=num_layers
+        )
+
+         # Fully connected layers
+        self.fc1 = nn.Linear(embed_dim, 64)
+        self.bn1 = nn.BatchNorm1d(64)
+        self.dropout1 = nn.Dropout(dropout)
+        
+        self.fc2 = nn.Linear(64, 32)
+        self.bn2 = nn.BatchNorm1d(32)
+        self.dropout2 = nn.Dropout(dropout)
+        
+        self.fc3 = nn.Linear(32, 16)
+        self.bn3 = nn.BatchNorm1d(16)
+        self.dropout3 = nn.Dropout(dropout)
+        
+        self.output = nn.Linear(16, num_classes)  # Output layer for multi-class classification
+
+    def forward(self, x):
+        # x: [batch_size, input_dim]
+        x = self.embedding(x)  # [batch_size, embed_dim]
+
+        # Transformer expects input as [batch_size, seq_len, embed_dim] because batch_first=True
+        x = x.unsqueeze(1)  # [batch_size, 1, embed_dim]  # Assuming seq_len=1
+        x = self.transformer_encoder(x)  # [batch_size, 1, embed_dim]
+        x = x.squeeze(1)  # [batch_size, embed_dim]
+
+        # Fully connected layers
+        x = F.relu(self.bn1(self.fc1(x)))
+        x = self.dropout1(x)
+
+        x = F.relu(self.bn2(self.fc2(x)))
+        x = self.dropout2(x)
+
+        x = F.relu(self.bn3(self.fc3(x)))
+        x = self.dropout3(x)
+
+        logits = self.output(x)  # [batch_size, num_classes]
+        return logits
+    
+    
+class TransformerTdryClassifier(nn.Module):
+    def __init__(
+        self,
+        input_dim,
+        num_classes,
+        embed_dim=32,
+        num_heads=2,
+        num_layers=2,
+        dropout=0.01,
+    ):
+        super(TransformerTdryClassifier, self).__init__()
+        self.input_dim = input_dim
+        self.num_classes = num_classes
+
+        # Linear layer to project input features to embedding dimension
+        self.embedding = nn.Linear(input_dim, embed_dim)
+
+        # Transformer Encoder Layer with batch_first=True
+        encoder_layer = nn.TransformerEncoderLayer(
+            d_model=embed_dim,
+            nhead=num_heads,
+            dim_feedforward=embed_dim,
+            dropout=dropout,
+            activation="relu",
+            batch_first=True,  # Aligns with input format [batch_size, seq_len, embed_dim]
+        )
+        self.transformer_encoder = nn.TransformerEncoder(
+            encoder_layer, num_layers=num_layers
+        )
+
+        # Fully connected layers
+        self.fc1 = nn.Linear(embed_dim, 64)
+        self.bn1 = nn.BatchNorm1d(64)
+        self.dropout1 = nn.Dropout(dropout)
+        
+        self.fc2 = nn.Linear(64, 32)
+        self.bn2 = nn.BatchNorm1d(32)
+        self.dropout2 = nn.Dropout(dropout)
+        
+        self.fc3 = nn.Linear(32, 16)
+        self.bn3 = nn.BatchNorm1d(16)
+        self.dropout3 = nn.Dropout(dropout)
+        
+        self.output = nn.Linear(16, num_classes)  # Output layer for multi-class classification
+
+    def forward(self, x):
+        # x: [batch_size, input_dim]
+        x = self.embedding(x)  # [batch_size, embed_dim]
+        
+        # Transformer expects input as [sequence_length, batch_size, embed_dim]
+        x = x.unsqueeze(0)  # [1, batch_size, embed_dim]
+        x = self.transformer_encoder(x)  # [1, batch_size, embed_dim]
+        x = x.squeeze(0)  # [batch_size, embed_dim]
+        
+        # Fully connected layers
+        x = F.relu(self.bn1(self.fc1(x)))
+        x = self.dropout1(x)
+        
+        x = F.relu(self.bn2(self.fc2(x)))
+        x = self.dropout2(x)
+        
+        x = F.relu(self.bn3(self.fc3(x)))
+        x = self.dropout3(x)
+        
+        logits = self.output(x)  # [batch_size, num_classes]
+        return logits
+    
+
+class TransformerTregClassifier(nn.Module):
+    def __init__(
+        self,
+        input_dim,
+        num_classes,
+        embed_dim=32,
+        num_heads=2,
+        num_layers=2,
+        dropout=0.01,
+    ):
+        super(TransformerTregClassifier, self).__init__()
+        self.input_dim = input_dim
+        self.num_classes = num_classes
+
+        # Linear layer to project input features to embedding dimension
+        self.embedding = nn.Linear(input_dim, embed_dim)
+
+        # Transformer Encoder Layer with batch_first=True
+        encoder_layer = nn.TransformerEncoderLayer(
+            d_model=embed_dim,
+            nhead=num_heads,
+            dim_feedforward=embed_dim,
+            dropout=dropout,
+            activation="relu",
+            batch_first=True,  # Aligns with input format [batch_size, seq_len, embed_dim]
+        )
+        self.transformer_encoder = nn.TransformerEncoder(
+            encoder_layer, num_layers=num_layers
+        )
+
+        # Fully connected layers
+        self.fc1 = nn.Linear(embed_dim, 64)
+        self.bn1 = nn.BatchNorm1d(64)
+        self.dropout1 = nn.Dropout(dropout)
+        
+        self.fc2 = nn.Linear(64, 32)
+        self.bn2 = nn.BatchNorm1d(32)
+        self.dropout2 = nn.Dropout(dropout)
+        
+        self.fc3 = nn.Linear(32, 16)
+        self.bn3 = nn.BatchNorm1d(16)
+        self.dropout3 = nn.Dropout(dropout)
+        
+        self.output = nn.Linear(16, num_classes)  # Output layer for multi-class classification
+
+    def forward(self, x):
+        # x: [batch_size, input_dim]
+        x = self.embedding(x)  # [batch_size, embed_dim]
+
+        # Transformer expects input as [batch_size, seq_len, embed_dim] because batch_first=True
+        x = x.unsqueeze(1)  # [batch_size, 1, embed_dim]  # Assuming seq_len=1
+        x = self.transformer_encoder(x)  # [batch_size, 1, embed_dim]
+        x = x.squeeze(1)  # [batch_size, embed_dim]
+
+        # Fully connected layers
+        x = F.relu(self.bn1(self.fc1(x)))
+        x = self.dropout1(x)
+
+        x = F.relu(self.bn2(self.fc2(x)))
+        x = self.dropout2(x)
+
+        x = F.relu(self.bn3(self.fc3(x)))
+        x = self.dropout3(x)
+
+        logits = self.output(x)  # [batch_size, num_classes]
+        return logits
+
+================
+File: requirements.txt
+================
+streamlit>=1.28.0
+plotly>=5.18.0
+numpy>=1.24.0
+pandas>=2.0.0
+torch>=2.0.0
+scikit-learn>=1.0.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+tqdm>=4.65.0
+python-dotenv>=1.0.0
+xgboost==2.0.3
+pymatgen==2024.2.23
+joblib==1.3.2
+streamlit-option-menu==0.3.12
+
+================
+File: app.py
+================
+"""
+Главный файл приложения AdsorpNET.
+"""
+
+import streamlit as st
+from streamlit_option_menu import option_menu
+
+# Настраиваем базовую конфигурацию - ДОЛЖНО БЫТЬ ПЕРВОЙ КОМАНДОЙ STREAMLIT!
+st.set_page_config(
+    page_title="AdsorpNET - AI сервис пористых материалов",
+    page_icon="🧊",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
+
+from src.pages import home, analysis, predict, team, info
+from src.utils import load_user_preferences
+from src.services.model_service import ModelService
+
+# Загружаем пользовательские настройки
+load_user_preferences()
+
+# Загружаем стили
+with open("static/style.css", encoding='utf-8') as css_file:
+    st.markdown(f'<style>{css_file.read()}</style>', unsafe_allow_html=True)
+
+def run():
+    """Запускает приложение AdsorpNET."""
+    # Инициализируем сервис моделей (ленивая загрузка)
+    if 'model_service' not in st.session_state:
+        st.session_state.model_service = ModelService()
+    
+    # Боковое меню навигации
+    with st.sidebar:
+        selected = option_menu(
+            menu_title="𝐀𝐈 сервис пористых материалов",
+            options=["О нас", "MOFs описание", "𝐀𝐈 синтез MOFs", "Анализ структуры", "Контакты"],
+            icons=["house", "book", "box fill", "search", "person lines fill"],
+            menu_icon="kanban fill",
+            default_index=0,
+            key="main_menu",
+            styles={
+                "container": {"padding": "0 % 0 % 0 % 0 %"},
+                "icon": {"color": "red", "font-size": "25px"},
+                "nav-link": {"font-size": "20px", "text-align": "start", "margin": "0px"},
+                "nav-link-selected": {"background-color": "#483D8B"},
+            }
+        )
+    
+    # Выбор и отображение страницы
+    if selected == "О нас":
+        home.show()
+    elif selected == "𝐀𝐈 синтез MOFs":
+        predict.show()
+    elif selected == "MOFs описание":
+        info.show()
+    elif selected == "Анализ структуры":
+        analysis.show()
+    elif selected == "Контакты":
+        team.show()
+
+if __name__ == "__main__":
+    run()
+
+
+
+================================================================
+End of Codebase
+================================================================
