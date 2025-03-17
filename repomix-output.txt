@@ -74,16 +74,20 @@ src/services/model_service.py
 src/services/predictor_service.py
 src/utils.py
 src/utils/__init__.py
-src/utils/batch_processing.py
-src/utils/cache.py
-src/utils/cuda_optimization.py
-src/utils/data_processing.py
-src/utils/feature_generation.py
-src/utils/messages.py
-src/utils/page_config.py
-src/utils/profiling.py
-src/utils/pruning.py
-src/utils/quantization.py
+src/utils/data/__init__.py
+src/utils/data/data_processing.py
+src/utils/data/feature_generation.py
+src/utils/performance/__init__.py
+src/utils/performance/batch_processing.py
+src/utils/performance/cuda_optimization.py
+src/utils/performance/profiling.py
+src/utils/performance/pruning.py
+src/utils/performance/quantization.py
+src/utils/storage/__init__.py
+src/utils/storage/cache.py
+src/utils/ui/__init__.py
+src/utils/ui/messages.py
+src/utils/ui/page_config.py
 static/style.css
 
 ================================================================
@@ -595,11 +599,11 @@ import torch
 import logging
 from typing import Any, Dict, Optional, List, Tuple
 from ..utils.cache import create_cache_key, cached_prediction
-from ..utils.batch_processing import BatchProcessor
-from ..utils.quantization import ModelQuantizer
-from ..utils.cuda_optimization import CUDAOptimizer
-from ..utils.profiling import ModelProfiler
-from ..utils.pruning import ModelPruner
+from ..utils.performance.batch_processing import BatchProcessor
+from ..utils.performance.quantization import ModelQuantizer
+from ..utils.performance.cuda_optimization import CUDAOptimizer
+from ..utils.performance.profiling import ModelProfiler
+from ..utils.performance.pruning import ModelPruner
 
 logger = logging.getLogger(__name__)
 
@@ -1521,7 +1525,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import numpy as np
-from src.utils.page_config import load_theme_css
+from src.utils.ui.page_config import load_theme_css
 
 def show():
     """Отображает страницу анализа структуры."""
@@ -1613,7 +1617,7 @@ File: src/pages/home.py
 """
 
 import streamlit as st
-from src.utils import load_theme_css
+from src.utils.ui import load_theme_css
 
 def show():
     """Отображает главную страницу."""
@@ -1687,7 +1691,7 @@ File: src/pages/info.py
 """
 
 import streamlit as st
-from src.utils import load_theme_css
+from src.utils.ui import load_theme_css
 
 def show():
     """Отображает страницу с информацией о MOF."""
@@ -1779,7 +1783,7 @@ import base64
 from io import BytesIO
 from typing import Dict, Any, List
 
-from src.utils import load_theme_css
+from src.utils.ui import load_theme_css
 from src.services.predictor_service import PredictorService
 
 def get_img_as_base64(file_path: str) -> str:
@@ -2087,7 +2091,7 @@ File: src/pages/team.py
 """
 
 import streamlit as st
-from src.utils import load_theme_css
+from src.utils.ui import load_theme_css
 
 def show():
     """Отображает страницу с информацией о команде."""
@@ -2549,6 +2553,88 @@ class ModelService:
         self.get_encoder.cache_clear()
         
         logger.info("Кэш моделей очищен")
+        
+    # Добавим эти методы в класс ModelService в src/services/model_service.py
+
+    def unload_unused_models(self, keep_models: list = None) -> None:
+        """
+        Выгружает неиспользуемые модели из памяти для экономии ресурсов.
+        
+        Args:
+            keep_models: Список имен моделей, которые нужно оставить в памяти
+        """
+        if keep_models is None:
+            keep_models = []
+            
+        # Определяем модели для выгрузки
+        models_to_unload = [name for name in self._models.keys() if name not in keep_models]
+        
+        # Выгружаем модели
+        for model_name in models_to_unload:
+            self._models.pop(model_name, None)
+            logger.info(f"Модель {model_name} выгружена из памяти")
+        
+        # Очищаем кэш декораторов
+        self.get_model.cache_clear()
+        
+        # Запускаем сборщик мусора
+        import gc
+        gc.collect()
+        
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+            
+        logger.info(f"Выгружено {len(models_to_unload)} моделей, оставлено {len(keep_models)}")
+
+    def preload_models(self, model_names: list) -> None:
+        """
+        Предварительно загружает указанные модели в память.
+        
+        Args:
+            model_names: Список имен моделей для предзагрузки
+        """
+        for model_name in model_names:
+            try:
+                if model_name not in self._models:
+                    logger.info(f"Предзагрузка модели {model_name}")
+                    self.get_model(model_name)
+            except Exception as e:
+                logger.error(f"Ошибка при предзагрузке модели {model_name}: {str(e)}")
+
+    def get_loaded_models(self) -> list:
+        """
+        Возвращает список загруженных моделей.
+        
+        Returns:
+            list: Имена загруженных моделей
+        """
+        return list(self._models.keys())
+
+    def get_model_memory_usage(self) -> Dict[str, float]:
+        """
+        Оценивает использование памяти каждой загруженной моделью.
+        
+        Returns:
+            Dict[str, float]: Словарь {имя_модели: размер_в_МБ}
+        """
+        memory_usage = {}
+        
+        for name, model in self._models.items():
+            try:
+                # Для PyTorch моделей
+                if hasattr(model, 'parameters'):
+                    params_size = sum(p.numel() * p.element_size() for p in model.parameters()) / (1024 * 1024)
+                    buffers_size = sum(b.numel() * b.element_size() for b in model.buffers()) / (1024 * 1024)
+                    memory_usage[name] = params_size + buffers_size
+                # Для других типов моделей (XGBoost и т.д.)
+                else:
+                    import sys
+                    memory_usage[name] = sys.getsizeof(model) / (1024 * 1024)
+            except Exception as e:
+                logger.warning(f"Не удалось определить размер модели {name}: {str(e)}")
+                memory_usage[name] = 0.0
+        
+        return memory_usage
 
 ================
 File: src/services/predictor_service.py
@@ -2575,7 +2661,7 @@ from src.domain.features import (
     features_Tsyn, features_Tdry, features_Treg,
     metal_columns, ligand_columns, solvent_columns
 )
-from src.utils.feature_generation import (
+from src.utils.data.feature_generation import (
     safe_generate_features, safe_generate_solvent_features
 )
 
@@ -2594,6 +2680,55 @@ class PredictorService:
         self.device = self.model_service.get_device()
         
         logger.info(f"Сервис предсказаний инициализирован (устройство: {self.device})")
+        
+    
+    # Добавим метод в PredictorService для использования улучшенного кэширования
+
+    def get_cached_prediction(self, input_params: Dict[str, float], prediction_type: str) -> Optional[Dict[str, Any]]:
+        """
+        Получает кэшированное предсказание, если оно существует.
+        
+        Args:
+            input_params: Входные параметры
+            prediction_type: Тип предсказания ('metal', 'ligand', 'solvent', и т.д.)
+            
+        Returns:
+            Optional[Dict[str, Any]]: Результат предсказания или None
+        """
+        from src.utils.storage import create_cache_key, cached_prediction
+        
+        # Создаем ключ кэша
+        cache_key = create_cache_key(input_params)
+        
+        # Получаем кэшированное предсказание
+        model_name = f"{prediction_type.capitalize()}Classifier"
+        result = cached_prediction(cache_key, model_name)
+        
+        if result is not None:
+            logger.info(f"Получено кэшированное предсказание для {prediction_type}")
+        
+        return result
+
+    def cache_prediction_result(self, input_params: Dict[str, float], prediction_type: str, result: Dict[str, Any]) -> None:
+        """
+        Кэширует результат предсказания.
+        
+        Args:
+            input_params: Входные параметры
+            prediction_type: Тип предсказания
+            result: Результат предсказания
+        """
+        from src.utils.storage import create_cache_key, cached_prediction
+        
+        # Создаем ключ кэша
+        cache_key = create_cache_key(input_params)
+        
+        # Сохраняем в кэш
+        model_name = f"{prediction_type.capitalize()}Classifier"
+        _ = cached_prediction(cache_key, model_name)  # Вызов для создания записи в LRU кэше
+        cached_prediction.cache_info = result
+        
+        logger.info(f"Результат предсказания для {prediction_type} кэширован")
 
     def calculate_derived_features(
         self,
@@ -3572,231 +3707,87 @@ def rate_limit(key: str, max_calls: int, time_window: int = 60):
 ================
 File: src/utils/__init__.py
 ================
+# src/utils/__init__.py
 """
-Пакет утилит для проекта AdsorpNET.
+Пакет утилит проекта AdsorpNET.
+Содержит вспомогательные модули, сгруппированные по назначению.
 """
 
-from .page_config import load_theme_css, load_user_preferences
-from .feature_generation import safe_generate_features, safe_generate_solvent_features
-from .messages import show_success_message, show_info_message, show_warning_message, show_error_message
+# Импорты из подмодулей UI
+from .ui.messages import (
+    show_success_message, 
+    show_info_message, 
+    show_warning_message, 
+    show_error_message
+)
+from .ui.page_config import load_theme_css, load_user_preferences
+
+# Импорты из подмодулей обработки данных
+from .data.feature_generation import (
+    safe_generate_features, 
+    safe_generate_solvent_features
+)
+from .data.data_processing import (
+    validate_input_parameters,
+    calculate_derived_parameters,
+    normalize_features,
+    prepare_features
+)
+
+# Импорты из подмодулей производительности
+from .performance.batch_processing import BatchProcessor
+from .performance.cuda_optimization import CUDAOptimizer
+from .performance.profiling import ModelProfiler
+from .performance.pruning import ModelPruner
+from .performance.quantization import ModelQuantizer
+
+# Импорты из подмодулей хранения
+from .storage.cache import create_cache_key, cached_prediction, clear_prediction_cache
 
 __all__ = [
-    'load_theme_css',
-    'load_user_preferences',
-    'safe_generate_features',
-    'safe_generate_solvent_features',
-    'show_success_message',
-    'show_info_message',
-    'show_warning_message',
-    'show_error_message'
+    # UI
+    'show_success_message', 'show_info_message', 'show_warning_message', 'show_error_message',
+    'load_theme_css', 'load_user_preferences',
+    # Data
+    'validate_input_parameters', 'calculate_derived_parameters', 
+    'normalize_features', 'prepare_features',
+    'safe_generate_features', 'safe_generate_solvent_features',
+    # Performance
+    'BatchProcessor', 'CUDAOptimizer', 'ModelProfiler', 'ModelPruner', 'ModelQuantizer',
+    # Storage
+    'create_cache_key', 'cached_prediction', 'clear_prediction_cache'
 ]
 
 ================
-File: src/utils/batch_processing.py
+File: src/utils/data/__init__.py
 ================
-import torch
-from typing import List, Dict, Any, Callable
-from concurrent.futures import ThreadPoolExecutor
-import numpy as np
-from ..config import MODEL_CONFIG
+# src/utils/data/__init__.py
+"""
+Подмодуль утилит для обработки данных.
+"""
 
-class BatchProcessor:
-    """Класс для пакетной обработки данных."""
-    
-    def __init__(self, batch_size: int = 32, max_workers: int = 4):
-        """
-        Инициализация процессора пакетной обработки.
-        
-        Args:
-            batch_size: Размер пакета
-            max_workers: Максимальное количество параллельных потоков
-        """
-        self.batch_size = batch_size
-        self.max_workers = max_workers
-    
-    def create_batches(self, data: List[Dict[str, Any]]) -> List[List[Dict[str, Any]]]:
-        """
-        Разделяет данные на пакеты.
-        
-        Args:
-            data: Список словарей с входными данными
-            
-        Returns:
-            List[List[Dict[str, Any]]]: Список пакетов данных
-        """
-        return [
-            data[i:i + self.batch_size]
-            for i in range(0, len(data), self.batch_size)
-        ]
-    
-    def process_batch(
-        self,
-        batch: List[Dict[str, Any]],
-        process_fn: Callable[[Dict[str, Any]], Dict[str, Any]]
-    ) -> List[Dict[str, Any]]:
-        """
-        Обрабатывает один пакет данных.
-        
-        Args:
-            batch: Пакет данных
-            process_fn: Функция обработки одного элемента
-            
-        Returns:
-            List[Dict[str, Any]]: Результаты обработки пакета
-        """
-        with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
-            return list(executor.map(process_fn, batch))
-    
-    def process_all(
-        self,
-        data: List[Dict[str, Any]],
-        process_fn: Callable[[Dict[str, Any]], Dict[str, Any]]
-    ) -> List[Dict[str, Any]]:
-        """
-        Обрабатывает все данные пакетами.
-        
-        Args:
-            data: Список входных данных
-            process_fn: Функция обработки одного элемента
-            
-        Returns:
-            List[Dict[str, Any]]: Результаты обработки всех данных
-        """
-        batches = self.create_batches(data)
-        results = []
-        
-        for batch in batches:
-            batch_results = self.process_batch(batch, process_fn)
-            results.extend(batch_results)
-        
-        return results
+from .feature_generation import safe_generate_features, safe_generate_solvent_features
+from .data_processing import (
+    validate_input_parameters,
+    calculate_derived_parameters,
+    normalize_features,
+    prepare_features,
+    process_model_output
+)
+
+__all__ = [
+    'safe_generate_features', 'safe_generate_solvent_features',
+    'validate_input_parameters', 'calculate_derived_parameters',
+    'normalize_features', 'prepare_features', 'process_model_output'
+]
 
 ================
-File: src/utils/cache.py
-================
-from functools import lru_cache
-from typing import Dict, Any, Tuple
-import hashlib
-import json
-
-def create_cache_key(input_data: Dict[str, Any]) -> str:
-    """
-    Создает уникальный ключ для кэширования на основе входных данных.
-    
-    Args:
-        input_data: Словарь входных параметров
-        
-    Returns:
-        str: Уникальный хеш-ключ
-    """
-    # Сортируем ключи для обеспечения консистентности
-    sorted_items = sorted(input_data.items())
-    # Создаем строку для хэширования
-    cache_str = json.dumps(sorted_items)
-    # Создаем хеш
-    return hashlib.md5(cache_str.encode()).hexdigest()
-
-@lru_cache(maxsize=1000)
-def cached_prediction(cache_key: str, model_name: str) -> Dict[str, Any]:
-    """
-    Декоратор для кэширования результатов предсказаний.
-    
-    Args:
-        cache_key: Ключ кэша
-        model_name: Имя модели
-        
-    Returns:
-        Dict[str, Any]: Результат предсказания
-    """
-    return None  # Реальные значения будут сохраняться при использовании
-
-def clear_prediction_cache():
-    """Очищает кэш предсказаний."""
-    cached_prediction.cache_clear()
-
-================
-File: src/utils/cuda_optimization.py
-================
-import torch
-import logging
-from typing import Optional, Tuple
-
-logger = logging.getLogger(__name__)
-
-class CUDAOptimizer:
-    """Класс для оптимизации работы с CUDA."""
-    
-    @staticmethod
-    def get_optimal_device() -> torch.device:
-        """
-        Определяет оптимальное устройство для вычислений.
-        
-        Returns:
-            torch.device: Оптимальное устройство
-        """
-        if torch.cuda.is_available():
-            # Выбираем GPU с наибольшим объемом свободной памяти
-            device_count = torch.cuda.device_count()
-            if device_count > 1:
-                max_free_memory = 0
-                optimal_device = 0
-                
-                for i in range(device_count):
-                    torch.cuda.set_device(i)
-                    torch.cuda.empty_cache()
-                    free_memory = torch.cuda.get_device_properties(i).total_memory - torch.cuda.memory_allocated(i)
-                    if free_memory > max_free_memory:
-                        max_free_memory = free_memory
-                        optimal_device = i
-                
-                return torch.device(f'cuda:{optimal_device}')
-            return torch.device('cuda:0')
-        return torch.device('cpu')
-    
-    @staticmethod
-    def optimize_cuda_memory() -> None:
-        """Оптимизирует использование памяти CUDA."""
-        if torch.cuda.is_available():
-            # Очищаем кэш CUDA
-            torch.cuda.empty_cache()
-            # Включаем оптимизацию памяти
-            torch.cuda.set_per_process_memory_fraction(0.8)  # Используем 80% доступной памяти
-    
-    @staticmethod
-    def get_memory_stats(device: Optional[torch.device] = None) -> Tuple[int, int, int]:
-        """
-        Получает статистику использования памяти.
-        
-        Args:
-            device: Устройство для проверки
-            
-        Returns:
-            Tuple[int, int, int]: (всего памяти, использовано памяти, свободно памяти)
-        """
-        if device is None:
-            device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-            
-        if device.type == 'cuda':
-            total = torch.cuda.get_device_properties(device).total_memory
-            allocated = torch.cuda.memory_allocated(device)
-            free = total - allocated
-            return total, allocated, free
-        return 0, 0, 0  # Для CPU
-    
-    @staticmethod
-    def enable_cudnn_autotuner() -> None:
-        """Включает автонастройку cuDNN."""
-        if torch.cuda.is_available():
-            torch.backends.cudnn.benchmark = True
-            logger.info("cuDNN autotuner включен")
-
-================
-File: src/utils/data_processing.py
+File: src/utils/data/data_processing.py
 ================
 import numpy as np
 import pandas as pd
 from typing import Dict, Any, Union, Tuple
-from ..config import CALCULATION_CONSTANTS, VALIDATION_RULES
+from ...config import CALCULATION_CONSTANTS, VALIDATION_RULES
 import logging
 
 logger = logging.getLogger(__name__)
@@ -3942,7 +3933,7 @@ def process_model_output(
     return predictions[0][0], predictions[0][1], predictions
 
 ================
-File: src/utils/feature_generation.py
+File: src/utils/data/feature_generation.py
 ================
 from rdkit import Chem
 from rdkit.Chem import Descriptors, Lipinski
@@ -4154,118 +4145,181 @@ def safe_generate_solvent_features(solvent_str):
         return {column: None for column in solvent_new_columns}, solvent_new_columns
 
 ================
-File: src/utils/messages.py
+File: src/utils/performance/__init__.py
 ================
+# src/utils/performance/__init__.py
 """
-Модуль для отображения различных типов сообщений в приложении.
-"""
-
-import streamlit as st
-
-def show_success_message(message: str):
-    """
-    Отображает сообщение об успехе.
-    
-    Args:
-        message (str): Текст сообщения
-    """
-    st.success(message)
-
-def show_info_message(message: str):
-    """
-    Отображает информационное сообщение.
-    
-    Args:
-        message (str): Текст сообщения
-    """
-    st.info(message)
-
-def show_warning_message(message: str):
-    """
-    Отображает предупреждающее сообщение.
-    
-    Args:
-        message (str): Текст сообщения
-    """
-    st.warning(message)
-
-def show_error_message(message: str):
-    """
-    Отображает сообщение об ошибке.
-    
-    Args:
-        message (str): Текст сообщения
-    """
-    st.error(message)
-
-================
-File: src/utils/page_config.py
-================
-"""
-Модуль для конфигурации страниц Streamlit.
+Подмодуль утилит для оптимизации производительности.
 """
 
-import streamlit as st
+from .batch_processing import BatchProcessor
+from .cuda_optimization import CUDAOptimizer
+from .profiling import ModelProfiler
+from .pruning import ModelPruner
+from .quantization import ModelQuantizer
 
-def load_theme_css():
-    """
-    Загружает стили темы без вызова set_page_config.
-    Используется для сохранения темы в страницах.
-    """
-    # Загружаем пользовательские стили
-    css = """
-    <style>
-        /* Light theme */
-        [data-theme="light"] {
-            --background-color: #ffffff;
-            --text-color: #000000;
-            --primary-color: #ff4b4b;
-        }
-        
-        /* Dark theme */
-        [data-theme="dark"] {
-            --background-color: #0e1117;
-            --text-color: #ffffff;
-            --primary-color: #ff4b4b;
-        }
-        
-        /* Common styles */
-        .stButton>button {
-            border-radius: 20px;
-            padding: 10px 24px;
-            transition: all 0.3s ease;
-        }
-        
-        .stButton>button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        
-        .stProgress > div > div {
-            background-color: var(--primary-color);
-        }
-        
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .st-emotion-cache-1v0mbdj {
-            animation: fadeIn 0.5s ease-in;
-        }
-    </style>
-    """
-    st.markdown(css, unsafe_allow_html=True)
-
-def load_user_preferences():
-    """Загружает пользовательские настройки."""
-    # Здесь можно добавить загрузку пользовательских настроек из файла или базы данных
-    if "theme" not in st.session_state:
-        st.session_state.theme = "light"
+__all__ = [
+    'BatchProcessor', 'CUDAOptimizer', 'ModelProfiler', 'ModelPruner', 'ModelQuantizer'
+]
 
 ================
-File: src/utils/profiling.py
+File: src/utils/performance/batch_processing.py
+================
+import torch
+from typing import List, Dict, Any, Callable
+from concurrent.futures import ThreadPoolExecutor
+import numpy as np
+from ...config import MODEL_CONFIG
+
+class BatchProcessor:
+    """Класс для пакетной обработки данных."""
+    
+    def __init__(self, batch_size: int = 32, max_workers: int = 4):
+        """
+        Инициализация процессора пакетной обработки.
+        
+        Args:
+            batch_size: Размер пакета
+            max_workers: Максимальное количество параллельных потоков
+        """
+        self.batch_size = batch_size
+        self.max_workers = max_workers
+    
+    def create_batches(self, data: List[Dict[str, Any]]) -> List[List[Dict[str, Any]]]:
+        """
+        Разделяет данные на пакеты.
+        
+        Args:
+            data: Список словарей с входными данными
+            
+        Returns:
+            List[List[Dict[str, Any]]]: Список пакетов данных
+        """
+        return [
+            data[i:i + self.batch_size]
+            for i in range(0, len(data), self.batch_size)
+        ]
+    
+    def process_batch(
+        self,
+        batch: List[Dict[str, Any]],
+        process_fn: Callable[[Dict[str, Any]], Dict[str, Any]]
+    ) -> List[Dict[str, Any]]:
+        """
+        Обрабатывает один пакет данных.
+        
+        Args:
+            batch: Пакет данных
+            process_fn: Функция обработки одного элемента
+            
+        Returns:
+            List[Dict[str, Any]]: Результаты обработки пакета
+        """
+        with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
+            return list(executor.map(process_fn, batch))
+    
+    def process_all(
+        self,
+        data: List[Dict[str, Any]],
+        process_fn: Callable[[Dict[str, Any]], Dict[str, Any]]
+    ) -> List[Dict[str, Any]]:
+        """
+        Обрабатывает все данные пакетами.
+        
+        Args:
+            data: Список входных данных
+            process_fn: Функция обработки одного элемента
+            
+        Returns:
+            List[Dict[str, Any]]: Результаты обработки всех данных
+        """
+        batches = self.create_batches(data)
+        results = []
+        
+        for batch in batches:
+            batch_results = self.process_batch(batch, process_fn)
+            results.extend(batch_results)
+        
+        return results
+
+================
+File: src/utils/performance/cuda_optimization.py
+================
+import torch
+import logging
+from typing import Optional, Tuple
+
+logger = logging.getLogger(__name__)
+
+class CUDAOptimizer:
+    """Класс для оптимизации работы с CUDA."""
+    
+    @staticmethod
+    def get_optimal_device() -> torch.device:
+        """
+        Определяет оптимальное устройство для вычислений.
+        
+        Returns:
+            torch.device: Оптимальное устройство
+        """
+        if torch.cuda.is_available():
+            # Выбираем GPU с наибольшим объемом свободной памяти
+            device_count = torch.cuda.device_count()
+            if device_count > 1:
+                max_free_memory = 0
+                optimal_device = 0
+                
+                for i in range(device_count):
+                    torch.cuda.set_device(i)
+                    torch.cuda.empty_cache()
+                    free_memory = torch.cuda.get_device_properties(i).total_memory - torch.cuda.memory_allocated(i)
+                    if free_memory > max_free_memory:
+                        max_free_memory = free_memory
+                        optimal_device = i
+                
+                return torch.device(f'cuda:{optimal_device}')
+            return torch.device('cuda:0')
+        return torch.device('cpu')
+    
+    @staticmethod
+    def optimize_cuda_memory() -> None:
+        """Оптимизирует использование памяти CUDA."""
+        if torch.cuda.is_available():
+            # Очищаем кэш CUDA
+            torch.cuda.empty_cache()
+            # Включаем оптимизацию памяти
+            torch.cuda.set_per_process_memory_fraction(0.8)  # Используем 80% доступной памяти
+    
+    @staticmethod
+    def get_memory_stats(device: Optional[torch.device] = None) -> Tuple[int, int, int]:
+        """
+        Получает статистику использования памяти.
+        
+        Args:
+            device: Устройство для проверки
+            
+        Returns:
+            Tuple[int, int, int]: (всего памяти, использовано памяти, свободно памяти)
+        """
+        if device is None:
+            device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+            
+        if device.type == 'cuda':
+            total = torch.cuda.get_device_properties(device).total_memory
+            allocated = torch.cuda.memory_allocated(device)
+            free = total - allocated
+            return total, allocated, free
+        return 0, 0, 0  # Для CPU
+    
+    @staticmethod
+    def enable_cudnn_autotuner() -> None:
+        """Включает автонастройку cuDNN."""
+        if torch.cuda.is_available():
+            torch.backends.cudnn.benchmark = True
+            logger.info("cuDNN autotuner включен")
+
+================
+File: src/utils/performance/profiling.py
 ================
 import torch
 from torch.profiler import profile, record_function, ProfilerActivity
@@ -4424,7 +4478,7 @@ class ModelProfiler:
                 print(f"Использование памяти: {b['memory_mb']:.2f} МБ")
 
 ================
-File: src/utils/pruning.py
+File: src/utils/performance/pruning.py
 ================
 import torch
 import torch.nn.utils.prune as prune
@@ -4566,7 +4620,7 @@ class ModelPruner:
         print(f"\nКоэффициент сжатия: {results['compression_ratio']:.2f}x")
 
 ================
-File: src/utils/quantization.py
+File: src/utils/performance/quantization.py
 ================
 import torch
 from typing import Optional
@@ -4634,6 +4688,252 @@ class ModelQuantizer:
         except Exception as e:
             logger.error(f"Ошибка при статической квантизации: {str(e)}")
             return model
+
+================
+File: src/utils/storage/__init__.py
+================
+# src/utils/storage/__init__.py
+"""
+Подмодуль утилит для кэширования и хранения данных.
+"""
+
+from .cache import create_cache_key, cached_prediction, clear_prediction_cache
+
+__all__ = [
+    'create_cache_key', 'cached_prediction', 'clear_prediction_cache'
+]
+
+================
+File: src/utils/storage/cache.py
+================
+# src/utils/storage/cache.py
+"""
+Модуль для кэширования результатов предсказаний моделей.
+"""
+
+import hashlib
+import json
+from functools import lru_cache
+from typing import Dict, Any, Optional
+import logging
+import time
+
+logger = logging.getLogger(__name__)
+
+# Словарь для хранения времени жизни кэша для разных моделей (в секундах)
+CACHE_TTL = {
+    'default': 3600,  # 1 час по умолчанию
+    'MetalClassifier': 7200,  # 2 часа
+    'LigandClassifier': 7200,  # 2 часа 
+    'SolventClassifier': 7200,  # 2 часа
+    'TsynClassifier': 7200,  # 2 часа
+    'TdryClassifier': 7200,  # 2 часа
+    'TregClassifier': 7200,  # 2 часа
+}
+
+# Глобальный словарь для хранения времени последнего обновления кэша
+_cache_timestamps = {}
+
+def create_cache_key(input_data: Dict[str, Any]) -> str:
+    """
+    Создает уникальный ключ для кэширования на основе входных данных.
+    
+    Args:
+        input_data: Словарь входных параметров
+        
+    Returns:
+        str: Уникальный хеш-ключ
+    """
+    # Сортируем ключи для обеспечения консистентности
+    sorted_items = sorted(input_data.items())
+    # Создаем строку для хэширования
+    cache_str = json.dumps(sorted_items)
+    # Создаем хеш
+    return hashlib.md5(cache_str.encode()).hexdigest()
+
+@lru_cache(maxsize=1000)
+def cached_prediction(cache_key: str, model_name: str) -> Optional[Dict[str, Any]]:
+    """
+    Получает кэшированный результат предсказания, учитывая TTL кэша.
+    
+    Args:
+        cache_key: Ключ кэша
+        model_name: Имя модели
+        
+    Returns:
+        Optional[Dict[str, Any]]: Результат предсказания или None, если кэш устарел/отсутствует
+    """
+    # Проверяем время жизни кэша
+    full_key = f"{model_name}:{cache_key}"
+    current_time = time.time()
+    
+    if full_key in _cache_timestamps:
+        last_update = _cache_timestamps[full_key]
+        ttl = CACHE_TTL.get(model_name, CACHE_TTL['default'])
+        
+        # Если кэш устарел, возвращаем None
+        if current_time - last_update > ttl:
+            logger.debug(f"Кэш для {model_name} с ключом {cache_key[:8]} устарел")
+            return None
+            
+    # Если кэша нет, возвращаем None
+    if not hasattr(cached_prediction, 'cache_info'):
+        return None
+        
+    # Записываем время обновления кэша
+    _cache_timestamps[full_key] = current_time
+    
+    return cached_prediction.cache_info
+
+def clear_prediction_cache():
+    """Очищает кэш предсказаний."""
+    cached_prediction.cache_clear()
+    _cache_timestamps.clear()
+    logger.info("Кэш предсказаний очищен")
+
+def get_cache_stats() -> Dict[str, Any]:
+    """
+    Возвращает статистику использования кэша.
+    
+    Returns:
+        Dict[str, Any]: Статистика кэша
+    """
+    cache_info = cached_prediction.cache_info()
+    return {
+        'hits': cache_info.hits,
+        'misses': cache_info.misses,
+        'maxsize': cache_info.maxsize,
+        'currsize': cache_info.currsize,
+        'cache_items': len(_cache_timestamps),
+        'models_cached': len(set(k.split(':')[0] for k in _cache_timestamps.keys()))
+    }
+
+================
+File: src/utils/ui/__init__.py
+================
+# src/utils/ui/__init__.py
+"""
+Подмодуль утилит для работы с пользовательским интерфейсом.
+"""
+
+from .messages import show_success_message, show_info_message, show_warning_message, show_error_message
+from .page_config import load_theme_css, load_user_preferences
+
+__all__ = [
+    'show_success_message', 'show_info_message', 'show_warning_message', 'show_error_message',
+    'load_theme_css', 'load_user_preferences'
+]
+
+================
+File: src/utils/ui/messages.py
+================
+"""
+Модуль для отображения различных типов сообщений в приложении.
+"""
+
+import streamlit as st
+
+def show_success_message(message: str):
+    """
+    Отображает сообщение об успехе.
+    
+    Args:
+        message (str): Текст сообщения
+    """
+    st.success(message)
+
+def show_info_message(message: str):
+    """
+    Отображает информационное сообщение.
+    
+    Args:
+        message (str): Текст сообщения
+    """
+    st.info(message)
+
+def show_warning_message(message: str):
+    """
+    Отображает предупреждающее сообщение.
+    
+    Args:
+        message (str): Текст сообщения
+    """
+    st.warning(message)
+
+def show_error_message(message: str):
+    """
+    Отображает сообщение об ошибке.
+    
+    Args:
+        message (str): Текст сообщения
+    """
+    st.error(message)
+
+================
+File: src/utils/ui/page_config.py
+================
+"""
+Модуль для конфигурации страниц Streamlit.
+"""
+
+import streamlit as st
+
+def load_theme_css():
+    """
+    Загружает стили темы без вызова set_page_config.
+    Используется для сохранения темы в страницах.
+    """
+    # Загружаем пользовательские стили
+    css = """
+    <style>
+        /* Light theme */
+        [data-theme="light"] {
+            --background-color: #ffffff;
+            --text-color: #000000;
+            --primary-color: #ff4b4b;
+        }
+        
+        /* Dark theme */
+        [data-theme="dark"] {
+            --background-color: #0e1117;
+            --text-color: #ffffff;
+            --primary-color: #ff4b4b;
+        }
+        
+        /* Common styles */
+        .stButton>button {
+            border-radius: 20px;
+            padding: 10px 24px;
+            transition: all 0.3s ease;
+        }
+        
+        .stButton>button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .stProgress > div > div {
+            background-color: var(--primary-color);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .st-emotion-cache-1v0mbdj {
+            animation: fadeIn 0.5s ease-in;
+        }
+    </style>
+    """
+    st.markdown(css, unsafe_allow_html=True)
+
+def load_user_preferences():
+    """Загружает пользовательские настройки."""
+    # Здесь можно добавить загрузку пользовательских настроек из файла или базы данных
+    if "theme" not in st.session_state:
+        st.session_state.theme = "light"
 
 ================
 File: static/style.css
@@ -5369,6 +5669,8 @@ File: app.py
 
 import streamlit as st
 from streamlit_option_menu import option_menu
+import logging
+from pathlib import Path
 
 # Настраиваем базовую конфигурацию - ДОЛЖНО БЫТЬ ПЕРВОЙ КОМАНДОЙ STREAMLIT!
 st.set_page_config(
@@ -5378,24 +5680,48 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+# Импорты из структурированных модулей
 from src.pages import home, analysis, predict, team, info
-from src.utils import load_user_preferences
+from src.utils.ui import load_user_preferences
+from src.utils.storage import clear_prediction_cache
 from src.services.model_service import ModelService
+from src.config.app_config import LOGGING_CONFIG
+from src.config.model_config import MODEL_CONFIG
 
-# Загружаем пользовательские настройки
-load_user_preferences()
+# Настройка логирования
+import logging.config
+logging.config.dictConfig(LOGGING_CONFIG)
+logger = logging.getLogger(__name__)
 
 # Загружаем стили
-with open("static/style.css", encoding='utf-8') as css_file:
-    st.markdown(f'<style>{css_file.read()}</style>', unsafe_allow_html=True)
+def load_styles():
+    """Загружает CSS стили для приложения."""
+    css_path = Path("static/style.css")
+    if css_path.exists():
+        with open(css_path, encoding='utf-8') as css_file:
+            st.markdown(f'<style>{css_file.read()}</style>', unsafe_allow_html=True)
+    else:
+        logger.error(f"Файл стилей не найден: {css_path}")
 
-def run():
-    """Запускает приложение AdsorpNET."""
+def initialize_services():
+    """Инициализирует сервисы приложения."""
     # Инициализируем сервис моделей (ленивая загрузка)
     if 'model_service' not in st.session_state:
+        logger.info("Инициализация сервиса моделей")
         st.session_state.model_service = ModelService()
+        
+    # Проверяем кэш предсказаний
+    if 'cache_cleared' not in st.session_state:
+        st.session_state.cache_cleared = False
     
-    # Боковое меню навигации
+    # Очищаем кэш при запуске приложения (только один раз)
+    if not st.session_state.cache_cleared:
+        clear_prediction_cache()
+        st.session_state.cache_cleared = True
+        logger.info("Кэш предсказаний очищен при инициализации")
+
+def create_sidebar():
+    """Создает боковое меню навигации."""
     with st.sidebar:
         selected = option_menu(
             menu_title="𝐀𝐈 сервис пористых материалов",
@@ -5411,18 +5737,57 @@ def run():
                 "nav-link-selected": {"background-color": "#483D8B"},
             }
         )
-    
-    # Выбор и отображение страницы
-    if selected == "О нас":
-        home.show()
-    elif selected == "𝐀𝐈 синтез MOFs":
-        predict.show()
-    elif selected == "MOFs описание":
-        info.show()
-    elif selected == "Анализ структуры":
-        analysis.show()
-    elif selected == "Контакты":
-        team.show()
+        
+        # Добавляем информацию о моделях
+        if st.session_state.get('model_service'):
+            with st.expander("Информация о системе", expanded=False):
+                st.write("### Модели")
+                for model_name in MODEL_CONFIG:
+                    st.write(f"✓ {model_name}")
+                
+                # Добавим статистику CUDA если доступна
+                import torch
+                if torch.cuda.is_available():
+                    st.write("### CUDA")
+                    st.write(f"Устройство: {torch.cuda.get_device_name(0)}")
+                    memory = torch.cuda.get_device_properties(0).total_memory / (1024**3)
+                    st.write(f"Память: {memory:.2f} ГБ")
+        
+        return selected
+
+def run():
+    """Запускает приложение AdsorpNET."""
+    try:
+        # Логируем запуск приложения
+        logger.info("Запуск приложения AdsorpNET")
+        
+        # Загружаем пользовательские настройки
+        load_user_preferences()
+        
+        # Загружаем стили
+        load_styles()
+        
+        # Инициализируем сервисы
+        initialize_services()
+        
+        # Создаем боковое меню и получаем выбранный пункт
+        selected = create_sidebar()
+        
+        # Выбор и отображение страницы
+        if selected == "О нас":
+            home.show()
+        elif selected == "𝐀𝐈 синтез MOFs":
+            predict.show()
+        elif selected == "MOFs описание":
+            info.show()
+        elif selected == "Анализ структуры":
+            analysis.show()
+        elif selected == "Контакты":
+            team.show()
+            
+    except Exception as e:
+        logger.error(f"Ошибка при запуске приложения: {str(e)}", exc_info=True)
+        st.error(f"Произошла ошибка при запуске приложения: {str(e)}")
 
 if __name__ == "__main__":
     run()
