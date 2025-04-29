@@ -4,55 +4,54 @@
 
 import streamlit as st
 
-def load_theme_css():
-    """
-    Загружает стили темы без вызова set_page_config.
-    Используется для сохранения темы в страницах.
-    """
-    # Загружаем пользовательские стили
+def load_theme_css() -> None:
     css = """
     <style>
-        /* Light theme */
-        [data-theme="light"] {
-            --background-color: #ffffff;
-            --text-color: #000000;
-            --primary-color: #ff4b4b;
-        }
-        
-        /* Dark theme */
-        [data-theme="dark"] {
-            --background-color: #0e1117;
-            --text-color: #ffffff;
-            --primary-color: #ff4b4b;
-        }
-        
-        /* Common styles */
-        .stButton>button {
-            border-radius: 20px;
-            padding: 10px 24px;
-            transition: all 0.3s ease;
-        }
-        
-        .stButton>button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        
-        .stProgress > div > div {
-            background-color: var(--primary-color);
-        }
-        
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .st-emotion-cache-1v0mbdj {
-            animation: fadeIn 0.5s ease-in;
-        }
+    /* ---------- SIDEBAR ---------- */
+    section[data-testid="stSidebar"]{
+        background: linear-gradient(180deg,#0B2545 0%,#193B73 100%);
+        color:#F2F6FA;
+        padding-top:2rem;
+        box-shadow:4px 0 12px rgba(0,0,0,.15);
+    }
+    /* заголовки внутри меню */
+    section[data-testid="stSidebar"] h1,
+    section[data-testid="stSidebar"] h2,
+    section[data-testid="stSidebar"] h3{
+        color:#F2F6FA;
+        font-weight:600;
+        letter-spacing:.3px;
+    }
+    /* все интерактивные контролы */
+    section[data-testid="stSidebar"] .stButton>button,
+    section[data-testid="stSidebar"] [data-baseweb="input"] input,
+    section[data-testid="stSidebar"] [data-baseweb="select"] div{
+        background:rgba(255,255,255,.08);
+        border:none;
+        border-radius:8px;
+        color:#F2F6FA;
+        transition:background .3s;
+    }
+    section[data-testid="stSidebar"] .stButton>button:hover,
+    section[data-testid="stSidebar"] [data-baseweb="select"]:hover div{
+        background:rgba(255,255,255,.15);
+    }
+    /* радиокнопки / чекбоксы */
+    section[data-testid="stSidebar"] input[type="radio"],
+    section[data-testid="stSidebar"] input[type="checkbox"]{
+        accent-color:#FFB703;
+    }
+    /* скролл-бар для длинного меню */
+    section[data-testid="stSidebar"]::-webkit-scrollbar{
+        width:6px;
+    }
+    section[data-testid="stSidebar"]::-webkit-scrollbar-thumb{
+        background:#FFB703;
+        border-radius:3px;
+    }
     </style>
     """
+    import streamlit as st
     st.markdown(css, unsafe_allow_html=True)
 
 def load_user_preferences():

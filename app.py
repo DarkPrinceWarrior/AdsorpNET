@@ -16,93 +16,183 @@ st.set_page_config(
 )
 
 def add_custom_styles():
-    """Добавляет кастомные стили для навигационной панели."""
+    """Добавляет кастомные стили для профессиональной навигационной панели с цветами проекта."""
+    
+    st.markdown('<link rel="stylesheet" href="static/accessibility.css">', unsafe_allow_html=True)
     st.markdown("""
     <style>
-    /* Глобальные цвета темы */
+    /* Глобальные цвета темы - в соответствии с проектом */
     :root {
-        --primary-color: #4ECDC4;
-        --secondary-color: #1E2D3A;
-        --accent-color: #FF6B6B;
-        --text-color: #FFFFFF;
-        --background-color: #1A1A1A;
+        --primary-color: #FF4B4B; /* Красный акцент */
+        --secondary-color: #0B2545; /* Темно-синий фон */
+        --accent-color: #134074; /* Средний синий */
+        --highlight-color: #8DA9C4; /* Светло-синий */
+        --text-color: #FFFFFF; /* Белый текст */
     }
     
-    /* Стили для боковой панели */
-    .css-1d391kg {
-        background-color: var(--secondary-color);
+    /* Усовершенствованный стиль для сайдбара */
+    section.st-emotion-cache-vk3wp9.e1fqkh3o11, 
+    section[data-testid="stSidebar"],
+    div.st-emotion-cache-6qob1r.e1fqkh3o3 {
+        background: linear-gradient(150deg, #0b2545 0%, #173b73 90%);
+        width: auto !important;
+        min-width: 250px !important;
+        max-width: 320px !important;
+        box-shadow: 2px 0 16px rgba(0,0,0,0.3) !important;
+        border-right: 1px solid rgba(255,255,255,0.1);
     }
     
-    /* Стиль для контейнера sidebar */
-    .css-1cypcdb.e1fqkh3o11 {
-        background-color: var(--secondary-color) !important;
+    /* Стилизация изображения логотипа */
+    .st-emotion-cache-1kyxreq.e1tzin5v3 img {
+        margin: 0 auto;
+        display: block;
+        max-width: 90%;
+        height: auto;
+        transition: transform 0.3s ease;
     }
     
-    /* Ховер эффекты для элементов меню */
-    .nav-link:hover {
-        background-color: #2B3E4F !important;
-        transition: all 0.3s ease;
+    .st-emotion-cache-1kyxreq.e1tzin5v3 img:hover {
+        transform: scale(1.02);
     }
     
-    /* Анимация при выборе элемента */
-    .nav-link-selected {
+    /* Улучшенные стили для навигационных пунктов */
+    .nav-link {
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        font-size: 16px !important;
+        margin: 4px 0 !important;
+        border-radius: 6px !important;
         transition: all 0.3s ease !important;
     }
     
-    /* Стили для кнопок expander */
-    .st-emotion-cache-rklbre h5 {
-        color: var(--primary-color) !important;
-        margin-bottom: 10px;
-        font-size: 0.9rem !important;
+    .nav-link:hover {
+        background-color: rgba(255,255,255,0.1) !important;
+        color: #ffffff !important;
+        transform: translateX(3px);
+        letter-spacing: 0.3px;
     }
     
-    /* Стили для футера */
-    .footer {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background-color: var(--secondary-color);
-        color: var(--text-color);
-        text-align: center;
-        padding: 10px;
-        font-size: 0.8rem;
+    /* Анимации и эффекты для выбранного элемента */
+    .nav-link-selected {
+        transition: all 0.3s ease !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
     }
     
-    /* Скролл-бар */
+    /* Настройка адаптивности сайдбара */
+    @media (min-width: 1200px) {
+        section[data-testid="stSidebar"] {
+            min-width: 280px !important;
+            max-width: 320px !important;
+        }
+    }
+    
+    @media (max-width: 1199px) and (min-width: 992px) {
+        section[data-testid="stSidebar"] {
+            min-width: 260px !important;
+            max-width: 300px !important;
+        }
+    }
+    
+    @media (max-width: 991px) and (min-width: 768px) {
+        section[data-testid="stSidebar"] {
+            min-width: 240px !important;
+            max-width: 280px !important;
+        }
+    }
+    
+    @media (max-width: 767px) {
+        section[data-testid="stSidebar"] {
+            min-width: 220px !important;
+            max-width: 260px !important;
+        }
+    }
+    
+    /* Убираем лишние отступы и рамки */
+    .css-1544g2n.e1fqkh3o4 {
+        padding: 0 !important;
+    }
+    
+    /* Улучшенные стили для скролл-бара */
     ::-webkit-scrollbar {
         width: 5px;
         height: 5px;
     }
     
     ::-webkit-scrollbar-track {
-        background: var(--secondary-color);
-    }
-    
-    ::-webkit-scrollbar-thumb {
-        background: #4ECDC4;
+        background: rgba(0,0,0,0.1);
         border-radius: 10px;
     }
     
+    ::-webkit-scrollbar-thumb {
+        background: linear-gradient(45deg, #FF4B4B, #ff6b6b);
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+    
     ::-webkit-scrollbar-thumb:hover {
-        background: #3DAAA2;
+        background: #ff3b3b;
     }
     
-    /* Стили для заголовка сайдбара */
-    .st-emotion-cache-10oheav {
-        padding-top: 1rem !important;
+    /* Фикс для отображения контента */
+    .stApp {
+        overflow-x: hidden;
     }
     
-    /* Стили для экспандера в сайдбаре */
-    .st-emotion-cache-jy4u63 {
-        background-color: #2B3E4F !important;
-        border-radius: 5px !important;
-        margin-bottom: 10px !important;
+    /* Исправление для горизонтального скролла */
+    .st-emotion-cache-18ni7ap.ezrtsby2 {
+        overflow-x: auto !important;
     }
     
-    /* Удалить границу из сайдбара */
-    .css-1cypcdb.e1fqkh3o11, .css-1r6o8ze.edgvbvh5 {
-        border-right: none !important;
+    /* Убираем отступы в контейнерах */
+    div.st-emotion-cache-16txtl3.eczjsme4 {
+        padding: 0 !important;
+    }
+    
+    /* Стили для всех селекторов меню */
+    div[data-testid="stVerticalBlock"] div[data-baseweb="select"] div,
+    div[data-testid="stVerticalBlock"] div[role="listbox"],
+    div[data-testid="stVerticalBlock"] div[data-baseweb="select"] ul {
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+    
+    /* Улучшенные стили для streamlit-option-menu */
+    #MainMenu, #main-menu, #main_menu {
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    }
+    
+    /* Корректировка отступов в меню */
+    .css-17ziqus, .css-pkbazv, .st-emotion-cache-17ziqus, .st-emotion-cache-pkbazv {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+    
+    /* Установка фиксированной ширины основных элементов меню */
+    .css-17ziqus, .st-emotion-cache-17ziqus {
+        width: 100% !important;
+        max-width: 300px !important;
+    }
+    
+    /* Уменьшаем размер значков в меню и добавляем анимацию */
+    .nav-link svg {
+        width: 18px !important;
+        height: 18px !important;
+        margin-right: 10px !important;
+        transition: transform 0.3s ease !important;
+    }
+    
+    .nav-link:hover svg {
+        transform: translateX(2px) !important;
+    }
+    
+    /* Делаем текст меню более заметным */
+    .nav-link span {
+        font-weight: 500 !important;
+        letter-spacing: 0.5px !important;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -148,19 +238,29 @@ def initialize_services():
         logger.info("Кэш предсказаний очищен при инициализации")
 
 def create_sidebar():
-    """Создает профессиональную навигационную панель."""
+    """Создает профессиональную навигационную панель с цветами проекта."""
+    
+    # Создаем адаптивный контейнер для сайдбара
     with st.sidebar:
-        # Добавляем логотип
-        st.image("images/logo.png", width=150, use_container_width=False)
+        # Контейнер для логотипа с отступами и улучшенным отображением
+        with st.container():
+            st.image("images/logo.png", use_container_width=True)
+        
+        # Элегантный разделитель после логотипа
+        st.markdown("""
+        <div style="height:2px; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,75,75,0.5), rgba(255,255,255,0)); 
+        margin: 15px 0 20px 0; border-radius: 2px;"></div>
+        """, unsafe_allow_html=True)
         
         # Добавляем красивое меню с помощью streamlit-option-menu
+        # с улучшенными стилями и анимацией
         selected = option_menu(
-            menu_title="AdsorpNET",
+            menu_title=None,
             options=[
                 "Главная", 
-                "О металлорганических каркасах", 
-                "AI синтез MOF", 
-                "Анализ структуры", 
+                "О MOF", 
+                "AI синтез", 
+                "Анализ", 
                 "О проекте"
             ],
             icons=[
@@ -170,73 +270,56 @@ def create_sidebar():
                 "graph-up", 
                 "people-fill"
             ],
-            menu_icon="gem",
             default_index=0,
             key="main_menu",
             styles={
-                "container": {"padding": "0px", "background-color": "#1E2D3A"},
-                "icon": {"color": "#4ECDC4", "font-size": "18px"},
+                "container": {
+                    "padding": "0px", 
+                    "background-color": "#0B2545",
+                    "max-width": "100%",
+                    "border-radius": "8px",
+                    "overflow": "hidden",
+                    "box-shadow": "0 4px 6px rgba(0,0,0,0.1)"
+                },
+                "icon": {
+                    "color": "#FF4B4B",
+                    "font-size": "16px",
+                    "transition": "all 0.3s ease"
+                },
                 "nav-link": {
                     "font-size": "16px", 
                     "text-align": "left", 
                     "margin": "0px", 
-                    "padding": "10px 15px",
+                    "padding": "12px 15px",
                     "border-radius": "0px",
-                    "--hover-color": "#2B3E4F"
+                    "--hover-color": "#13315C",
+                    "white-space": "nowrap",
+                    "overflow": "hidden",
+                    "text-overflow": "ellipsis",
+                    "display": "flex",
+                    "align-items": "center",
+                    "color": "#FFFFFF",
+                    "font-weight": "500",
+                    "transition": "all 0.3s ease"
                 },
                 "nav-link-selected": {
-                    "background-color": "#2B3E4F", 
+                    "background-color": "#13315C",
                     "font-weight": "bold",
-                    "color": "#4ECDC4",
-                    "border-left": "3px solid #4ECDC4"
-                },
-                "menu-title": {
-                    "font-size": "22px",
-                    "font-weight": "bold",
-                    "margin-bottom": "10px",
-                    "padding": "10px 5px",
-                    "color": "#FFFFFF"
+                    "color": "#FF4B4B",
+                    "border-left": "3px solid #FF4B4B",
+                    "transform": "translateX(2px)"
                 }
             }
         )
         
-        # Добавляем разделитель
-        st.markdown("<hr style='margin: 20px 0; border: none; height: 1px; background-color: #2B3E4F;'>", unsafe_allow_html=True)
-        
-        # Добавляем информацию о версии приложения и системе
-        with st.expander("Информация о системе", expanded=False):
-            
-            # Блок с информацией о моделях
-            st.markdown("##### 🧠 Модели")
-            models_list = [model_name for model_name in MODEL_CONFIG]
-            columns = st.columns(2)
-            for i, model in enumerate(models_list):
-                col_idx = i % 2
-                with columns[col_idx]:
-                    st.markdown(f"<div style='background-color: #2B3E4F; padding: 5px 10px; border-radius: 5px; margin-bottom: 5px;'><small>✓ {model}</small></div>", unsafe_allow_html=True)
-            
-            # Информация о CUDA (если доступна)
-            import torch
-            if torch.cuda.is_available():
-                st.markdown("##### 💻 Аппаратное обеспечение")
-                device_name = torch.cuda.get_device_name(0)
-                memory = torch.cuda.get_device_properties(0).total_memory / (1024**3)
-                
-                st.markdown(f"""
-                <div style='background-color: #2B3E4F; padding: 10px; border-radius: 5px; margin: 5px 0;'>
-                    <div style='display: flex; justify-content: space-between;'>
-                        <small>Устройство:</small>
-                        <small><b>{device_name}</b></small>
-                    </div>
-                    <div style='display: flex; justify-content: space-between;'>
-                        <small>Память:</small>
-                        <small><b>{memory:.2f} ГБ</b></small>
-                    </div>
-                </div>
-                """, unsafe_allow_html=True)
-        
-        # Добавляем версию приложения в нижней части сайдбара
-        st.markdown("<div style='position: absolute; bottom: 0; padding: 10px; width: 100%; text-align: center; font-size: 12px; color: #4ECDC4;'>AdsorpNET © 2025 v1.0.0</div>", unsafe_allow_html=True)
+        # Добавляем элегантный футер в нижней части сайдбара
+        st.markdown("""
+        <div style="position: fixed; bottom: 0; left: 0; width: 100%; background: linear-gradient(0deg, #0B2545 0%, transparent 100%); 
+        padding: 15px 15px 10px 15px; text-align: center; font-size: 12px; color: rgba(255,255,255,0.7);">
+            AdsorpNET © 2025<br>
+            ИФХЭ РАН
+        </div>
+        """, unsafe_allow_html=True)
         
         return selected
 
@@ -264,11 +347,11 @@ def run():
         # Выбор и отображение страницы
         if selected == "Главная":
             home.show()
-        elif selected == "AI синтез MOF":
+        elif selected == "AI синтез": # Сокращенное название
             predict.show()
-        elif selected == "О металлорганических каркасах":
+        elif selected == "О MOF": # Сокращенное название
             info.show()
-        elif selected == "Анализ структуры":
+        elif selected == "Анализ":
             analysis.show()
         elif selected == "О проекте":
             team.show()

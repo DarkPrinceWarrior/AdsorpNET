@@ -180,3 +180,844 @@
 2025-03-17 18:52:09,357 [INFO] __main__: Запуск приложения AdsorpNET
 2025-03-17 18:52:11,882 [INFO] __main__: Запуск приложения AdsorpNET
 2025-03-17 18:52:12,416 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:43:31,590 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:43:31,595 [INFO] __main__: Инициализация сервиса моделей
+2025-03-17 23:43:31,596 [INFO] src.utils.storage.cache: Кэш предсказаний очищен
+2025-03-17 23:43:31,597 [INFO] __main__: Кэш предсказаний очищен при инициализации
+2025-03-17 23:43:43,564 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:43:43,923 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:43:44,212 [INFO] src.services.predictor_service: Сервис предсказаний инициализирован (устройство: cpu)
+2025-03-17 23:43:44,372 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:43:44,755 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:49:27,095 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:49:27,097 [INFO] __main__: Инициализация сервиса моделей
+2025-03-17 23:49:27,097 [INFO] src.services.model_service: Инициализирован сервис моделей (устройство: cpu)
+2025-03-17 23:49:27,098 [INFO] src.utils.storage.cache: Кэш предсказаний очищен
+2025-03-17 23:49:27,098 [INFO] __main__: Кэш предсказаний очищен при инициализации
+2025-03-17 23:49:44,725 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:49:45,496 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:49:45,566 [INFO] src.services.predictor_service: Сервис предсказаний инициализирован (устройство: cpu)
+2025-03-17 23:49:46,288 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:49:46,981 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:49:47,816 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:49:48,506 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:49:48,812 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:49:49,101 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:49:49,427 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:49:49,703 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:49:49,953 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:49:50,278 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:49:50,562 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:49:50,841 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:49:54,457 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:49:55,247 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:49:57,733 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:50:05,546 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:50:18,071 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:50:20,002 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:50:20,314 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:50:20,626 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:50:20,956 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:50:21,356 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:50:21,743 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:50:22,012 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:50:22,286 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:50:22,624 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:50:22,909 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:50:23,915 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:50:24,334 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:50:24,825 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:50:25,668 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:50:26,019 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:50:28,044 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:50:33,438 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:50:33,721 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:50:35,629 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:50:35,884 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:50:36,141 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:50:36,387 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:50:36,769 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:50:37,025 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:50:38,092 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:50:39,578 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:50:39,959 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:54:54,388 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:54:54,390 [INFO] __main__: Инициализация сервиса моделей
+2025-03-17 23:54:54,390 [INFO] src.services.model_service: Инициализирован сервис моделей (устройство: cpu)
+2025-03-17 23:54:54,391 [INFO] src.utils.storage.cache: Кэш предсказаний очищен
+2025-03-17 23:54:54,391 [INFO] __main__: Кэш предсказаний очищен при инициализации
+2025-03-17 23:55:12,852 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:55:13,165 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:55:13,354 [INFO] src.services.predictor_service: Сервис предсказаний инициализирован (устройство: cpu)
+2025-03-17 23:55:13,482 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:55:13,987 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:55:14,936 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:55:25,505 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:55:28,198 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:55:28,858 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:55:29,167 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:55:29,543 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:55:32,907 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:55:33,626 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:55:34,706 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:55:35,333 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-17 23:55:44,583 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:01:21,069 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:01:21,072 [INFO] __main__: Инициализация сервиса моделей
+2025-03-18 00:01:21,072 [INFO] src.utils.storage.cache: Кэш предсказаний очищен
+2025-03-18 00:01:21,073 [INFO] __main__: Кэш предсказаний очищен при инициализации
+2025-03-18 00:01:29,415 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:01:29,711 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:01:29,753 [INFO] src.services.predictor_service: Сервис предсказаний инициализирован (устройство: cpu)
+2025-03-18 00:01:30,087 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:08:03,764 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:08:04,022 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:13:22,403 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:13:22,406 [INFO] __main__: Инициализация сервиса моделей
+2025-03-18 00:13:22,406 [INFO] src.services.model_service: Инициализирован сервис моделей (устройство: cpu)
+2025-03-18 00:13:22,407 [INFO] src.utils.storage.cache: Кэш предсказаний очищен
+2025-03-18 00:13:22,407 [INFO] __main__: Кэш предсказаний очищен при инициализации
+2025-03-18 00:13:30,099 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:13:31,564 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:13:31,613 [INFO] src.services.predictor_service: Сервис предсказаний инициализирован (устройство: cpu)
+2025-03-18 00:13:32,314 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:13:33,162 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:14:20,906 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:14:21,032 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:14:21,146 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:14:21,253 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:14:21,726 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:14:21,876 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:14:22,018 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:14:27,718 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:14:27,856 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:14:28,819 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:14:28,974 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:14:29,103 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:14:29,229 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:14:31,844 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:14:32,375 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:14:34,340 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:14:48,720 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:15:18,011 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:15:18,869 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:16:49,231 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:17:00,094 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:17:04,830 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:17:05,280 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:17:16,307 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:17:22,289 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:17:37,491 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:18:42,839 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:18:45,040 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:18:45,346 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:18:46,470 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:18:47,058 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:18:48,259 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:19:40,926 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:19:41,924 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:19:44,262 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:19:50,262 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:19:50,420 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:19:50,552 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:19:50,683 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:19:50,711 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:19:50,911 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:19:54,059 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:19:56,984 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:20:04,658 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:20:13,496 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:20:13,554 [INFO] src.services.model_service: Загружен скейлер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_binary_metals.pkl
+2025-03-18 00:20:13,596 [INFO] src.services.model_service: Загружена PyTorch модель: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\dnn_metal_binary_classifier.pth
+2025-03-18 00:20:13,612 [INFO] src.services.model_service: Загружен скейлер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_major_metal.pkl
+2025-03-18 00:20:13,613 [INFO] src.services.model_service: Загружен энкодер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_major_metal.pkl
+2025-03-18 00:20:13,619 [INFO] src.services.model_service: Загружена PyTorch модель: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\best_major_classifier_metal.pth
+2025-03-18 00:20:13,620 [INFO] src.services.model_service: Загружен энкодер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_major_metal.pkl
+2025-03-18 00:20:13,626 [INFO] src.services.model_service: Загружен скейлер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_ligand.pkl
+2025-03-18 00:20:14,122 [INFO] src.services.model_service: Загружена XGBoost модель: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\xgb_ligand_classifier.json
+2025-03-18 00:20:14,124 [INFO] src.services.model_service: Загружен энкодер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_ligand.pkl
+2025-03-18 00:20:14,152 [INFO] src.services.model_service: Загружен скейлер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_solvent.pkl
+2025-03-18 00:20:14,336 [INFO] src.services.model_service: Загружена XGBoost модель: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\xgb_solvent_classifier.json
+2025-03-18 00:20:14,336 [INFO] src.services.model_service: Загружен энкодер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_solvent.pkl
+2025-03-18 00:20:14,348 [INFO] src.services.model_service: Загружен скейлер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_salt_mass.pkl
+2025-03-18 00:20:14,400 [INFO] src.services.model_service: Загружена XGBoost модель: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\xgb_mass_salt_classifier.json
+2025-03-18 00:20:14,410 [INFO] src.services.model_service: Загружен скейлер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_acid_mass.pkl
+2025-03-18 00:20:14,466 [INFO] src.services.model_service: Загружена XGBoost модель: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\xgb_acid_mass_regressor.json
+2025-03-18 00:20:14,476 [INFO] src.services.model_service: Загружен скейлер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_Vsyn.pkl
+2025-03-18 00:20:14,547 [INFO] src.services.model_service: Загружена XGBoost модель: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\model_xgb_V_syn_regressor.json
+2025-03-18 00:20:14,558 [INFO] src.services.model_service: Загружен скейлер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_Tsyn.pkl
+2025-03-18 00:20:14,563 [INFO] src.services.model_service: Загружен энкодер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_Tsyn.pkl
+2025-03-18 00:20:14,574 [INFO] src.services.model_service: Загружена PyTorch модель: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\model_Tsyn.pth
+2025-03-18 00:20:14,575 [INFO] src.services.model_service: Загружен энкодер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_Tsyn.pkl
+2025-03-18 00:20:14,584 [INFO] src.services.model_service: Загружен скейлер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_Tdry.pkl
+2025-03-18 00:20:14,591 [INFO] src.services.model_service: Загружен энкодер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_Tdry.pkl
+2025-03-18 00:20:14,601 [INFO] src.services.model_service: Загружена PyTorch модель: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\model_Tdry.pth
+2025-03-18 00:20:14,603 [INFO] src.services.model_service: Загружен энкодер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_Tdry.pkl
+2025-03-18 00:20:14,613 [INFO] src.services.model_service: Загружен скейлер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_Treg.pkl
+2025-03-18 00:20:14,619 [INFO] src.services.model_service: Загружен энкодер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_Treg.pkl
+2025-03-18 00:20:14,630 [INFO] src.services.model_service: Загружена PyTorch модель: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\model_Treg.pth
+2025-03-18 00:20:14,630 [INFO] src.services.model_service: Загружен энкодер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_Treg.pkl
+2025-03-18 00:22:27,458 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:22:27,459 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:22:27,538 [INFO] __main__: Инициализация сервиса моделей
+2025-03-18 00:22:27,538 [INFO] src.services.model_service: Инициализирован сервис моделей (устройство: cpu)
+2025-03-18 00:22:27,538 [INFO] src.utils.storage.cache: Кэш предсказаний очищен
+2025-03-18 00:22:27,538 [INFO] __main__: Кэш предсказаний очищен при инициализации
+2025-03-18 00:22:30,987 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:22:32,320 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:22:32,380 [INFO] src.services.predictor_service: Сервис предсказаний инициализирован (устройство: cpu)
+2025-03-18 00:22:36,309 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:22:43,336 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:22:43,944 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:22:47,894 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:22:53,327 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:22:56,093 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:22:59,050 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:23:01,685 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:23:06,660 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:23:11,622 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:23:12,994 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:23:13,052 [INFO] src.services.model_service: Загружен скейлер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_binary_metals.pkl
+2025-03-18 00:23:13,062 [INFO] src.services.model_service: Загружена PyTorch модель: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\dnn_metal_binary_classifier.pth
+2025-03-18 00:23:13,070 [INFO] src.services.model_service: Загружен скейлер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_major_metal.pkl
+2025-03-18 00:23:13,071 [INFO] src.services.model_service: Загружен энкодер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_major_metal.pkl
+2025-03-18 00:23:13,083 [INFO] src.services.model_service: Загружена PyTorch модель: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\best_major_classifier_metal.pth
+2025-03-18 00:23:13,084 [INFO] src.services.model_service: Загружен энкодер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_major_metal.pkl
+2025-03-18 00:23:13,087 [INFO] src.services.model_service: Загружен скейлер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_ligand.pkl
+2025-03-18 00:23:13,587 [INFO] src.services.model_service: Загружена XGBoost модель: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\xgb_ligand_classifier.json
+2025-03-18 00:23:13,587 [INFO] src.services.model_service: Загружен энкодер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_ligand.pkl
+2025-03-18 00:23:13,594 [INFO] src.services.model_service: Загружен скейлер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_solvent.pkl
+2025-03-18 00:23:13,737 [INFO] src.services.model_service: Загружена XGBoost модель: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\xgb_solvent_classifier.json
+2025-03-18 00:23:13,737 [INFO] src.services.model_service: Загружен энкодер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_solvent.pkl
+2025-03-18 00:23:13,744 [INFO] src.services.model_service: Загружен скейлер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_salt_mass.pkl
+2025-03-18 00:23:13,795 [INFO] src.services.model_service: Загружена XGBoost модель: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\xgb_mass_salt_classifier.json
+2025-03-18 00:23:13,801 [INFO] src.services.model_service: Загружен скейлер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_acid_mass.pkl
+2025-03-18 00:23:13,856 [INFO] src.services.model_service: Загружена XGBoost модель: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\xgb_acid_mass_regressor.json
+2025-03-18 00:23:13,862 [INFO] src.services.model_service: Загружен скейлер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_Vsyn.pkl
+2025-03-18 00:23:13,926 [INFO] src.services.model_service: Загружена XGBoost модель: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\model_xgb_V_syn_regressor.json
+2025-03-18 00:23:13,933 [INFO] src.services.model_service: Загружен скейлер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_Tsyn.pkl
+2025-03-18 00:23:13,937 [INFO] src.services.model_service: Загружен энкодер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_Tsyn.pkl
+2025-03-18 00:23:13,945 [INFO] src.services.model_service: Загружена PyTorch модель: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\model_Tsyn.pth
+2025-03-18 00:23:13,945 [INFO] src.services.model_service: Загружен энкодер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_Tsyn.pkl
+2025-03-18 00:23:13,955 [INFO] src.services.model_service: Загружен скейлер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_Tdry.pkl
+2025-03-18 00:23:13,959 [INFO] src.services.model_service: Загружен энкодер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_Tdry.pkl
+2025-03-18 00:23:13,966 [INFO] src.services.model_service: Загружена PyTorch модель: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\model_Tdry.pth
+2025-03-18 00:23:13,968 [INFO] src.services.model_service: Загружен энкодер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_Tdry.pkl
+2025-03-18 00:23:13,975 [INFO] src.services.model_service: Загружен скейлер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_Treg.pkl
+2025-03-18 00:23:13,979 [INFO] src.services.model_service: Загружен энкодер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_Treg.pkl
+2025-03-18 00:23:13,986 [INFO] src.services.model_service: Загружена PyTorch модель: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\model_Treg.pth
+2025-03-18 00:23:13,986 [INFO] src.services.model_service: Загружен энкодер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_Treg.pkl
+2025-03-18 00:23:29,832 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:23:48,273 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:23:52,286 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:24:24,250 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:24:27,372 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:24:42,260 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:24:58,720 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:25:01,626 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:25:02,114 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:25:02,636 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:25:04,864 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:28:46,027 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:28:49,670 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:29:23,232 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:32:22,331 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:32:23,382 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:32:24,332 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:33:20,271 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:41:26,400 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:41:26,403 [INFO] __main__: Инициализация сервиса моделей
+2025-03-18 00:41:26,403 [INFO] src.services.model_service: Инициализирован сервис моделей (устройство: cpu)
+2025-03-18 00:41:26,404 [INFO] src.utils.storage.cache: Кэш предсказаний очищен
+2025-03-18 00:41:26,404 [INFO] __main__: Кэш предсказаний очищен при инициализации
+2025-03-18 00:41:32,034 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:41:35,501 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:41:35,700 [INFO] src.services.predictor_service: Сервис предсказаний инициализирован (устройство: cpu)
+2025-03-18 00:41:45,228 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:41:48,521 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:41:50,537 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:41:52,732 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:41:55,944 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:41:59,949 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:42:02,253 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:42:02,514 [INFO] src.services.model_service: Загружен скейлер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_binary_metals.pkl
+2025-03-18 00:42:02,562 [INFO] src.services.model_service: Загружена PyTorch модель: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\dnn_metal_binary_classifier.pth
+2025-03-18 00:42:02,576 [INFO] src.services.model_service: Загружен скейлер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_major_metal.pkl
+2025-03-18 00:42:02,579 [INFO] src.services.model_service: Загружен энкодер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_major_metal.pkl
+2025-03-18 00:42:02,591 [INFO] src.services.model_service: Загружена PyTorch модель: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\best_major_classifier_metal.pth
+2025-03-18 00:42:02,593 [INFO] src.services.model_service: Загружен энкодер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_major_metal.pkl
+2025-03-18 00:42:02,601 [INFO] src.services.model_service: Загружен скейлер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_ligand.pkl
+2025-03-18 00:42:03,785 [INFO] src.services.model_service: Загружена XGBoost модель: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\xgb_ligand_classifier.json
+2025-03-18 00:42:03,787 [INFO] src.services.model_service: Загружен энкодер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_ligand.pkl
+2025-03-18 00:42:03,795 [INFO] src.services.model_service: Загружен скейлер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_solvent.pkl
+2025-03-18 00:42:04,130 [INFO] src.services.model_service: Загружена XGBoost модель: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\xgb_solvent_classifier.json
+2025-03-18 00:42:04,131 [INFO] src.services.model_service: Загружен энкодер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_solvent.pkl
+2025-03-18 00:42:04,141 [INFO] src.services.model_service: Загружен скейлер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_salt_mass.pkl
+2025-03-18 00:42:04,209 [INFO] src.services.model_service: Загружена XGBoost модель: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\xgb_mass_salt_classifier.json
+2025-03-18 00:42:04,219 [INFO] src.services.model_service: Загружен скейлер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_acid_mass.pkl
+2025-03-18 00:42:04,297 [INFO] src.services.model_service: Загружена XGBoost модель: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\xgb_acid_mass_regressor.json
+2025-03-18 00:42:04,308 [INFO] src.services.model_service: Загружен скейлер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_Vsyn.pkl
+2025-03-18 00:42:04,407 [INFO] src.services.model_service: Загружена XGBoost модель: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\model_xgb_V_syn_regressor.json
+2025-03-18 00:42:04,418 [INFO] src.services.model_service: Загружен скейлер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_Tsyn.pkl
+2025-03-18 00:42:04,425 [INFO] src.services.model_service: Загружен энкодер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_Tsyn.pkl
+2025-03-18 00:42:04,435 [INFO] src.services.model_service: Загружена PyTorch модель: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\model_Tsyn.pth
+2025-03-18 00:42:04,436 [INFO] src.services.model_service: Загружен энкодер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_Tsyn.pkl
+2025-03-18 00:42:04,446 [INFO] src.services.model_service: Загружен скейлер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_Tdry.pkl
+2025-03-18 00:42:04,452 [INFO] src.services.model_service: Загружен энкодер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_Tdry.pkl
+2025-03-18 00:42:04,462 [INFO] src.services.model_service: Загружена PyTorch модель: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\model_Tdry.pth
+2025-03-18 00:42:04,463 [INFO] src.services.model_service: Загружен энкодер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_Tdry.pkl
+2025-03-18 00:42:04,473 [INFO] src.services.model_service: Загружен скейлер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_Treg.pkl
+2025-03-18 00:42:04,479 [INFO] src.services.model_service: Загружен энкодер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_Treg.pkl
+2025-03-18 00:42:04,490 [INFO] src.services.model_service: Загружена PyTorch модель: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\model_Treg.pth
+2025-03-18 00:42:04,491 [INFO] src.services.model_service: Загружен энкодер: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_Treg.pkl
+2025-03-18 00:42:08,290 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:42:11,253 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:42:31,274 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:42:34,485 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:44:03,616 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:44:03,984 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:44:04,516 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:44:05,856 [INFO] __main__: Запуск приложения AdsorpNET
+2025-03-18 00:44:06,342 [INFO] __main__: Запуск приложения AdsorpNET
+2025-04-29 10:25:35,597 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:25:35,627 [INFO] __main__: РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµСЂРІРёСЃР° РјРѕРґРµР»РµР№
+2025-04-29 10:25:35,634 [INFO] src.services.model_service: РРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ СЃРµСЂРІРёСЃ РјРѕРґРµР»РµР№ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 10:25:35,647 [INFO] src.utils.storage.cache: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ
+2025-04-29 10:25:35,650 [INFO] __main__: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
+2025-04-29 10:27:26,400 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:27:26,582 [INFO] src.services.predictor_service: РЎРµСЂРІРёСЃ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 10:27:33,491 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:27:33,599 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:27:33,780 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:27:33,870 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:27:34,146 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:27:34,292 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:27:34,995 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:27:35,110 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:27:35,266 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:27:35,936 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:27:35,937 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:27:36,174 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:27:37,601 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:27:37,822 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:27:37,875 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:27:38,016 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:27:38,199 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:27:38,419 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:27:42,818 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:27:43,042 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:27:43,234 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:27:43,353 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:27:43,641 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:27:48,703 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:28:01,082 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:28:01,254 [INFO] src.services.model_service: Р—Р°РіСЂСѓР¶РµРЅ СЃРєРµР№Р»РµСЂ: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_binary_metals.pkl
+2025-04-29 10:28:01,338 [INFO] src.services.model_service: Р—Р°РіСЂСѓР¶РµРЅР° PyTorch РјРѕРґРµР»СЊ: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\dnn_metal_binary_classifier.pth
+2025-04-29 10:28:01,383 [INFO] src.services.model_service: Р—Р°РіСЂСѓР¶РµРЅ СЃРєРµР№Р»РµСЂ: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_major_metal.pkl
+2025-04-29 10:28:01,389 [INFO] src.services.model_service: Р—Р°РіСЂСѓР¶РµРЅ СЌРЅРєРѕРґРµСЂ: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_major_metal.pkl
+2025-04-29 10:28:01,410 [INFO] src.services.model_service: Р—Р°РіСЂСѓР¶РµРЅР° PyTorch РјРѕРґРµР»СЊ: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\best_major_classifier_metal.pth
+2025-04-29 10:28:01,412 [INFO] src.services.model_service: Р—Р°РіСЂСѓР¶РµРЅ СЌРЅРєРѕРґРµСЂ: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_major_metal.pkl
+2025-04-29 10:28:01,432 [INFO] src.services.model_service: Р—Р°РіСЂСѓР¶РµРЅ СЃРєРµР№Р»РµСЂ: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_ligand.pkl
+2025-04-29 10:28:02,341 [INFO] src.services.model_service: Р—Р°РіСЂСѓР¶РµРЅР° XGBoost РјРѕРґРµР»СЊ: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\xgb_ligand_classifier.json
+2025-04-29 10:28:02,342 [INFO] src.services.model_service: Р—Р°РіСЂСѓР¶РµРЅ СЌРЅРєРѕРґРµСЂ: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_ligand.pkl
+2025-04-29 10:28:02,358 [INFO] src.services.model_service: Р—Р°РіСЂСѓР¶РµРЅ СЃРєРµР№Р»РµСЂ: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_solvent.pkl
+2025-04-29 10:28:02,566 [INFO] src.services.model_service: Р—Р°РіСЂСѓР¶РµРЅР° XGBoost РјРѕРґРµР»СЊ: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\xgb_solvent_classifier.json
+2025-04-29 10:28:02,567 [INFO] src.services.model_service: Р—Р°РіСЂСѓР¶РµРЅ СЌРЅРєРѕРґРµСЂ: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_solvent.pkl
+2025-04-29 10:28:02,576 [INFO] src.services.model_service: Р—Р°РіСЂСѓР¶РµРЅ СЃРєРµР№Р»РµСЂ: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_salt_mass.pkl
+2025-04-29 10:28:02,650 [INFO] src.services.model_service: Р—Р°РіСЂСѓР¶РµРЅР° XGBoost РјРѕРґРµР»СЊ: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\xgb_mass_salt_classifier.json
+2025-04-29 10:28:02,660 [INFO] src.services.model_service: Р—Р°РіСЂСѓР¶РµРЅ СЃРєРµР№Р»РµСЂ: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_acid_mass.pkl
+2025-04-29 10:28:02,742 [INFO] src.services.model_service: Р—Р°РіСЂСѓР¶РµРЅР° XGBoost РјРѕРґРµР»СЊ: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\xgb_acid_mass_regressor.json
+2025-04-29 10:28:02,752 [INFO] src.services.model_service: Р—Р°РіСЂСѓР¶РµРЅ СЃРєРµР№Р»РµСЂ: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_Vsyn.pkl
+2025-04-29 10:28:02,887 [INFO] src.services.model_service: Р—Р°РіСЂСѓР¶РµРЅР° XGBoost РјРѕРґРµР»СЊ: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\model_xgb_V_syn_regressor.json
+2025-04-29 10:28:02,900 [INFO] src.services.model_service: Р—Р°РіСЂСѓР¶РµРЅ СЃРєРµР№Р»РµСЂ: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_Tsyn.pkl
+2025-04-29 10:28:02,906 [INFO] src.services.model_service: Р—Р°РіСЂСѓР¶РµРЅ СЌРЅРєРѕРґРµСЂ: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_Tsyn.pkl
+2025-04-29 10:28:02,917 [INFO] src.services.model_service: Р—Р°РіСЂСѓР¶РµРЅР° PyTorch РјРѕРґРµР»СЊ: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\model_Tsyn.pth
+2025-04-29 10:28:02,918 [INFO] src.services.model_service: Р—Р°РіСЂСѓР¶РµРЅ СЌРЅРєРѕРґРµСЂ: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_Tsyn.pkl
+2025-04-29 10:28:02,928 [INFO] src.services.model_service: Р—Р°РіСЂСѓР¶РµРЅ СЃРєРµР№Р»РµСЂ: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_Tdry.pkl
+2025-04-29 10:28:02,935 [INFO] src.services.model_service: Р—Р°РіСЂСѓР¶РµРЅ СЌРЅРєРѕРґРµСЂ: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_Tdry.pkl
+2025-04-29 10:28:02,947 [INFO] src.services.model_service: Р—Р°РіСЂСѓР¶РµРЅР° PyTorch РјРѕРґРµР»СЊ: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\model_Tdry.pth
+2025-04-29 10:28:02,947 [INFO] src.services.model_service: Р—Р°РіСЂСѓР¶РµРЅ СЌРЅРєРѕРґРµСЂ: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_Tdry.pkl
+2025-04-29 10:28:02,957 [INFO] src.services.model_service: Р—Р°РіСЂСѓР¶РµРЅ СЃРєРµР№Р»РµСЂ: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_Treg.pkl
+2025-04-29 10:28:02,964 [INFO] src.services.model_service: Р—Р°РіСЂСѓР¶РµРЅ СЌРЅРєРѕРґРµСЂ: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_Treg.pkl
+2025-04-29 10:28:02,975 [INFO] src.services.model_service: Р—Р°РіСЂСѓР¶РµРЅР° PyTorch РјРѕРґРµР»СЊ: C:\Users\safae\adsorb_mof\AdsorpNET\saved_models\model_Treg.pth
+2025-04-29 10:28:02,976 [INFO] src.services.model_service: Р—Р°РіСЂСѓР¶РµРЅ СЌРЅРєРѕРґРµСЂ: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\label_encoder_Treg.pkl
+2025-04-29 10:33:36,204 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:33:36,854 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:33:37,377 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:33:37,948 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:33:39,798 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:33:43,553 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:33:43,962 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 10:33:44,763 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 15:05:06,755 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 15:05:07,065 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 15:05:07,989 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 15:05:08,452 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 15:05:08,863 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 15:05:09,321 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 15:05:14,346 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 17:14:12,851 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 17:14:13,347 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 17:14:13,517 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 17:14:13,992 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 17:14:13,994 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 17:14:14,821 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 17:14:15,849 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 17:14:16,658 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 17:14:17,712 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 17:14:20,571 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 17:14:21,992 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 17:14:22,810 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 17:14:24,272 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 18:21:16,626 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 18:21:17,248 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 18:22:28,608 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 18:22:47,631 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 18:22:52,936 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 18:22:55,314 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 18:22:56,180 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 18:22:57,592 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 18:23:46,000 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 18:23:46,295 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 18:23:46,685 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 18:24:39,622 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 18:24:41,235 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 18:24:41,755 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 18:24:42,118 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 18:24:46,539 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:07:04,012 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:07:04,015 [INFO] __main__: РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµСЂРІРёСЃР° РјРѕРґРµР»РµР№
+2025-04-29 19:07:04,016 [INFO] src.services.model_service: РРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ СЃРµСЂРІРёСЃ РјРѕРґРµР»РµР№ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 19:07:04,017 [INFO] src.utils.storage.cache: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ
+2025-04-29 19:07:04,018 [INFO] __main__: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
+2025-04-29 19:07:06,359 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:07:06,906 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:07:06,982 [INFO] src.services.predictor_service: РЎРµСЂРІРёСЃ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 19:07:07,635 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:07:07,923 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:07:08,308 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:07:08,629 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:07:09,054 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:07:09,330 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:07:09,593 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:07:09,775 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:07:16,049 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:07:31,455 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:07:31,772 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:08:31,926 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:08:32,107 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:08:32,342 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:08:32,532 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:08:32,783 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:08:33,180 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:08:34,261 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:08:34,695 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:08:35,221 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:09:56,235 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:09:56,237 [INFO] __main__: РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµСЂРІРёСЃР° РјРѕРґРµР»РµР№
+2025-04-29 19:09:56,238 [INFO] src.services.model_service: РРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ СЃРµСЂРІРёСЃ РјРѕРґРµР»РµР№ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 19:09:56,238 [INFO] src.utils.storage.cache: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ
+2025-04-29 19:09:56,239 [INFO] __main__: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
+2025-04-29 19:09:57,257 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:09:57,530 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:09:57,568 [INFO] src.services.predictor_service: РЎРµСЂРІРёСЃ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 19:09:58,013 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:09:59,871 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:10:00,138 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:14:20,736 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:14:20,738 [INFO] __main__: РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµСЂРІРёСЃР° РјРѕРґРµР»РµР№
+2025-04-29 19:14:20,738 [INFO] src.utils.storage.cache: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ
+2025-04-29 19:14:20,738 [INFO] __main__: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
+2025-04-29 19:14:27,383 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:14:27,609 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:14:27,637 [INFO] src.services.predictor_service: РЎРµСЂРІРёСЃ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 19:14:27,841 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:14:28,122 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:14:28,330 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:14:28,587 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:20:56,006 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:20:56,239 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:20:56,485 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:20:56,699 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:20:56,971 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:20:57,276 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:20:57,637 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:20:57,980 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:20:58,250 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:20:58,509 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:20:58,775 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:20:59,174 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:20:59,456 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:20:59,669 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:20:59,892 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:28:45,129 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:28:45,131 [INFO] __main__: РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµСЂРІРёСЃР° РјРѕРґРµР»РµР№
+2025-04-29 19:28:45,132 [INFO] src.services.model_service: РРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ СЃРµСЂРІРёСЃ РјРѕРґРµР»РµР№ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 19:28:45,132 [INFO] src.utils.storage.cache: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ
+2025-04-29 19:28:45,133 [INFO] __main__: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
+2025-04-29 19:28:51,651 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:28:51,909 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:28:51,950 [INFO] src.services.predictor_service: РЎРµСЂРІРёСЃ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 19:28:52,251 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:28:52,704 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:29:25,543 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:29:25,815 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:29:26,118 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:29:26,438 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:29:26,776 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:29:27,197 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:30:32,531 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:30:32,532 [INFO] __main__: РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµСЂРІРёСЃР° РјРѕРґРµР»РµР№
+2025-04-29 19:30:32,532 [INFO] src.utils.storage.cache: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ
+2025-04-29 19:30:32,532 [INFO] __main__: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
+2025-04-29 19:30:33,832 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:30:34,046 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:30:34,072 [INFO] src.services.predictor_service: РЎРµСЂРІРёСЃ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 19:30:34,277 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:30:35,781 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:30:40,737 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:33:05,859 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:33:05,860 [INFO] __main__: РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµСЂРІРёСЃР° РјРѕРґРµР»РµР№
+2025-04-29 19:33:05,861 [INFO] src.utils.storage.cache: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ
+2025-04-29 19:33:05,861 [INFO] __main__: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
+2025-04-29 19:33:07,383 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:33:07,655 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:33:07,689 [INFO] src.services.predictor_service: РЎРµСЂРІРёСЃ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 19:33:09,610 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:33:09,705 [INFO] src.services.model_service: Р—Р°РіСЂСѓР¶РµРЅ СЃРєРµР№Р»РµСЂ: C:\Users\safae\adsorb_mof\AdsorpNET\saved_scalers\scaler_binary_metals.pkl
+2025-04-29 19:33:09,707 [ERROR] __main__: РћС€РёР±РєР° РїСЂРё Р·Р°РїСѓСЃРєРµ РїСЂРёР»РѕР¶РµРЅРёСЏ: Input X contains infinity or a value too large for dtype('float64').
+Traceback (most recent call last):
+  File "C:\Users\safae\adsorb_mof\AdsorpNET\app.py", line 359, in run
+    predict.show()
+  File "C:\Users\safae\adsorb_mof\AdsorpNET\src\pages\predict.py", line 687, in show
+    prediction_results = st.session_state.predictor_service.run_full_prediction(
+  File "C:\Users\safae\adsorb_mof\AdsorpNET\src\services\predictor_service.py", line 854, in run_full_prediction
+    metal_result = self.predict_metal(features_df)
+  File "C:\Users\safae\adsorb_mof\AdsorpNET\src\services\predictor_service.py", line 168, in predict_metal
+    scaled_features = binary_scaler.transform(features_df[features_metal].values)
+  File "C:\Users\safae\miniconda3\envs\rus_env\lib\site-packages\sklearn\utils\_set_output.py", line 313, in wrapped
+    data_to_wrap = f(self, X, *args, **kwargs)
+  File "C:\Users\safae\miniconda3\envs\rus_env\lib\site-packages\sklearn\preprocessing\_data.py", line 534, in transform
+    X = self._validate_data(
+  File "C:\Users\safae\miniconda3\envs\rus_env\lib\site-packages\sklearn\base.py", line 633, in _validate_data
+    out = check_array(X, input_name="X", **check_params)
+  File "C:\Users\safae\miniconda3\envs\rus_env\lib\site-packages\sklearn\utils\validation.py", line 1064, in check_array
+    _assert_all_finite(
+  File "C:\Users\safae\miniconda3\envs\rus_env\lib\site-packages\sklearn\utils\validation.py", line 123, in _assert_all_finite
+    _assert_all_finite_element_wise(
+  File "C:\Users\safae\miniconda3\envs\rus_env\lib\site-packages\sklearn\utils\validation.py", line 172, in _assert_all_finite_element_wise
+    raise ValueError(msg_err)
+ValueError: Input X contains infinity or a value too large for dtype('float64').
+2025-04-29 19:33:11,988 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:37:16,274 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:37:16,277 [INFO] __main__: РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµСЂРІРёСЃР° РјРѕРґРµР»РµР№
+2025-04-29 19:37:16,280 [INFO] src.utils.storage.cache: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ
+2025-04-29 19:37:16,282 [INFO] __main__: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
+2025-04-29 19:37:18,349 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:37:18,604 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:37:18,652 [INFO] src.services.predictor_service: РЎРµСЂРІРёСЃ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 19:37:18,991 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:37:19,239 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:37:19,909 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:37:20,611 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:37:21,279 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:37:21,671 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:37:22,309 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:37:23,024 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:37:25,219 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:38:01,867 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:38:02,107 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:38:02,571 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:38:02,818 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:38:03,219 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:38:08,147 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:38:10,693 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:38:20,832 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:38:21,112 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:38:21,593 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:38:21,806 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:38:43,540 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:38:43,770 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:38:44,063 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:38:44,336 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:38:44,695 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:38:45,042 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:38:45,228 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:38:46,340 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:38:46,934 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:39:31,902 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:39:34,661 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:39:58,125 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:39:58,360 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:39:58,579 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:39:58,826 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:39:59,066 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:39:59,399 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:39:59,640 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:39:59,903 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:40:00,261 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:40:00,570 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:40:00,818 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:40:01,052 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:41:39,128 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:41:39,539 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:41:39,797 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:41:40,481 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:41:40,692 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:41:40,973 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:41:41,157 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:41:41,416 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:41:41,549 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:41:41,803 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:41:43,839 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:41:48,850 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:41:52,438 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:41:52,664 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:41:53,022 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:41:53,522 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:41:53,933 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:41:54,317 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:41:54,860 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:48:40,747 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:49:12,337 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:49:12,612 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:49:12,818 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:49:13,392 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:50:26,026 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:50:26,263 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:50:26,542 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:50:27,380 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:50:27,635 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:50:28,064 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:50:28,373 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:50:28,952 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:51:23,335 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:51:23,557 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:51:24,243 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:51:24,489 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:51:24,813 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:51:54,865 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:52:00,507 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:52:00,768 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:55:43,230 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:55:43,231 [INFO] __main__: РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµСЂРІРёСЃР° РјРѕРґРµР»РµР№
+2025-04-29 19:55:43,231 [INFO] src.services.model_service: РРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ СЃРµСЂРІРёСЃ РјРѕРґРµР»РµР№ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 19:55:43,231 [INFO] src.utils.storage.cache: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ
+2025-04-29 19:55:43,231 [INFO] __main__: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
+2025-04-29 19:55:49,216 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:55:49,541 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:58:13,602 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:58:13,603 [INFO] __main__: РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµСЂРІРёСЃР° РјРѕРґРµР»РµР№
+2025-04-29 19:58:13,603 [INFO] src.services.model_service: РРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ СЃРµСЂРІРёСЃ РјРѕРґРµР»РµР№ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 19:58:13,604 [INFO] src.utils.storage.cache: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ
+2025-04-29 19:58:13,604 [INFO] __main__: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
+2025-04-29 19:58:18,808 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:58:19,043 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:58:19,091 [INFO] src.services.predictor_service: РЎРµСЂРІРёСЃ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 19:58:19,500 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:58:19,881 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:58:20,268 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 19:58:31,453 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 20:01:16,723 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 20:01:16,725 [INFO] __main__: РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµСЂРІРёСЃР° РјРѕРґРµР»РµР№
+2025-04-29 20:01:16,725 [INFO] src.services.model_service: РРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ СЃРµСЂРІРёСЃ РјРѕРґРµР»РµР№ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 20:01:16,725 [INFO] src.utils.storage.cache: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ
+2025-04-29 20:01:16,726 [INFO] __main__: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
+2025-04-29 20:47:00,369 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 20:47:00,371 [INFO] __main__: РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµСЂРІРёСЃР° РјРѕРґРµР»РµР№
+2025-04-29 20:47:00,371 [INFO] src.utils.storage.cache: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ
+2025-04-29 20:47:00,372 [INFO] __main__: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
+2025-04-29 20:47:32,404 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 20:47:32,405 [INFO] __main__: РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµСЂРІРёСЃР° РјРѕРґРµР»РµР№
+2025-04-29 20:47:32,406 [INFO] src.services.model_service: РРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ СЃРµСЂРІРёСЃ РјРѕРґРµР»РµР№ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 20:47:32,406 [INFO] src.utils.storage.cache: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ
+2025-04-29 20:47:32,406 [INFO] __main__: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
+2025-04-29 20:51:19,243 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 20:51:19,245 [INFO] __main__: РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµСЂРІРёСЃР° РјРѕРґРµР»РµР№
+2025-04-29 20:51:19,245 [INFO] src.services.model_service: РРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ СЃРµСЂРІРёСЃ РјРѕРґРµР»РµР№ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 20:51:19,246 [INFO] src.utils.storage.cache: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ
+2025-04-29 20:51:19,246 [INFO] __main__: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
+2025-04-29 20:52:17,525 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 20:52:17,527 [INFO] __main__: РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµСЂРІРёСЃР° РјРѕРґРµР»РµР№
+2025-04-29 20:52:17,527 [INFO] src.services.model_service: РРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ СЃРµСЂРІРёСЃ РјРѕРґРµР»РµР№ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 20:52:17,528 [INFO] src.utils.storage.cache: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ
+2025-04-29 20:52:17,528 [INFO] __main__: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
+2025-04-29 20:52:39,590 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 20:52:39,592 [INFO] __main__: РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµСЂРІРёСЃР° РјРѕРґРµР»РµР№
+2025-04-29 20:52:39,593 [INFO] src.services.model_service: РРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ СЃРµСЂРІРёСЃ РјРѕРґРµР»РµР№ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 20:52:39,593 [INFO] src.utils.storage.cache: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ
+2025-04-29 20:52:39,593 [INFO] __main__: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
+2025-04-29 20:52:56,804 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 20:52:56,805 [INFO] __main__: РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµСЂРІРёСЃР° РјРѕРґРµР»РµР№
+2025-04-29 20:52:56,806 [INFO] src.services.model_service: РРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ СЃРµСЂРІРёСЃ РјРѕРґРµР»РµР№ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 20:52:56,807 [INFO] src.utils.storage.cache: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ
+2025-04-29 20:52:56,807 [INFO] __main__: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
+2025-04-29 20:52:56,833 [ERROR] __main__: РћС€РёР±РєР° РїСЂРё Р·Р°РїСѓСЃРєРµ РїСЂРёР»РѕР¶РµРЅРёСЏ: markdown() missing 1 required positional argument: 'body'
+Traceback (most recent call last):
+  File "C:\Users\safae\adsorb_mof\AdsorpNET\app.py", line 357, in run
+    home.show()
+  File "C:\Users\safae\adsorb_mof\AdsorpNET\src\pages\home.py", line 48, in show
+    st.markdown(
+  File "C:\Users\safae\miniconda3\envs\rus_env\lib\site-packages\streamlit\runtime\metrics_util.py", line 410, in wrapped_func
+    result = non_optional_func(*args, **kwargs)
+TypeError: markdown() missing 1 required positional argument: 'body'
+2025-04-29 20:53:03,753 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 20:53:03,755 [INFO] __main__: РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµСЂРІРёСЃР° РјРѕРґРµР»РµР№
+2025-04-29 20:53:03,755 [INFO] src.services.model_service: РРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ СЃРµСЂРІРёСЃ РјРѕРґРµР»РµР№ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 20:53:03,755 [INFO] src.utils.storage.cache: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ
+2025-04-29 20:53:03,756 [INFO] __main__: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
+2025-04-29 20:58:20,911 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 20:58:20,913 [INFO] __main__: РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµСЂРІРёСЃР° РјРѕРґРµР»РµР№
+2025-04-29 20:58:20,913 [INFO] src.services.model_service: РРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ СЃРµСЂРІРёСЃ РјРѕРґРµР»РµР№ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 20:58:20,914 [INFO] src.utils.storage.cache: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ
+2025-04-29 20:58:20,914 [INFO] __main__: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
+2025-04-29 20:58:58,861 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 20:59:02,370 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 20:59:02,410 [INFO] src.services.predictor_service: РЎРµСЂРІРёСЃ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 20:59:04,353 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 20:59:47,584 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:04:07,606 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:04:07,939 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:04:09,540 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:04:09,973 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:04:12,068 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:07:14,950 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:07:15,553 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:07:16,251 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:07:16,853 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:07:17,328 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:07:19,016 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:07:21,244 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:07:22,409 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:07:24,054 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:07:30,821 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:16:22,831 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:16:22,835 [INFO] __main__: РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµСЂРІРёСЃР° РјРѕРґРµР»РµР№
+2025-04-29 21:16:22,836 [INFO] src.services.model_service: РРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ СЃРµСЂРІРёСЃ РјРѕРґРµР»РµР№ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 21:16:22,838 [INFO] src.utils.storage.cache: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ
+2025-04-29 21:16:22,841 [INFO] __main__: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
+2025-04-29 21:16:24,863 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:16:25,113 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:16:25,491 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:16:25,523 [INFO] src.services.predictor_service: РЎРµСЂРІРёСЃ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 21:16:25,794 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:16:26,172 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:16:26,522 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:16:27,006 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:16:27,291 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:16:28,276 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:16:28,969 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:16:29,454 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:16:29,995 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:16:31,187 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:16:32,347 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:16:33,110 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:17:48,395 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:17:48,397 [INFO] __main__: РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµСЂРІРёСЃР° РјРѕРґРµР»РµР№
+2025-04-29 21:17:48,397 [INFO] src.services.model_service: РРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ СЃРµСЂРІРёСЃ РјРѕРґРµР»РµР№ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 21:17:48,398 [INFO] src.utils.storage.cache: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ
+2025-04-29 21:17:48,398 [INFO] __main__: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
+2025-04-29 21:17:49,823 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:17:50,095 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:17:50,126 [INFO] src.services.predictor_service: РЎРµСЂРІРёСЃ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 21:17:50,869 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:20:51,171 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:20:51,172 [INFO] __main__: РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµСЂРІРёСЃР° РјРѕРґРµР»РµР№
+2025-04-29 21:20:51,173 [INFO] src.utils.storage.cache: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ
+2025-04-29 21:20:51,173 [INFO] __main__: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
+2025-04-29 21:22:03,407 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:22:03,409 [INFO] __main__: РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµСЂРІРёСЃР° РјРѕРґРµР»РµР№
+2025-04-29 21:22:03,410 [INFO] src.utils.storage.cache: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ
+2025-04-29 21:22:03,410 [INFO] __main__: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
+2025-04-29 21:22:29,438 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:22:29,440 [INFO] __main__: РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµСЂРІРёСЃР° РјРѕРґРµР»РµР№
+2025-04-29 21:22:29,440 [INFO] src.utils.storage.cache: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ
+2025-04-29 21:22:29,440 [INFO] __main__: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
+2025-04-29 21:22:32,077 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:23:35,106 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:23:35,108 [INFO] __main__: РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµСЂРІРёСЃР° РјРѕРґРµР»РµР№
+2025-04-29 21:23:35,108 [INFO] src.services.model_service: РРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ СЃРµСЂРІРёСЃ РјРѕРґРµР»РµР№ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 21:23:35,109 [INFO] src.utils.storage.cache: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ
+2025-04-29 21:23:35,109 [INFO] __main__: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
+2025-04-29 21:24:01,297 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:24:01,298 [INFO] __main__: РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµСЂРІРёСЃР° РјРѕРґРµР»РµР№
+2025-04-29 21:24:01,299 [INFO] src.utils.storage.cache: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ
+2025-04-29 21:24:01,299 [INFO] __main__: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
+2025-04-29 21:24:23,827 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:24:24,132 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:24:24,574 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:24:24,640 [INFO] src.services.predictor_service: РЎРµСЂРІРёСЃ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 21:24:25,024 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:24:25,724 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:24:26,567 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:24:30,905 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:24:30,907 [INFO] __main__: РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµСЂРІРёСЃР° РјРѕРґРµР»РµР№
+2025-04-29 21:24:30,908 [INFO] src.utils.storage.cache: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ
+2025-04-29 21:24:30,908 [INFO] __main__: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
+2025-04-29 21:24:32,507 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:24:33,144 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:24:33,722 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:24:34,047 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:24:34,343 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:24:34,384 [INFO] src.services.predictor_service: РЎРµСЂРІРёСЃ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 21:24:35,389 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:24:41,723 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:24:41,725 [INFO] __main__: РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµСЂРІРёСЃР° РјРѕРґРµР»РµР№
+2025-04-29 21:24:41,725 [INFO] src.utils.storage.cache: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ
+2025-04-29 21:24:41,725 [INFO] __main__: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
+2025-04-29 21:25:03,357 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:29:39,138 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:29:39,686 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:29:39,748 [INFO] src.services.predictor_service: РЎРµСЂРІРёСЃ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 21:29:40,305 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:29:40,786 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:29:42,136 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:29:43,081 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:29:45,337 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:29:46,284 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:31:38,602 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:31:38,604 [INFO] __main__: РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµСЂРІРёСЃР° РјРѕРґРµР»РµР№
+2025-04-29 21:31:38,604 [INFO] src.services.model_service: РРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ СЃРµСЂРІРёСЃ РјРѕРґРµР»РµР№ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 21:31:38,605 [INFO] src.utils.storage.cache: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ
+2025-04-29 21:31:38,605 [INFO] __main__: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
+2025-04-29 21:31:41,842 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:31:42,193 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:31:42,739 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:31:52,703 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:31:52,704 [INFO] __main__: РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµСЂРІРёСЃР° РјРѕРґРµР»РµР№
+2025-04-29 21:31:52,704 [INFO] src.services.model_service: РРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ СЃРµСЂРІРёСЃ РјРѕРґРµР»РµР№ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 21:31:52,705 [INFO] src.utils.storage.cache: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ
+2025-04-29 21:31:52,706 [INFO] __main__: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
+2025-04-29 21:31:55,406 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:31:56,433 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:31:57,173 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:31:57,569 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:31:57,851 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:31:57,927 [INFO] src.services.predictor_service: РЎРµСЂРІРёСЃ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 21:31:58,436 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:31:59,105 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:31:59,947 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:32:00,140 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:32:00,402 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:32:00,811 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:32:10,109 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:32:11,488 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:32:37,433 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:32:37,437 [INFO] __main__: РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЃРµСЂРІРёСЃР° РјРѕРґРµР»РµР№
+2025-04-29 21:32:37,438 [INFO] src.services.model_service: РРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ СЃРµСЂРІРёСЃ РјРѕРґРµР»РµР№ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 21:32:37,440 [INFO] src.utils.storage.cache: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ
+2025-04-29 21:32:37,440 [INFO] __main__: РљСЌС€ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РѕС‡РёС‰РµРЅ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё
+2025-04-29 21:32:44,455 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:32:45,288 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:32:45,331 [INFO] src.services.predictor_service: РЎРµСЂРІРёСЃ РїСЂРµРґСЃРєР°Р·Р°РЅРёР№ РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°РЅ (СѓСЃС‚СЂРѕР№СЃС‚РІРѕ: cpu)
+2025-04-29 21:32:45,728 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:32:46,050 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:32:46,548 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:32:46,923 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:32:47,387 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:32:48,195 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:32:48,744 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:32:49,475 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:32:50,041 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:32:50,860 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
+2025-04-29 21:32:53,460 [INFO] __main__: Р—Р°РїСѓСЃРє РїСЂРёР»РѕР¶РµРЅРёСЏ AdsorpNET
