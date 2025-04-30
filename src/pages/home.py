@@ -42,24 +42,16 @@ def show():
         st.markdown('<p>AI‑сервис для разработки пористых материалов</p>', unsafe_allow_html=True)
 
     with header_col2:
-        st.markdown(
-            """
-            <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
-                <a href="#" class="nav-link">🏠 Главная</a>
-                <a href="#" class="nav-link">👤 Профиль</a>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+        # Навигационные ссылки "Главная" и "Профиль" удалены
+        pass
 
     # 3. Tabs ---------------------------------------------
-    tab1, tab2, tab3 = st.tabs(["🔍 Обзор", "🧪 AI синтез MOFs", "📊 Аналитика"])
+    tab1, tab2 = st.tabs(["🔍 Обзор", "🧪 AI синтез MOFs"])
 
     # ------------------------------------------------------------------
     # TAB 1 – Обзор / Hero‑секция
     # ------------------------------------------------------------------
     with tab1:
-        st.markdown('<div class="card">', unsafe_allow_html=True)
         hero_col1, hero_col2 = st.columns([3, 2])
 
         # --- Hero: описание & CTA ------------------------------------
@@ -72,13 +64,12 @@ def show():
                 металлорганических каркасных структур (MOFs).
                 """
             )
-            st.button("Начать работу с AI")
 
         # --- Hero: изображение ---------------------------------------
         with hero_col2:
             img_path = Path("images/MOF_Synthesis_Prediction.png")
             if img_path.exists():
-                st.image(str(img_path), width=300)
+                st.image(str(img_path), width=450)
             else:
                 # Fallback визуализация – простая 3‑D scatter
                 fig = go.Figure(
@@ -117,112 +108,6 @@ def show():
                     ),
                 )
                 st.plotly_chart(fig, use_container_width=True)
-
-        st.markdown("</div>", unsafe_allow_html=True)
-        
-
-         # Key metrics in cards
-        st.markdown('<h3 class="accent-header">Ключевые характеристики MOF</h3>', unsafe_allow_html=True)
-        metric_col1, metric_col2, metric_col3, metric_col4 = st.columns(4)
-        
-        with metric_col1:
-            st.markdown("""
-            <div class="metric-card">
-                <div class="metric-value">500 °C</div>
-                <div class="metric-label">Термическая стабильность</div>
-            </div>
-            """, unsafe_allow_html=True)
-            
-        with metric_col2:
-            st.markdown("""
-            <div class="metric-card">
-                <div class="metric-value">800+ м²/г</div>
-                <div class="metric-label">Удельная поверхность</div>
-            </div>
-            """, unsafe_allow_html=True)
-            
-        with metric_col3:
-            st.markdown("""
-            <div class="metric-card">
-                <div class="metric-value">0.2 г/см³</div>
-                <div class="metric-label">Насыпная плотность</div>
-            </div>
-            """, unsafe_allow_html=True)
-            
-        with metric_col4:
-            st.markdown("""
-            <div class="metric-card">
-                <div class="metric-value">3-100 Å</div>
-                <div class="metric-label">Размеры пор</div>
-            </div>
-            """, unsafe_allow_html=True)
-        
-        # About MOF section
-        st.markdown('<div class="card">', unsafe_allow_html=True)
-        st.markdown('<h3 class="accent-header">О Metal-Organic Frameworks (MOF)</h3>', unsafe_allow_html=True)
-        
-        st.markdown("""
-        Metal-Organic Frameworks (MOF) — класс кристаллических материалов, признанных одной из
-        «десяти лучших новых технологий в химии» по версии IUPAC. Сочетание металлических кластеров
-        и органических лигандов при синтезе MOF создаёт материалы с уникальными свойствами.
-        """)
-        
-        # Visualize MOF structure and applications
-        mof_col1, mof_col2 = st.columns(2)
-        
-        with mof_col1:
-            st.markdown('<h4>Структура MOF</h4>', unsafe_allow_html=True)
-            
-            # Example data for radar chart
-            categories = ['Пористость', 'Термостабильность', 'Селективность', 'Каталитическая активность', 'Стоимость']
-            values = [9, 8, 7, 9, 6]
-            
-            fig = go.Figure()
-            
-            fig.add_trace(go.Scatterpolar(
-                r=values,
-                theta=categories,
-                fill='toself',
-                name='MOF-характеристики',
-                line_color='#4e54c8',
-                fillcolor='rgba(78, 84, 200, 0.2)'
-            ))
-            
-            fig.update_layout(
-                polar=dict(
-                    radialaxis=dict(
-                        visible=True,
-                        range=[0, 10]
-                    )),
-                showlegend=False,
-                margin=dict(l=10, r=10, b=10, t=10),
-                paper_bgcolor="rgba(0,0,0,0)",
-                plot_bgcolor="rgba(0,0,0,0)",
-            )
-            
-            st.plotly_chart(fig, use_container_width=True)
-            
-        with mof_col2:
-            st.markdown('<h4>Области применения</h4>', unsafe_allow_html=True)
-            st.markdown("""
-            <div class="feature-box">
-                <strong>Хранение газов</strong> — водород, метан, углекислый газ
-            </div>
-            <div class="feature-box">
-                <strong>Разделение газов</strong> — очистка природного газа, захват CO₂
-            </div>
-            <div class="feature-box">
-                <strong>Катализ</strong> — химические реакции, фотокатализ
-            </div>
-            <div class="feature-box">
-                <strong>Сенсоры</strong> — обнаружение газов, ионов, биомолекул
-            </div>
-            <div class="feature-box">
-                <strong>Медицина</strong> — доставка лекарств, визуализация, терапия
-            </div>
-            """, unsafe_allow_html=True)
-        
-        st.markdown('</div>', unsafe_allow_html=True)
         
         # Features section
         st.markdown('<h3 class="accent-header">Возможности системы</h3>', unsafe_allow_html=True)
@@ -230,7 +115,6 @@ def show():
         features_col1, features_col2 = st.columns(2)
         
         with features_col1:
-            st.markdown('<div class="card">', unsafe_allow_html=True)
             st.markdown('<h4>🔬 Предсказание параметров синтеза</h4>', unsafe_allow_html=True)
             st.markdown("""
             Наша AI-система позволяет предсказать оптимальные параметры синтеза MOF на основе желаемых 
@@ -240,9 +124,7 @@ def show():
             - Определение оптимального растворителя
             - Расчет температуры и времени синтеза
             """)
-            st.markdown('</div>', unsafe_allow_html=True)
             
-            st.markdown('<div class="card">', unsafe_allow_html=True)
             st.markdown('<h4>🧪 Оптимизация условий синтеза</h4>', unsafe_allow_html=True)
             st.markdown("""
             Система анализирует множество факторов для оптимизации условий синтеза:
@@ -251,10 +133,8 @@ def show():
             - Расчет оптимальных соотношений компонентов
             - Моделирование процесса кристаллизации
             """)
-            st.markdown('</div>', unsafe_allow_html=True)
             
         with features_col2:
-            st.markdown('<div class="card">', unsafe_allow_html=True)
             st.markdown('<h4>📊 Анализ структурных характеристик</h4>', unsafe_allow_html=True)
             st.markdown("""
             Проводим комплексный анализ существующих MOF материалов:
@@ -263,9 +143,7 @@ def show():
             - Оценка термической стабильности
             - Прогнозирование сорбционных свойств
             """)
-            st.markdown('</div>', unsafe_allow_html=True)
             
-            st.markdown('<div class="card">', unsafe_allow_html=True)
             st.markdown('<h4>📈 Прогнозирование свойств</h4>', unsafe_allow_html=True)
             st.markdown("""
             Используя методы машинного обучения, система предсказывает:
@@ -274,11 +152,9 @@ def show():
             - Каталитическую активность
             - Химическую и механическую стабильность
             """)
-            st.markdown('</div>', unsafe_allow_html=True)
     
     # AI Synthesis Tab (placeholder)
     with tab2:
-        st.markdown('<div class="card">', unsafe_allow_html=True)
         st.markdown('<h2 class="accent-header">AI синтез Metal-Organic Frameworks</h2>', unsafe_allow_html=True)
         
         st.markdown("""
@@ -378,124 +254,5 @@ def show():
             """)
             
             st.markdown('</div>', unsafe_allow_html=True)
-        
-        st.markdown('</div>', unsafe_allow_html=True)
-    
-    # Analytics Tab (placeholder)
-    with tab3:
-        st.markdown('<div class="card">', unsafe_allow_html=True)
-        st.markdown('<h2 class="accent-header">Аналитика MOF материалов</h2>', unsafe_allow_html=True)
-        
-        # Example dataset
-        mof_data = {
-            "MOF": ["MOF-5", "HKUST-1", "UiO-66", "ZIF-8", "MIL-101", "NU-1000", "MOF-74"],
-            "Металл": ["Zn", "Cu", "Zr", "Zn", "Cr", "Zr", "Zn"],
-            "Удельная поверхность (м²/г)": [3800, 1900, 1200, 1700, 4100, 2200, 1300],
-            "Объем пор (см³/г)": [1.55, 0.75, 0.50, 0.65, 2.15, 1.40, 0.55],
-            "Температурная стабильность (°C)": [400, 350, 450, 300, 300, 500, 350]
-        }
-        df = pd.DataFrame(mof_data)
-        
-        # Data exploration section
-        st.markdown("### Сравнительный анализ MOF материалов")
-        
-        # Visualization selector
-        viz_type = st.selectbox("Выберите тип визуализации", 
-                               ["Удельная поверхность", "Объем пор", "Температурная стабильность", "Корреляционный анализ"])
-        
-        if viz_type == "Удельная поверхность":
-            fig = go.Figure(go.Bar(
-                x=df["MOF"],
-                y=df["Удельная поверхность (м²/г)"],
-                marker_color='#4e54c8',
-                text=df["Удельная поверхность (м²/г)"],
-                textposition='auto'
-            ))
-            
-            fig.update_layout(
-                title="Удельная поверхность различных MOF",
-                xaxis_title="MOF",
-                yaxis_title="Удельная поверхность (м²/г)",
-                height=400
-            )
-            
-            st.plotly_chart(fig, use_container_width=True)
-            
-        elif viz_type == "Объем пор":
-            fig = go.Figure(go.Bar(
-                x=df["MOF"],
-                y=df["Объем пор (см³/г)"],
-                marker_color='#8f94fb',
-                text=df["Объем пор (см³/г)"],
-                textposition='auto'
-            ))
-            
-            fig.update_layout(
-                title="Объем пор различных MOF",
-                xaxis_title="MOF",
-                yaxis_title="Объем пор (см³/г)",
-                height=400
-            )
-            
-            st.plotly_chart(fig, use_container_width=True)
-            
-        elif viz_type == "Температурная стабильность":
-            fig = go.Figure(go.Bar(
-                x=df["MOF"],
-                y=df["Температурная стабильность (°C)"],
-                marker_color='#5a67d8',
-                text=df["Температурная стабильность (°C)"],
-                textposition='auto'
-            ))
-            
-            fig.update_layout(
-                title="Температурная стабильность различных MOF",
-                xaxis_title="MOF",
-                yaxis_title="Температурная стабильность (°C)",
-                height=400
-            )
-            
-            st.plotly_chart(fig, use_container_width=True)
-            
-        else:  # Correlation analysis
-            fig = go.Figure()
-            
-            fig.add_trace(go.Scatter(
-                x=df["Удельная поверхность (м²/г)"],
-                y=df["Объем пор (см³/г)"],
-                mode='markers+text',
-                text=df["MOF"],
-                textposition="top center",
-                marker=dict(
-                    size=12,
-                    color=df["Температурная стабильность (°C)"],
-                    colorscale='Viridis',
-                    showscale=True,
-                    colorbar=dict(title="Температурная<br>стабильность (°C)")
-                )
-            ))
-            
-            fig.update_layout(
-                title="Корреляция между удельной поверхностью и объемом пор",
-                xaxis_title="Удельная поверхность (м²/г)",
-                yaxis_title="Объем пор (см³/г)",
-                height=500
-            )
-            
-            st.plotly_chart(fig, use_container_width=True)
-        
-        # Data table with search
-        st.markdown("### База данных MOF материалов")
-        search_term = st.text_input("Поиск по MOF или металлу")
-        
-        if search_term:
-            filtered_df = df[df.apply(lambda row: search_term.lower() in str(row["MOF"]).lower() or 
-                                       search_term.lower() in str(row["Металл"]).lower(), axis=1)]
-        else:
-            filtered_df = df
-        
-        st.dataframe(filtered_df, use_container_width=True)
-        
-        st.markdown('</div>', unsafe_allow_html=True)
     
     # Sidebar sections removed - statistics, recent projects, and help are no longer displayed
